@@ -79,6 +79,15 @@
             font-size: 1em;
             margin-bottom: 10px;
         }
+        .price {
+    color: red;
+    font-weight: bold;
+}
+.price-label {
+    color: red;
+    font-weight: bold;
+}
+
     </style>
 </head>
 <body>
@@ -152,12 +161,11 @@
             <h3>${product.l2}</h3>
             <p>${product.product_package_name_en}</p>
             <ul class="package-list">
-                <li><span>Package:</span> ${product.product_package_descr_en}</li>
-                <li><span>Price:</span> ${product.price}</li>
+                <li><span>Description:</span> ${product.product_package_descr_en}</li>
+                <li><span class="price-label">Price:</span> <span class="price">${product.price}</span></li>
             </ul>
         </div>
-    </div>`;
-                        productsContainer.innerHTML += productCard;
+    </div>`;           productsContainer.innerHTML += productCard;
                     });
                 }
                 
