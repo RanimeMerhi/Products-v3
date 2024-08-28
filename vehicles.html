@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicles</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body, h1, p {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+        }
+
+        header {
+            background-color: #343a40;
+            color: #fff;
+            text-align: center;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0;
+        }
+
+        .language-switcher {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .language-switcher button {
+            margin: 0 10px;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .language-switcher button.active {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .search-box {
+            margin: 2rem auto;
+            max-width: 600px;
+            padding: 0 1rem;
+        }
+
+        .search-box input {
+            border-radius: 30px;
+            border: 1px solid #ced4da;
+            padding: 0.75rem 1.25rem;
+            font-size: 1rem;
+        }
+
+        .container {
+            margin: 2rem auto;
+            max-width: 1200px;
+        }
+
+        .item {
+            display: block;
+            text-align: center;
+            padding: 1.5rem;
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #495057;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+
+        .item:hover {
+            background-color: #e9ecef;
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .item:active {
+            background-color: #e2e6ea;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .item {
+                width: calc(50% - 1rem);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .item {
+                width: calc(100% - 1rem);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 id="page-title">Vehicle Categories</h1>
+        <div class="language-switcher">
+            <button id="en-button" class="active">English</button>
+            <button id="ar-button">Arabic</button>
+        </div>
+    </header>
+
+    <div class="search-box">
+        <input type="text" id="search-input" class="form-control" placeholder="Search...">
+    </div>
+
+    <div class="container">
+        <div class="row g-3" id="category-container">
+            <!-- Categories will be loaded here dynamically -->
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Vehicle Listings</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let currentLanguage = 'en';
+
+            const enButton = document.getElementById('en-button');
+            const arButton = document.getElementById('ar-button');
+            const categoryContainer = document.getElementById('category-container');
+            const searchInput = document.getElementById('search-input');
+
+            enButton.addEventListener('click', () => switchLanguage('en'));
+            arButton.addEventListener('click', () => switchLanguage('ar'));
+
+            function switchLanguage(language) {
+                currentLanguage = language;
+                enButton.classList.toggle('active', language === 'en');
+                arButton.classList.toggle('active', language === 'ar');
+                loadCategories();
+            }
+
+            async function loadCategories() {
+                try {
+                    const response = await fetch('VAS-SHEET.json');
+                    const data = await response.json();
+                    const filteredData = data.filter(item => item.l1 === 'Vehicles');
+
+                    categoryContainer.innerHTML = '';
+                    const addedTitles = new Set();
+
+                    const categoryLinks = {
+                        "Motorcycles & ATVs": "Motorcycles_and_ATVs.html",
+                        "Cars for Rent": "cars_for_rent.html",
+                        "Boats": "boats.html",
+                        "Trucks & Buses": "Trucks_and_Buses.html",
+                        "Others Vehicles": "others_vehicles.html",
+                        "All Vehicles Spare Parts": "all_vehicles_spare_parts.html",
+                        "Cars for Sale": "cars_for_sale.html",
+                        "All Vehicles Accessories": "all_vehicles_accessories.html",
+                        "Number Plates": "number_plates.html"
+                    };
+
+                    filteredData.forEach(item => {
+                        const categoryName = currentLanguage === 'en' ? item.cat_english_name : item.cat_arabic_name;
+
+                        if (!addedTitles.has(categoryName)) {
+                            addedTitles.add(categoryName);
+
+                            const categoryLink = categoryLinks[item.cat_english_name] || '#';
+
+                            const categoryDiv = `
+                                <div class="col-md-4 col-lg-3">
+                                    <a href="${categoryLink}?lang=${currentLanguage}" class="item">${categoryName}</a>
+                                </div>`;
+                            
+                            categoryContainer.innerHTML += categoryDiv;
+                        }
+                    });
+                } catch (error) {
+                    console.error('Error loading categories:', error);
+                }
+            }
+
+            searchInput.addEventListener('input', function() {
+                const query = searchInput.value.toLowerCase();
+                const items = document.querySelectorAll('.item');
+
+                items.forEach(item => {
+                    const text = item.textContent.toLowerCase();
+                    item.style.display = text.includes(query) ? 'block' : 'none';
+                });
+            });
+
+            loadCategories();
+        });
+    </script>
+</body>
+</html>
