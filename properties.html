@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -172,3 +173,179 @@
     </script>
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicles</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Reset some default styles */
+        body, h1, p {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Basic styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+        }
+
+        /* Header styling */
+        header {
+            background-color: #343a40;
+            color: #fff;
+            text-align: center;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0;
+        }
+
+        /* Search box styling */
+        .search-box {
+            margin: 2rem auto;
+            max-width: 600px;
+            padding: 0 1rem;
+        }
+
+        .search-box input {
+            border-radius: 30px;
+            border: 1px solid #ced4da;
+            padding: 0.75rem 1.25rem;
+            font-size: 1rem;
+        }
+
+        /* Main content styling */
+        .container {
+            margin: 2rem auto;
+            max-width: 1200px;
+        }
+
+        .item {
+            display: block;
+            text-align: center;
+            padding: 1.5rem;
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #495057;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+
+        .item:hover {
+            background-color: #e9ecef;
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .item:active {
+            background-color: #e2e6ea;
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #343a40;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .item {
+                width: calc(50% - 1rem);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .item {
+                width: calc(100% - 1rem);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Properties Categories</h1>
+    </header>
+
+    <div class="search-box">
+        <input type="text" id="search-input" class="form-control" placeholder="Search...">
+    </div>
+
+    <div class="container">
+        <div class="row g-3">
+            <!-- Unique item links -->
+            <div class="col-md-4 col-lg-3">
+                <a href="Apartments_and_Villas_For_Sale.html" class="item">Apartments & Villas For Sale</a>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <a href="Apartments_and_Villas_For_Rent.html" class="item">Apartments & Villas For Rent</a>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <a href="Commercials_For_Sale.html" class="item">Commercials For Sale</a>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <a href="Commercials_For_Rent.html" class="item">Commercials For Rent</a>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <a href="Chalets_and_Cabins_For_Sale.html" class="item">Chalets & Cabins For Sale</a>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <a href="Chalets_and_Cabins_For_Rent.html" class="item">Chalets & Cabins For Rent</a>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <a href="Rooms_for_Rent.html" class="item">Rooms for Rent</a>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <a href="Lands_for_Sale.html" class="item">Lands for Sale</a>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <a href="Lands_for_Rent.html" class="item">Lands for Rent</a>
+            </div>
+            
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Properties Listings</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            const items = document.querySelectorAll('.item');
+
+            searchInput.addEventListener('input', function() {
+                const query = searchInput.value.toLowerCase();
+
+                items.forEach(item => {
+                    const text = item.textContent.toLowerCase();
+                    if (text.includes(query)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+>>>>>>> 37626f20001a0ea6eb38ea727a3f62e3441afd65

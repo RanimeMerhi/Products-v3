@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 id,subcategory,package,price,details,category
 1,Cars for Sale,Basic,10000,A reliable sedan with great mileage,Vehicles
 2,Cars for Sale,Premium,12000,A reliable sedan with leather seats,Vehicles
@@ -41,3 +42,48 @@ id,subcategory,package,price,details,category
 40,kdsjsabdgk,hjvsajvvsyudv,32,ysbsuvdsb,Pets
 41,,,,,
 42,,,,,
+=======
+id,subcategory,package,price,details,category
+1,Cars for Sale,Basic,10000,A reliable sedan with great mileage,Vehicles
+2,Cars for Sale,Premium,12000,A reliable sedan with leather seats,Vehicles
+3,Cars for Sale,Luxury,15000,A luxury SUV with premium features,Vehicles
+4,Cars for Rent,Daily,200,A compact car available for rent,Vehicles
+5,Cars for Rent,Weekly,1200,A compact car available for rent (weekly),Vehicles
+6,Properties for Sale,Standard,500000,Spacious house with 4 bedrooms,Properties
+7,Properties for Sale,Deluxe,550000,Spacious house with pool and garden,Properties
+8,Properties for Sale,Standard,600000,Modern villa with sea view,Properties
+9,Properties for Rent,Monthly,1500,Cozy apartment in the city center,Properties
+10,Smartphones,64GB,500,Latest model with high-resolution camera,Mobile & Accessories
+11,Smartphones,128GB,600,Latest model with extra storage,Mobile & Accessories
+12,Smartphones,Standard,700,Premium smartphone with 5G support,Mobile & Accessories
+13,Laptops,Gaming,1000,High-performance laptop for gaming,Electronics & Appliances
+14,Laptops,Office,1100,High-performance laptop with extra RAM,Electronics & Appliances
+15,Laptops,Ultrabook,1200,Ultrabook with long battery life,Electronics & Appliances
+16,Sofas,Standard,800,Comfortable 3-seater couch,Furniture & Decor
+17,Sofas,Deluxe,1000,Deluxe 3-seater couch with recliners,Furniture & Decor
+18,Tables,Dining,200,Elegant dining table,Furniture & Decor
+19,Bikes,Standard,300,Mountain bike with 21 gears,Sports & Equipment
+20,Bikes,Premium,400,Mountain bike with advanced features,Sports & Equipment
+21,Tennis Equipment,Standard,100,Lightweight racket for beginners,Sports & Equipment
+22,Tennis Equipment,Professional,150,Professional racket with grip,Sports & Equipment
+23,Fiction Books,Hardcover,20,Best-selling novel by popular author,Hobbies
+24,Fiction Books,Paperback,15,Best-selling novel in paperback,Hobbies
+25,Puzzles,500 pieces,25,500-piece jigsaw puzzle,Hobbies
+26,Puzzles,1000 pieces,30,1000-piece jigsaw puzzle,Hobbies
+27,Full-time Jobs,N/A,0,Full-time software developer position,Jobs
+28,Part-time Jobs,N/A,0,Part-time graphic designer role,Jobs
+29,Women's Clothing,Summer Dress,50,Stylish summer dress,Fashion & Beauty
+30,Footwear,Running Shoes,80,Comfortable running shoes,Fashion & Beauty
+31,Haircuts,test,30,Professional haircut for men,Services
+32,House Cleaning,hkshhlhoi,50,Thorough cleaning of your home,Services
+33,test,sahqgwigs,300,TESTETSTSTETETSST,Business & Industrial
+34,ranime test,aguwusagbiba,350,TESTETSTSTETETSST,Business & Industrial
+35,kdsjsabdgk,hjvsajvvsyudv,32,ysbsuvdsb,Kids & Babies
+36,kdsjsabdgk,hjvsajvvsyudv,32,ysbsuvdsb,Kids & Babies
+37,kdsjsabdgk,hjvsajvvsyudv,32,ysbsuvdsb,Kids & Babies
+38,kdsjsabdgk,hjvsajvvsyudv,32,ysbsuvdsb,Pets
+39,kdsjsabdgk,hjvsajvvsyudv,32,ysbsuvdsb,Pets
+40,kdsjsabdgk,hjvsajvvsyudv,32,ysbsuvdsb,Pets
+41,,,,,
+42,,,,,
+>>>>>>> 37626f20001a0ea6eb38ea727a3f62e3441afd65
