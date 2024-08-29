@@ -82,7 +82,42 @@
 .category-card:hover .category-title {
     color: #007bff;
 }
-
+#en-button{
+    
+                display: inline-block;
+                outline: 0;
+                cursor: pointer;
+                border-radius: 6px;
+                border: 2px solid #ff4742;
+                color: #ff4742;
+                background: 0 0;
+                padding: 8px;
+                box-shadow: rgba(0, 0, 0, 0.07) 0px 2px 4px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1.5px 0px; 
+                height: 42px;
+                :hover{
+                    background-color: #ff4742;
+                    color: #fff;
+                }
+                
+}
+#ar-button{
+    
+    display: inline-block;
+    outline: 0;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 2px solid #ff4742;
+    color: #ff4742;
+    background: 0 0;
+    padding: 8px;
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 2px 4px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1.5px 0px;
+    height: 42px;
+    :hover{
+        background-color: #ff4742;
+        color: #fff;
+    }
+    
+}
 /* Media query for mobile screens */
 @media (max-width: 767px) {
     .category-card {
@@ -152,7 +187,7 @@
                 <input type="text" id="search-input" class="form-control" placeholder="Search for a category...">
             </div>
             <div class="language-toggle">
-                <button id="en-button">EN</button> | <button id="ar-button">AR</button>
+                <button id="en-button">EN</button>  <button id="ar-button">AR</button>
             </div>
         </div>
         
@@ -339,35 +374,44 @@
          });
          </script>
              <script>
-                const enButton = document.getElementById('en-button');
-                const arButton = document.getElementById('ar-button');
-        
-                const titles = {
-                    'vehicles-title': ['Vehicles', 'مركبات'],
-                    'properties-title': ['Properties', 'عقارات'],
-                    'mobile-accessories-title': ['Mobile Phones & Accessories', 'موبايلات واكسسواراتها'],
-                    'electronics-title': ['Electronics & Home Appliances', 'الكترونيات وأجهزة منزلية'],
-                    'furniture-decor-title': ['Home Furniture & Decor', 'الأثاث والديكور المنزلي'],
-                    'business-industrial-title': ['Business & Industrial', 'تجارة وصناعة'],
-                    'pets-title': ['Pets', 'حيوانات أليفة'],
-                    'jobs-title': ['Jobs', 'وظائف'],
-                    'fashion-beauty-title': ['Fashion & Beauty', 'الموضة والجمال'],
-                    'kids-babies-title': ['Kids & Babies', 'مستلزمات أطفال'],
-                    'hobbies-title': ['Hobbies, Music, Art & Books', 'مواهب، موسيقى وفنون وكتب'],
-                    'services-title': ['Services', 'خدمات'],
-                    'sports-title': ['Sports & Equipment', 'المعدات الرياضة']
-                };
-        
-                enButton.addEventListener('click', () => {
-                    for (const id in titles) {
-                        document.getElementById(id).textContent = titles[id][0];
+                document.addEventListener('DOMContentLoaded', function() {
+                    const enButton = document.getElementById('en-button');
+                    const arButton = document.getElementById('ar-button');
+            
+                    const titles = {
+                        'vehicles-title': ['Vehicles', 'مركبات'],
+                        'properties-title': ['Properties', 'عقارات'],
+                        'mobile-accessories-title': ['Mobile & Accessories', 'موبايلات واكسسواراتها'],
+                        'electronics-title': ['Electronics & Appliances', 'الكترونيات وأجهزة منزلية'],
+                        'furniture-decor-title': ['Furniture & Decor', 'الأثاث والديكور المنزلي'],
+                        'business-industrial-title': ['Business & Industrial', 'تجارة وصناعة'],
+                        'pets-title': ['Pets', 'حيوانات أليفة'],
+                        'jobs-title': ['Jobs', 'وظائف'],
+                        'fashion-beauty-title': ['Fashion & Beauty', 'الموضة والجمال'],
+                        'kids-babies-title': ['Kids & Babies', 'مستلزمات أطفال'],
+                        'sports-title': ['Sports & Equipment', 'المعدات الرياضة'],
+                        'hobbies-title': ['Hobbies', 'هوايات'],
+                        'services-title': ['Services', 'خدمات']
+                    };
+            
+                    function updateLanguage(language) {
+                        for (const id in titles) {
+                            document.getElementById(id).textContent = titles[id][language === 'en' ? 0 : 1];
+                        }
+                        enButton.style.display = language === 'en' ? 'none' : 'inline';
+                        arButton.style.display = language === 'ar' ? 'none' : 'inline';
                     }
-                });
-        
-                arButton.addEventListener('click', () => {
-                    for (const id in titles) {
-                        document.getElementById(id).textContent = titles[id][1];
-                    }
+            
+                    enButton.addEventListener('click', () => {
+                        updateLanguage('en');
+                    });
+            
+                    arButton.addEventListener('click', () => {
+                        updateLanguage('ar');
+                    });
+            
+                    // Initialize the language on page load
+                    updateLanguage('en'); // Set default language to English
                 });
             </script>
              <script>
