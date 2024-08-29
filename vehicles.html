@@ -72,11 +72,27 @@ body {
 }
 
 footer {
-    background-color: #e00000;
-    color: #fff;
-    text-align: center;
-    padding: 1rem;
-    width: 100%;
+    background-color: #e00000; /* Keep the background color */
+    color: #fff; /* Text color */
+    text-align: center; /* Center text */
+    padding: 0.5rem; /* Reduce padding for a smaller footer */
+    font-size: 0.8rem; /* Smaller font size */
+    width: 100%; /* Full width of the page */
+}
+
+/* Footer paragraph text adjustments */
+footer p {
+    margin: 0; /* Remove margin to reduce overall height */
+    padding: 0; /* Remove padding from the paragraph */
+    font-size: 0.8rem; /* Adjust font size for more compact text */
+}
+
+/* Media query for small screens */
+@media (max-width: 480px) {
+    footer {
+        padding: 0.3rem; /* Further reduce padding for mobile screens */
+        font-size: 0.7rem; /* Smaller font size on mobile */
+    }
 }
 .language-toggle {
     display: flex;
@@ -105,9 +121,7 @@ footer {
     color: #fff;
 }
 
-footer p {
-    font-size: 0.9rem;
-}
+
 
 @media (max-width: 768px) {
     .item {
