@@ -15,19 +15,20 @@ body {
     display: flex;
     flex-direction: column;
 }
-
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 100vh; */
 }
 
 .header img {
-    height: 100px;
-    padding-left: 3rem;
+  width: auto;
+  height: auto;
+  max-width: 500px; /* Adjust as needed */
+  max-height: 200px; /* Adjust as needed */
 }
-
+/* 
 .search-box {
     margin: 20px 0;
 }
@@ -40,7 +41,7 @@ body {
 .header .search-box input {
     width: 100%;
     max-width: 300px;
-}
+} */
 
 .container {
     flex: 1;
@@ -77,12 +78,19 @@ footer {
     padding: 1rem;
     width: 100%;
 }
-
+.language-toggle {
+    display: flex;
+    gap: 10px;
+    position: absolute;
+    right: 20px;
+    top: 60px; 
+ 
+}
 #en-button, #ar-button {
     display: inline-block;
     outline: 0;
     cursor: pointer;
-    margin-right: 3rem;
+    text-align: right !important; 
     border-radius: 6px;
     border: 2px solid #e00000;
     color: #e00000;
@@ -112,6 +120,12 @@ footer p {
         width: calc(100% - 1rem);
     }
 }
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 
     </style>
 </head>
@@ -119,16 +133,16 @@ footer p {
    
         <div class="header">
             <a href="https://www.dubizzle.com.lb/">
-            <img src="https://cdn.empgroup.com/wp-content/uploads/2023/04/dubizzle-logo-fix-width1.png" alt="Marketplace Logo">
+            <img src="https://cdn.empgroup.com/wp-content/uploads/2023/04/dubizzle-logo-fix-width1.png"  alt="Marketplace Logo">
         </a>
-            <div class="search-box">
+            <!-- <div class="search-box">
                 <input type="text" id="search-input" class="form-control" placeholder="Search for a category...">
-            </div>
-            <div class="language-toggle">
-                <button id="en-button">EN</button>  <button id="ar-button">AR</button>
-            </div>
+            </div> -->
+            
         </div>
-
+        <div class="language-toggle">
+            <button id="en-button">EN</button>  <button id="ar-button">AR</button>
+        </div>
     
     <div class="container">
         <div class="row g-3" id="category-container">
@@ -210,16 +224,16 @@ footer p {
                 }
             }
     
-            // Event listener for search input
-            searchInput.addEventListener('input', function() {
-                const query = searchInput.value.toLowerCase();
-                const items = document.querySelectorAll('.item');
+            // // Event listener for search input
+            // searchInput.addEventListener('input', function() {
+            //     const query = searchInput.value.toLowerCase();
+            //     const items = document.querySelectorAll('.item');
     
-                items.forEach(item => {
-                    const text = item.textContent.toLowerCase();
-                    item.style.display = text.includes(query) ? 'block' : 'none';
-                });
-            });
+            //     items.forEach(item => {
+            //         const text = item.textContent.toLowerCase();
+            //         item.style.display = text.includes(query) ? 'block' : 'none';
+            //     });
+            // });
     
             // Initialize the language and button visibility on page load
             switchLanguage('en'); // Set default language to English
