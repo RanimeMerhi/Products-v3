@@ -197,11 +197,10 @@ footer p {
                     const response = await fetch('VAS-SHEET.json');
                     const data = await response.json();
                     const filteredData = data.filter(item => item.l1 === 'Vehicles');
-                        filteredData.sort((a, b) => {
-            const nameA = currentLanguage === 'en' ? a.cat_english_name : a.cat_arabic_name;
-            const nameB = currentLanguage === 'en' ? b.cat_english_name : b.cat_arabic_name;
-            return nameA.localeCompare(nameB);
-        });
+                    
+                    // Sort by priority_for_l2 (assuming higher priority has a lower value)
+                    filteredData.sort((a, b) => a.priority_for_l2 - b.priority_for_l2);
+                    
                     categoryContainer.innerHTML = '';
                     const addedTitles = new Set();
     
@@ -238,20 +237,10 @@ footer p {
                 }
             }
     
-            // // Event listener for search input
-            // searchInput.addEventListener('input', function() {
-            //     const query = searchInput.value.toLowerCase();
-            //     const items = document.querySelectorAll('.item');
-    
-            //     items.forEach(item => {
-            //         const text = item.textContent.toLowerCase();
-            //         item.style.display = text.includes(query) ? 'block' : 'none';
-            //     });
-            // });
-    
             // Initialize the language and button visibility on page load
             switchLanguage('en'); // Set default language to English
         });
     </script>
+    
 </body>
 </html>
