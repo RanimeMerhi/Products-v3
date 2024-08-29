@@ -18,50 +18,30 @@
             background-color: #f8f9fa;
         }
 
-        header {
-            background-color: #e00000;
-            color: #fff;
-            text-align: center;
-            padding: 2rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
+        .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
 
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0;
-        }
+.header img {
+    height: 100px;
+}
 
-        .language-switcher {
-            margin-top: 1rem;
-            text-align: center;
-        }
+.search-box {
+    margin: 20px 0;
+}
 
-        .language-switcher button {
-            margin: 0 10px;
-            padding: 0.5rem 1rem;
-            font-size: 1rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+.header .search-box {
+    margin-left: 60px !important;
+    flex-grow: 1;
+}
 
-        .language-switcher button.active {
-            background-color: #007bff;
-            color: #fff;
-        }
-
-        .search-box {
-            margin: 2rem auto;
-            max-width: 600px;
-            padding: 0 1rem;
-        }
-
-        .search-box input {
-            border-radius: 30px;
-            border: 1px solid #ced4da;
-            padding: 0.75rem 1.25rem;
-            font-size: 1rem;
-        }
+.header .search-box input {
+    width: 100%;
+    max-width: 300px;
+}
 
         .container {
             margin: 2rem auto;
@@ -96,9 +76,46 @@
             text-align: center;
             padding: 1rem;
             position: relative;
-            bottom: 0;
+            bottom: -80PX;
             width: 100%;
         }
+       
+#en-button{
+    
+    display: inline-block;
+    outline: 0;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 2px solid #e00000;
+    color: #e00000;
+    background: 0 0;
+    padding: 8px;
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 2px 4px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1.5px 0px; 
+    height: 42px;
+    :hover{
+        background-color: #e00000;
+        color: #fff;
+    }
+    
+}
+#ar-button{
+
+display: inline-block;
+outline: 0;
+cursor: pointer;
+border-radius: 6px;
+border: 2px solid #e00000;
+color: #e00000;
+background: 0 0;
+padding: 8px;
+box-shadow: rgba(0, 0, 0, 0.07) 0px 2px 4px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1.5px 0px;
+height: 42px;
+:hover{
+background-color: #e00000;
+color: #fff;
+}
+
+}
 
         footer p {
             font-size: 0.9rem;
@@ -118,18 +135,20 @@
     </style>
 </head>
 <body>
-    <header>
-        <h1 id="page-title">Vehicle Categories</h1>
-        <div class="language-switcher">
-            <button id="en-button" class="active">English</button>
-            <button id="ar-button">Arabic</button>
+   
+        <div class="header">
+            <a href="https://www.dubizzle.com.lb/">
+            <img src="https://cdn.empgroup.com/wp-content/uploads/2023/04/dubizzle-logo-fix-width1.png" alt="Marketplace Logo">
+        </a>
+            <div class="search-box">
+                <input type="text" id="search-input" class="form-control" placeholder="Search for a category...">
+            </div>
+            <div class="language-toggle">
+                <button id="en-button">EN</button>  <button id="ar-button">AR</button>
+            </div>
         </div>
-    </header>
 
-    <div class="search-box">
-        <input type="text" id="search-input" class="form-control" placeholder="Search...">
-    </div>
-
+    
     <div class="container">
         <div class="row g-3" id="category-container">
             <!-- Categories will be loaded here dynamically -->
@@ -143,31 +162,40 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             let currentLanguage = 'en';
-
+    
             const enButton = document.getElementById('en-button');
             const arButton = document.getElementById('ar-button');
             const categoryContainer = document.getElementById('category-container');
             const searchInput = document.getElementById('search-input');
-
-            enButton.addEventListener('click', () => switchLanguage('en'));
-            arButton.addEventListener('click', () => switchLanguage('ar'));
-
+    
+            // Function to switch language and update button visibility
             function switchLanguage(language) {
                 currentLanguage = language;
+                enButton.style.display = language === 'en' ? 'none' : 'inline';
+                arButton.style.display = language === 'ar' ? 'none' : 'inline';
                 enButton.classList.toggle('active', language === 'en');
                 arButton.classList.toggle('active', language === 'ar');
                 loadCategories();
             }
-
+    
+            // Event listeners for language buttons
+            enButton.addEventListener('click', () => switchLanguage('en'));
+            arButton.addEventListener('click', () => switchLanguage('ar'));
+    
+            // Function to load categories
             async function loadCategories() {
                 try {
                     const response = await fetch('VAS-SHEET.json');
                     const data = await response.json();
                     const filteredData = data.filter(item => item.l1 === 'Vehicles');
-
+                        filteredData.sort((a, b) => {
+            const nameA = currentLanguage === 'en' ? a.cat_english_name : a.cat_arabic_name;
+            const nameB = currentLanguage === 'en' ? b.cat_english_name : b.cat_arabic_name;
+            return nameA.localeCompare(nameB);
+        });
                     categoryContainer.innerHTML = '';
                     const addedTitles = new Set();
-
+    
                     const categoryLinks = {
                         "Motorcycles & ATVs": "Motorcycles_and_ATVs.html",
                         "Cars for Rent": "cars_for_rent.html",
@@ -179,15 +207,15 @@
                         "All Vehicles Accessories": "all_vehicles_accessories.html",
                         "Number Plates": "number_plates.html"
                     };
-
+    
                     filteredData.forEach(item => {
                         const categoryName = currentLanguage === 'en' ? item.cat_english_name : item.cat_arabic_name;
-
+    
                         if (!addedTitles.has(categoryName)) {
                             addedTitles.add(categoryName);
-
+    
                             const categoryLink = categoryLinks[item.cat_english_name] || '#';
-
+    
                             const categoryDiv = `
                                 <div class="col-md-4 col-lg-3">
                                     <a href="${categoryLink}?lang=${currentLanguage}" class="item">${categoryName}</a>
@@ -200,18 +228,20 @@
                     console.error('Error loading categories:', error);
                 }
             }
-
+    
+            // Event listener for search input
             searchInput.addEventListener('input', function() {
                 const query = searchInput.value.toLowerCase();
                 const items = document.querySelectorAll('.item');
-
+    
                 items.forEach(item => {
                     const text = item.textContent.toLowerCase();
                     item.style.display = text.includes(query) ? 'block' : 'none';
                 });
             });
-
-            loadCategories();
+    
+            // Initialize the language and button visibility on page load
+            switchLanguage('en'); // Set default language to English
         });
     </script>
 </body>
