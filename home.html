@@ -9,6 +9,8 @@
         body {
             background-color: #f8f9fa;
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
     
         .header {
@@ -16,16 +18,14 @@
             align-items: center;
             justify-content: space-between;
             padding: 10px;
+            /* background-color: #fff; */
+            /* box-shadow: 0 2px 4px rgba(0,0,0,0.1); */
         }
     
         .header img {
             max-width: 400px;
             max-height: 130px;
             margin-left: 3rem;
-        }
-    
-        .search-box {
-            margin: 20px 0;
         }
     
         .header .search-box {
@@ -103,69 +103,76 @@
             background-color: #e00000;
             color: #fff;
         }
-    
-        /* Media query for mobile screens */
-        @media (max-width: 767px) {
-            .category-card {
-                padding: 6px;
-                margin-bottom: 15px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-            .category-logo {
-                width: 50px;
-                height: 40px;
-            }
-            .category-title {
-                font-size: 0.75rem;
-            }
-            .category-container {
-                margin-top: 30px;
-            }
+        
+        /* Footer styling */
+        footer {
+    background-color: #e00000; /* Keep the background color */
+    color: #fff; /* Text color */
+    text-align: center; /* Center text */
+    padding: 0.5rem; /* Reduce padding for a smaller footer */
+    font-size: 0.8rem; /* Smaller font size */
+    width: 100%; /* Full width of the page */
+}
+
+/* Footer paragraph text adjustments */
+footer p {
+    margin: 0; /* Remove margin to reduce overall height */
+    padding: 0; /* Remove padding from the paragraph */
+    font-size: 0.8rem; /* Adjust font size for more compact text */
+}
+
+/* Media query for small screens */
+@media (max-width: 480px) {
+    footer {
+        padding: 0.3rem; /* Further reduce padding for mobile screens */
+        font-size: 0.7rem; /* Smaller font size on mobile */
+    }
+}
+        /* Social media icons styling */
+        .social-media-icons {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
         }
-    
-        @media (min-width: 1200px) {
-            .category-logo {
-                width: 80px;
-                height: 80px;
-            }
+
+        .social-media-icons a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background-color: #fff !important;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            text-align: center;
+            font-size: 24px;
+            /* color: #333; */
+            text-decoration: none;
+            color:white;
         }
-    
-        /* Grid system for displaying 3 items per row for screen sizes between 770px and 1200px */
-        @media (min-width: 770px) and (max-width: 1200px) {
-            .container-fluid .row.category-container .col-md-4 {
-                flex: 0 0 33.33%;
-                max-width: 33.33%;
-            }
+
+        .social-media-icons a:hover {
+            background-color: #f1f1f1;
         }
-    
-        /* Adjusting for iPad Air and similar devices */
-        @media (max-width: 1024px) {
-            .container-fluid .row.category-container .col-md-4 {
-                flex: 0 0 33.33%;
-                max-width: 33.33%;
-            }
-        }
-    
-        /* Adjusting for smaller tablets and mobile devices */
+
         @media (max-width: 768px) {
-            .container-fluid .row.category-container .col-md-4 {
-                flex: 0 0 50%;
-                max-width: 50%;
-                margin-bottom: 25px;
+            .social-media-icons {
+                width: 40px;
+                height: 40px;
+                bottom: 15px;
+                right: 15px;
             }
-        }
-    
-        /* Adjusting for mobile screens to show 2 divs per row */
-        @media (max-width: 576px) {
-            .container-fluid .row.category-container .col-md-4 {
-                flex: 0 0 50%;
-                max-width: 50%;
-                margin-bottom: 25px;
+
+            .social-media-icons a {
+                font-size: 20px;
             }
         }
     </style>
     
-    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     
 </head>
 <body>
@@ -315,7 +322,19 @@
                     </div>
                 </div>
             </div>
-                
+                <!-- Footer -->
+    <footer class="footer">
+        <a href="https://api.whatsapp.com/send?phone=96176712468?" class="float" target="_blank">
+            <i class="fa fa-whatsapp my-float"></i>
+            </a>
+            <div class="icon">
+                <a href="https://www.instagram.com/ranime_merhi?igsh=bWE2c3Q0em81aTFl&utm_source=qr" target="_blank">
+                    <i class="fa fa-instagram"></i>
+                </a>
+            </div>
+            
+        <p> <a href="terms-of-service.html">Terms of Service</a> | <a href="contact.html">Contact Us</a></p>
+    </footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
