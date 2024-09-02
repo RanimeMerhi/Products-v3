@@ -6,6 +6,8 @@
     <title>Jobs</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="script.js"></script>
+
 
     <!-- <style>
         html, body {
@@ -148,28 +150,30 @@
 <body>
     <div class="header">
         <a href="https://www.dubizzle.com.lb/">
-        <img src="https://cdn.empgroup.com/wp-content/uploads/2023/04/dubizzle-logo-fix-width1.png"  alt="Marketplace Logo">
-    </a>
-        <!-- <div class="search-box">
-            <input type="text" id="search-input" class="form-control" placeholder="Search for a category...">
-        </div> -->
-        
+            <img src="https://cdn.empgroup.com/wp-content/uploads/2023/04/dubizzle-logo-fix-width1.png" alt="Marketplace Logo">
+        </a>
     </div>
     <div class="language-toggle">
-        <button id="en-button">EN</button>  <button id="ar-button">AR</button>
+        <button id="en-button">EN</button>
+        <button id="ar-button">AR</button>
     </div>
     <div class="container">
         <div class="row g-3">
-            <div class="col-md-4 col-lg-3"><a href="Job_Seekers.html" class="item">Job Seekers</a></div>
-            <div class="col-md-4 col-lg-3"><a href="Jobs_Available.html" class="item">Jobs Available</a></div>
-            
+            <div class="col-md-4 col-lg-3">
+                <a href="Job_Seekers.html" class="item en-title">Job Seekers</a>
+                <a href="Job_Seekers.html" class="item ar-title">الباحثين عن عمل</a>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <a href="Jobs_Available.html" class="item en-title">Jobs Available</a>
+                <a href="Jobs_Available.html" class="item ar-title">وظائف شاغرة</a>
+            </div>
         </div>
     </div>
 
     <footer>
         <p>&copy; 2024 Product Listings</p>
     </footer>
-    <script>
+    <!-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('search-input');
             const items = document.querySelectorAll('.item');
@@ -187,6 +191,6 @@
                 });
             });
         });
-    </script>
+    </script> -->
 </body>
 </html>

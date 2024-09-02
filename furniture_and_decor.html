@@ -6,103 +6,18 @@
     <title>Furniture & Home Decor</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="script.js"></script>
 
-    <!-- <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
-        
-        body {
-            display: flex;
-            flex-direction: column;
-        }
-        .header {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          /* height: 100vh; */
-        }
-        
-        .header img {
-          width: auto;
-          height: auto;
-          max-width: 500px; /* Adjust as needed */
-          max-height: 200px; /* Adjust as needed */
-        }
-        /* 
-        .search-box {
-            margin: 20px 0;
-        }
-        
-        .header .search-box {
-            margin-left: 60px !important;
-            flex-grow: 1;
-        }
-        
-        .header .search-box input {
-            width: 100%;
-            max-width: 300px;
-        } */
-        
-        .container {
-            flex: 1;
-            margin: 2rem auto;
-            max-width: 1200px;
-        }
-        
-        .item {
-            display: block;
-            text-align: center;
-            padding: 1.5rem;
-            background-color: #ffffff;
-            border: 1px solid #e00000;
-            border-radius: 10px;
-            text-decoration: none;
-            color: #495057;
-            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .item:hover {
-            background-color: #e9ecef;
-            transform: translateY(-5px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        .item:active {
-            background-color: #e2e6ea;
-        }
-        
-        footer {
-            background-color: #e00000; /* Keep the background color */
-            color: #fff; /* Text color */
-            text-align: center; /* Center text */
-            padding: 0.5rem; /* Reduce padding for a smaller footer */
-            font-size: 0.8rem; /* Smaller font size */
-            width: 100%; /* Full width of the page */
-        }
-        
-        /* Footer paragraph text adjustments */
-        footer p {
-            margin: 0; /* Remove margin to reduce overall height */
-            padding: 0; /* Remove padding from the paragraph */
-            font-size: 0.8rem; /* Adjust font size for more compact text */
-        }
-        
-        /* Media query for small screens */
-        @media (max-width: 480px) {
-            footer {
-                padding: 0.3rem; /* Further reduce padding for mobile screens */
-                font-size: 0.7rem; /* Smaller font size on mobile */
-            }
-        }
+
+    <style>
+        /* Your existing styles */
+
         .language-toggle {
             display: flex;
             gap: 10px;
             position: absolute;
             right: 20px;
             top: 60px; 
-         
         }
         #en-button, #ar-button {
             display: inline-block;
@@ -117,82 +32,160 @@
             box-shadow: rgba(0, 0, 0, 0.07) 0px 2px 4px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1.5px 0px; 
             height: 42px;
         }
-        
         #en-button:hover, #ar-button:hover {
             background-color: #e00000;
             color: #fff;
         }
-        
-        
-        
+        .item {
+            display: block;
+            text-align: center;
+            padding: 1.5rem;
+            background-color: #ffffff;
+            border: 1px solid #e00000;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #495057;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+        .item:hover {
+            background-color: #e9ecef;
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+        }
+        .item:active {
+            background-color: #e2e6ea;
+        }
+        footer {
+            background-color: #e00000; /* Keep the background color */
+            color: #fff; /* Text color */
+            text-align: center; /* Center text */
+            padding: 0.5rem; /* Reduce padding for a smaller footer */
+            font-size: 0.8rem; /* Smaller font size */
+            width: 100%; /* Full width of the page */
+        }
+        footer p {
+            margin: 0; /* Remove margin to reduce overall height */
+            padding: 0; /* Remove padding from the paragraph */
+            font-size: 0.8rem; /* Adjust font size for more compact text */
+        }
         @media (max-width: 768px) {
             .item {
                 width: calc(50% - 1rem);
             }
         }
-        
         @media (max-width: 480px) {
             .item {
                 width: calc(100% - 1rem);
             }
         }
         .center {
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-          width: 50%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
         }
-        
-            </style> -->
+        .ar-title {
+            display: none;
+        }
+        .en-title {
+            display: block;
+        }
+    </style>
 </head>
 <body>
     <div class="header">
         <a href="https://www.dubizzle.com.lb/">
-        <img src="https://cdn.empgroup.com/wp-content/uploads/2023/04/dubizzle-logo-fix-width1.png"  alt="Marketplace Logo">
-    </a>
-        <!-- <div class="search-box">
-            <input type="text" id="search-input" class="form-control" placeholder="Search for a category...">
-        </div> -->
-        
+            <img src="https://cdn.empgroup.com/wp-content/uploads/2023/04/dubizzle-logo-fix-width1.png" alt="Marketplace Logo">
+        </a>
     </div>
     <div class="language-toggle">
-        <button id="en-button">EN</button>  <button id="ar-button">AR</button>
+        <button id="en-button">EN</button>
+        <button id="ar-button">AR</button>
     </div>
     <div class="container">
         <div class="row g-3">
-            <div class="col-md-4 col-lg-3"><a href="Living_Room.html" class="item">Living Room</a></div>
-            <div class="col-md-4 col-lg-3"><a href="Bedroom.html" class="item">Bedroom</a></div>
-            <div class="col-md-4 col-lg-3"><a href="Dining_Room.html" class="item">Dining Room</a></div>
-            <div class="col-md-4 col-lg-3"><a href="Kitchen_and_Kitchenware.html" class="item">Kitchen & Kitchenware</a></div>
-            <div class="col-md-4 col-lg-3"><a href="Bathroom.html" class="item">Bathroom</a></div>
-            <div class="col-md-4 col-lg-3"><a href="Home_Decoration_and_Accessories.html" class="item">Home Decoration & Accessories</a></div>
-            <div class="col-md-4 col-lg-3"><a href="Garden_and_Outdoor.html" class="item">Garden & Outdoor</a></div>
-            <div class="col-md-4 col-lg-3"><a href="Other_Home_Furniture_and_Decor.html" class="item">Other Home Furniture & Decor</a></div>
-            
+            <div class="col-md-4 col-lg-3">
+                <a href="Living_Room.html" class="item en-title">Living Room</a>
+                <a href="Living_Room.html" class="item ar-title">غرفة الجلوس</a>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <a href="Bedroom.html" class="item en-title">Bedroom</a>
+                <a href="Bedroom.html" class="item ar-title">غرفة نوم</a>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <a href="Dining_Room.html" class="item en-title">Dining Room</a>
+                <a href="Dining_Room.html" class="item ar-title">غرفة سفرة</a>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <a href="Kitchen_and_Kitchenware.html" class="item en-title">Kitchen & Kitchenware</a>
+                <a href="Kitchen_and_Kitchenware.html" class="item ar-title">مطبخ</a>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <a href="Bathroom.html" class="item en-title">Bathroom</a>
+                <a href="Bathroom.html" class="item ar-title">الحمام</a>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <a href="Home_Decoration_and_Accessories.html" class="item en-title">Home Decoration & Accessories</a>
+                <a href="Home_Decoration_and_Accessories.html" class="item ar-title">الديكورات المنزلية والاكسسوارات</a>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <a href="Garden_and_Outdoor.html" class="item en-title">Garden & Outdoor</a>
+                <a href="Garden_and_Outdoor.html" class="item ar-title">حديقة و أماكن خارجية</a>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <a href="Other_Home_Furniture_and_Decor.html" class="item en-title">Other Home Furniture & Decor</a>
+                <a href="Other_Home_Furniture_and_Decor.html" class="item ar-title">أثاث منزل وديكورات أخرى</a>
+            </div>
         </div>
     </div>
 
     <footer>
         <p>&copy; 2024 Product Listings</p>
     </footer>
-    <script>
+    <!-- <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('search-input');
-            const items = document.querySelectorAll('.item');
+            const enButton = document.getElementById('en-button');
+            const arButton = document.getElementById('ar-button');
+ // Function to switch language and update button visibility
+ function switchLanguage(language) {
+                currentLanguage = language;
+                enButton.style.display = language === 'en' ? 'none' : 'inline';
+                arButton.style.display = language === 'ar' ? 'none' : 'inline';
+                enButton.classList.toggle('active', language === 'en');
+                arButton.classList.toggle('active', language === 'ar');
+                loadCategories();
+            }
+    
+            // Event listeners for language buttons
+            enButton.addEventListener('click', () => switchLanguage('en'));
+            arButton.addEventListener('click', () => switchLanguage('ar'));
+            // Function to set language display
+            function setLanguage(lang) {
+                if (lang === 'ar') {
+                    document.querySelectorAll('.en-title').forEach(el => el.style.display = 'none');
+                    document.querySelectorAll('.ar-title').forEach(el => el.style.display = 'block');
+                } else {
+                    document.querySelectorAll('.en-title').forEach(el => el.style.display = 'block');
+                    document.querySelectorAll('.ar-title').forEach(el => el.style.display = 'none');
+                }
+            }
 
-            searchInput.addEventListener('input', function() {
-                const query = searchInput.value.toLowerCase();
+            // Set default language based on local storage or default to English
+            const userLang = localStorage.getItem('language') || 'en';
+            setLanguage(userLang);
 
-                items.forEach(item => {
-                    const text = item.textContent.toLowerCase();
-                    if (text.includes(query)) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
+            // Event listeners for language buttons
+            enButton.addEventListener('click', () => {
+                setLanguage('en');
+                localStorage.setItem('language', 'en');
             });
+
+            arButton.addEventListener('click', () => {
+                setLanguage('ar');
+                localStorage.setItem('language', 'ar');
+            });
+            switchLanguage('en'); // Set default language to English
         });
-    </script>
+    </script> -->
 </body>
 </html>

@@ -6,6 +6,8 @@
     <title>Pets</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="script.js"></script>
+
 
     <!-- <style>
         html, body {
@@ -156,44 +158,94 @@
         
     </div>
     <div class="language-toggle">
-        <button id="en-button">EN</button>  <button id="ar-button">AR</button>
+        <button id="en-button">EN</button>
+        <button id="ar-button">AR</button>
     </div>
 
     <div class="container">
         <div class="row g-3">
-            <div class="col-md-4 col-lg-3"><a href="Animal_and_Pet_accessories.html" class="item">Animal & Pet accessories</a></div>
-            <div class="col-md-4 col-lg-3"><a href="Dogs.html" class="item">Dogs</a></div>
-            <div class="col-md-4 col-lg-3"><a href="Cats.html" class="item">Cats</a></div>
-            <div class="col-md-4 col-lg-3"><a href="Birds.html" class="item">Birds</a></div>
-            <div class="col-md-4 col-lg-3"><a href="Livestock.html" class="item">Livestock</a></div>
-            <div class="col-md-4 col-lg-3"><a href="Horses.html" class="item">Horses</a></div>
-            <div class="col-md-4 col-lg-3"><a href="Fish.html" class="item">Fish</a></div>
-            <div class="col-md-4 col-lg-3"><a href="Other_Animals_and_Pets.html" class="item">Other Animals & Pets</a></div>
-            
+            <div class="col-md-4 col-lg-3">
+                <a href="Animal_and_Pet_accessories.html" class="item en-title">Animal & Pet accessories</a>
+                <a href="Animal_and_Pet_accessories.html" class="item ar-title">مستلزمات الحيوانات</a>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <a href="Dogs.html" class="item en-title">Dogs</a>
+                <a href="Dogs.html" class="item ar-title">كلاب</a>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <a href="Cats.html" class="item en-title">Cats</a>
+                <a href="Cats.html" class="item ar-title">قطط</a>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <a href="Birds.html" class="item en-title">Birds</a>
+                <a href="Birds.html" class="item ar-title">طيور</a>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <a href="Livestock.html" class="item en-title">Livestock</a>
+                <a href="Livestock.html" class="item ar-title">مواشي</a>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <a href="Horses.html" class="item en-title">Horses</a>
+                <a href="Horses.html" class="item ar-title">خيول</a>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <a href="Fish.html" class="item en-title">Fish</a>
+                <a href="Fish.html" class="item ar-title">أسماك</a>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <a href="Other_Animals_and_Pets.html" class="item en-title">Other Animals & Pets</a>
+                <a href="Other_Animals_and_Pets.html" class="item ar-title">حيوانات أليفة أخرى</a>
+            </div>
         </div>
     </div>
 
     <footer>
         <p>&copy; 2024 Product Listings</p>
     </footer>
-    <script>
+    <!-- <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('search-input');
-            const items = document.querySelectorAll('.item');
+            const enButton = document.getElementById('en-button');
+            const arButton = document.getElementById('ar-button');
+ // Function to switch language and update button visibility
+ function switchLanguage(language) {
+                currentLanguage = language;
+                enButton.style.display = language === 'en' ? 'none' : 'inline';
+                arButton.style.display = language === 'ar' ? 'none' : 'inline';
+                enButton.classList.toggle('active', language === 'en');
+                arButton.classList.toggle('active', language === 'ar');
+                loadCategories();
+            }
+    
+            // Event listeners for language buttons
+            enButton.addEventListener('click', () => switchLanguage('en'));
+            arButton.addEventListener('click', () => switchLanguage('ar'));
+            // Function to set language display
+            function setLanguage(lang) {
+                if (lang === 'ar') {
+                    document.querySelectorAll('.en-title').forEach(el => el.style.display = 'none');
+                    document.querySelectorAll('.ar-title').forEach(el => el.style.display = 'block');
+                } else {
+                    document.querySelectorAll('.en-title').forEach(el => el.style.display = 'block');
+                    document.querySelectorAll('.ar-title').forEach(el => el.style.display = 'none');
+                }
+            }
 
-            searchInput.addEventListener('input', function() {
-                const query = searchInput.value.toLowerCase();
+            // Set default language based on local storage or default to English
+            const userLang = localStorage.getItem('language') || 'en';
+            setLanguage(userLang);
 
-                items.forEach(item => {
-                    const text = item.textContent.toLowerCase();
-                    if (text.includes(query)) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
+            // Event listeners for language buttons
+            enButton.addEventListener('click', () => {
+                setLanguage('en');
+                localStorage.setItem('language', 'en');
             });
+
+            arButton.addEventListener('click', () => {
+                setLanguage('ar');
+                localStorage.setItem('language', 'ar');
+            });
+            switchLanguage('en'); // Set default language to English
         });
-    </script>
+    </script> -->
 </body>
 </html>

@@ -159,11 +159,8 @@
         <button id="en-button">EN</button>  <button id="ar-button">AR</button>
     </div>
     <div class="container">
-        <div class="row g-3">
-            <div class="col-md-4 col-lg-3"><a href="mobile_phones.html" class="item">Mobile Phones</a></div>
-            <div class="col-md-4 col-lg-3"><a href="mobile_accessories.html" class="item">Mobile Accessories</a></div>
-            <div class="col-md-4 col-lg-3"><a href="mobile_numbers.html" class="item">Mobile Numbers</a></div>
-            <div class="col-md-4 col-lg-3"><a href="smart_watches.html" class="item">Smart Watches</a></div>
+        <div class="row g-3" id="category-container">
+           
             
         </div>
     </div>
@@ -173,21 +170,70 @@
     </footer>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            let currentLanguage = 'en';
+    
+            const enButton = document.getElementById('en-button');
+            const arButton = document.getElementById('ar-button');
+            const categoryContainer = document.getElementById('category-container');
             const searchInput = document.getElementById('search-input');
-            const items = document.querySelectorAll('.item');
-
-            searchInput.addEventListener('input', function() {
-                const query = searchInput.value.toLowerCase();
-
-                items.forEach(item => {
-                    const text = item.textContent.toLowerCase();
-                    if (text.includes(query)) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            });
+    
+            // Function to switch language and update button visibility
+            function switchLanguage(language) {
+                currentLanguage = language;
+                enButton.style.display = language === 'en' ? 'none' : 'inline';
+                arButton.style.display = language === 'ar' ? 'none' : 'inline';
+                enButton.classList.toggle('active', language === 'en');
+                arButton.classList.toggle('active', language === 'ar');
+                loadCategories();
+            }
+    
+            // Event listeners for language buttons
+            enButton.addEventListener('click', () => switchLanguage('en'));
+            arButton.addEventListener('click', () => switchLanguage('ar'));
+    
+            // Function to load categories
+            async function loadCategories() {
+                try {
+                    const response = await fetch('VAS-SHEET.json');
+                    const data = await response.json();
+                    const filteredData = data.filter(item => item.l1 === 'Mobile Phones & Accessories');
+                    
+                    // Sort by priority_for_l2 (assuming higher priority has a lower value)
+                    filteredData.sort((a, b) => a.priority_for_l2 - b.priority_for_l2);
+                    
+                    categoryContainer.innerHTML = '';
+                    const addedTitles = new Set();
+    
+                    const categoryLinks = {
+    "Mobile Phones": "mobile_phones.html",
+    "Mobile Accessories": "mobile_accessories.html",
+    "Mobile Numbers": "mobile_numbers.html",
+    "Smart Watches": "smart_watches.html"
+};
+    
+                    filteredData.forEach(item => {
+                        const categoryName = currentLanguage === 'en' ? item.cat_english_name : item.cat_arabic_name;
+    
+                        if (!addedTitles.has(categoryName)) {
+                            addedTitles.add(categoryName);
+    
+                            const categoryLink = categoryLinks[item.cat_english_name] || '#';
+    
+                            const categoryDiv = `
+                                <div class="col-md-4 col-lg-3">
+                                    <a href="${categoryLink}?lang=${currentLanguage}" class="item">${categoryName}</a>
+                                </div>`;
+                            
+                            categoryContainer.innerHTML += categoryDiv;
+                        }
+                    });
+                } catch (error) {
+                    console.error('Error loading categories:', error);
+                }
+            }
+    
+            // Initialize the language and button visibility on page load
+            switchLanguage('en'); // Set default language to English
         });
     </script>
 </body>
