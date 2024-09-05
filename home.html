@@ -9,15 +9,6 @@
 body {
     background-color: #f8f9fa;
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-.container-fluid {
-    flex-grow: 1;
 }
 
 .header {
@@ -28,9 +19,11 @@ body {
 }
 
 .header img {
-    max-width: 400px;
-    max-height: 130px;
-    margin-left: 3rem;
+    height: 100px;
+}
+
+.search-box {
+    margin: 20px 0;
 }
 
 .header .search-box {
@@ -44,9 +37,6 @@ body {
 }
 
 .category-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Default: 4 categories per row */
-    gap: 15px;
     margin-top: 20px;
 }
 
@@ -58,6 +48,9 @@ body {
     text-align: center;
     background-color: #fff;
     padding: 10px;
+    margin-bottom: 15px;
+    position: relative;
+    overflow: hidden;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -78,8 +71,7 @@ body {
 
 .category-logo {
     width: 60px;
-    height: 60px;
-    object-fit: contain;
+    height: auto;
     margin-bottom: 10px;
 }
 
@@ -89,6 +81,96 @@ body {
 
 .category-card:hover .category-title {
     color: #007bff;
+}
+#en-button{
+    
+                display: inline-block;
+                outline: 0;
+                cursor: pointer;
+                border-radius: 6px;
+                border: 2px solid #e00000;
+                color: #e00000;
+                background: 0 0;
+                padding: 8px;
+                box-shadow: rgba(0, 0, 0, 0.07) 0px 2px 4px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1.5px 0px; 
+                height: 42px;
+                :hover{
+                    background-color: #e00000;
+                    color: #fff;
+                }
+                
+}
+#ar-button{
+    
+    display: inline-block;
+    outline: 0;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 2px solid #e00000;
+    color: #e00000;
+    background: 0 0;
+    padding: 8px;
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 2px 4px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1.5px 0px;
+    height: 42px;
+    :hover{
+        background-color: #e00000;
+        color: #fff;
+    }
+    
+}
+/* Media query for mobile screens */
+@media (max-width: 767px) {
+    .category-card {
+        padding: 6px;
+        margin-bottom: 15px; /* Increased margin for more spacing between cards */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .category-logo {
+        width: 50px;
+    }
+    .category-title {
+        font-size: 0.75rem;
+    }
+    .category-container {
+        margin-top: 30px; /* Increased margin for more spacing between sections */
+    }
+}
+
+/* Grid system for displaying 4 items per row on laptops and tablets */
+.container-fluid .row.category-container .col-md-4 {
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+
+@media (max-width: 1200px) {
+    .container-fluid .row.category-container .col-md-4 {
+        flex: 0 0 33.33%;
+        max-width: 33.33%;
+    }
+}
+
+/* Adjusting for iPad Air and similar devices */
+@media (max-width: 1024px) {
+    .container-fluid .row.category-container .col-md-4 {
+        flex: 0 0 33.33%;
+        max-width: 33.33%;
+    }
+}
+
+/* Adjusting for smaller tablets and mobile devices */
+@media (max-width: 768px) {
+    .container-fluid .row.category-container .col-md-4 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+/* Adjusting for mobile screens to show 2 divs per row */
+@media (max-width: 576px) {
+    .container-fluid .row.category-container .col-md-4 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
 }
 
 #en-button, #ar-button {
@@ -186,22 +268,8 @@ footer p {
     }
 }
 
-@media (max-width: 768px) {
-    .category-container {
-        grid-template-columns: repeat(2, 1fr); /* 2 categories per row for tablet and mobile screens */
-    }
-}
 
-@media (max-width: 480px) {
-    .category-container {
-        grid-template-columns: repeat(2, 1fr); /* 2 categories per row for mobile screens */
-        gap: 10px; /* Adjust the gap between categories */
-    }
 
-    .category-card {
-        padding: 8px; /* Adjust padding for smaller screens */
-    }
-}
 
     </style>
     
