@@ -6,91 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Others Vehicles</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .product-card {
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            background-color: white;
-            height: 100%;
-        }
-        .product-card img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-        .package-list {
-            list-style-type: none;
-            padding: 0;
-        }
-        .package-list li {
-            margin-bottom: 5px;
-        }
-        .package-list span {
-            font-weight: bold;
-        }
-        .search-box {
-            margin-bottom: 20px;
-        }
-        .product-container {
-            display: flex;
-            flex-wrap: wrap;
-            margin-right: -15px;
-            margin-left: -15px;
-        }
-        .product-container .col-md-4 {
-            flex: 1 1 100%;
-            max-width: 100%;
-            padding-right: 15px;
-            padding-left: 15px;
-            margin-bottom: 20px;
-        }
+    <link rel="stylesheet" href="mystyle.css">
 
-        @media (min-width: 576px) {
-            .product-container .col-sm-6 {
-                flex: 1 1 50%;
-                max-width: 50%;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .product-container .col-md-4 {
-                flex: 1 1 33.333%;
-                max-width: 33.333%;
-            }
-        }
-
-        @media (min-width: 992px) {
-            .product-container .col-lg-3 {
-                flex: 1 1 25%;
-                max-width: 25%;
-            }
-        }
-        h3 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-        p {
-            font-size: 1em;
-            margin-bottom: 10px;
-        }
-        .price {
-    color: red;
-    font-weight: bold;
-}
-.price-label {
-    color: red;
-    font-weight: bold;
-}
-
-    </style>
 </head>
 <body>
+    <div class="header">
+        <a href="https://www.dubizzle.com.lb/">
+            <img src="https://cdn.empgroup.com/wp-content/uploads/2023/04/dubizzle-logo-fix-width1.png" alt="Marketplace Logo">
+        </a>
+    </div>
+    <div class="language-toggle">
+        <button id="en-button" style="display: none;">EN</button>
+        <button id="ar-button" style="display: none;">AR</button>
+    </div>
     <div class="container">
         <h1 class="my-4">Others Vehicles</h1>
         <div class="search-box">
@@ -98,109 +26,153 @@
         </div>
         <div id="products" class="row product-container"></div>
     </div>
+    <footer>
+        <p>&copy; 2024 Product Listings</p>
+    </footer>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
+     document.addEventListener('DOMContentLoaded', function() {
         const productsContainer = document.getElementById('products');
         const searchInput = document.getElementById('search-input');
-        
-        // Check if the elements are found
-        if (!productsContainer) {
-            console.error('Products container not found');
-            return;
-        }
-        if (!searchInput) {
-            console.error('Search input not found');
-            return;
-        }
-        
-        // Fetch and display products from JSON file
-        fetch('VAS-SHEET.json')
-            .then(response => response.json())
-            .then(data => {
-                const l1Category = 'Vehicles';
-                const l2Category = 'Others Vehicles';
+        const enButton = document.getElementById('en-button');
+        const arButton = document.getElementById('ar-button');
+        let currentLanguage = 'en'; // Default language
 
-                // Get all products for the specified l1 and l2
-                let products = data.filter(product => product.l1 === l1Category && product.l2 === l2Category);
-                const hasPlace1AdProduct = products.some(product => product.product_package_name_en.includes('Place 1 Ad for'));
-
-// If no such product exists, add "Place 1 Ad for free"
-if (!hasPlace1AdProduct) {
-    products.push({
-        l1: l1Category,
-        l2: l2Category,
-        product_package_name_en: 'Place 1 Ad for 30 days',
-        product_package_name_ar: 'انشر إعلان واحد لمدة 30 يوم',
-        product_package_descr_en: 'I only have one Item to sell',
-        product_package_descr_ar: 'لدي غرض واحد للبيع',
-        price: 'Free'
-    });
-}
-                // Get all GENERAL products for this l1
-                const generalProducts = data.filter(product => product.l1 === l1Category && product.l2 === 'GENERAL');
-
-                // Add GENERAL products to every l2 under the same l1 if not already present
-                const existingProductNames = new Set(products.map(product => `${product.l2}_${product.product_package_name_en}`));
-                generalProducts.forEach(generalProduct => {
-                    const productKey = `${l2Category}_${generalProduct.product_package_name_en}`;
-                    if (!existingProductNames.has(productKey)) {
-                        products.push({
-                            ...generalProduct,
-                            l2: l2Category
-                        });
-                        existingProductNames.add(productKey);
-                    }
-                });
-
-                // Filter out duplicates within the same l2
-                const uniqueProducts = [];
-                const uniqueKeys = new Set();
-
-                products.forEach(product => {
-                    const productKey = `${product.l2}_${product.product_package_name_en}`;
-                    if (!uniqueKeys.has(productKey)) {
-                        uniqueProducts.push(product);
-                        uniqueKeys.add(productKey);
-                    }
-                });
-
-                function renderProducts(products) {
-                    productsContainer.innerHTML = '';
-                    products.forEach(product => {
-                        const productCard = `
-    <div class="col-lg-3 col-md-4 col-sm-6">
-        <div class="product-card">
-            <h3>${product.l2}</h3>
-            <p>${product.product_package_name_en}</p>
-            <ul class="package-list">
-                <li><span>Description:</span> ${product.product_package_descr_en}</li>
-                <li><span class="price-label">Price:</span> <span class="price">${product.price}</span></li>
-            </ul>
-        </div>
-    </div>`; 
-
-
-                        productsContainer.innerHTML += productCard;
-                    });
+        function getLabel(key) {
+            const labels = {
+                en: {
+                    description: 'Description',
+                    price: 'Price'
+                },
+                ar: {
+                    description: 'الوصف',
+                    price: 'السعر'
                 }
-                
-                renderProducts(uniqueProducts);
+            };
+            return labels[currentLanguage][key];
+        }
 
-                searchInput.addEventListener('input', function() {
-                    const searchQuery = this.value.toLowerCase();
-                    const filteredProducts = uniqueProducts.filter(product => 
-                        product.l2.toLowerCase().includes(searchQuery) || 
-                        product.product_package_name_en.toLowerCase().includes(searchQuery) ||
-                        product.product_package_descr_en.toLowerCase().includes(searchQuery)
-                    );
-                    renderProducts(filteredProducts);
+        function renderProducts(products) {
+            productsContainer.innerHTML = '';
+            products.forEach(product => {
+                const productName = currentLanguage === 'en' ? product.product_package_name_en : product.product_package_name_ar;
+                const productDesc = currentLanguage === 'en' ? product.product_package_descr_en : product.product_package_descr_ar;
+                const descriptionLabel = getLabel('description');
+                const priceLabel = getLabel('price');
+
+                const productCard = `
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="product-card">
+                            <h3>${product.l2}</h3>
+                            <p>${productName}</p>
+                            <ul class="package-list">
+                                <li><span>${descriptionLabel}:</span> ${productDesc}</li>
+                                <li><span class="price-label">${priceLabel}:</span> <span class="price">${product.price}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+                productsContainer.innerHTML += productCard;
+            });
+        }
+
+        function fetchAndDisplayProducts() {
+    fetch('VAS-SHEET.json')
+        .then(response => response.json())
+        .then(data => {
+            const l1Category = 'Vehicles';
+            const l2Category = 'Others Vehicles';
+
+            // Filter the products for the current category
+            let products = data.filter(product => product.l1 === l1Category && product.l2 === l2Category);
+
+            // Check if any product_package_name_en contains "Place 1 Ad for"
+            const hasPlace1AdProduct = products.some(product => product.product_package_name_en.includes('Place 1 Ad for'));
+
+            // If no such product exists, add "Place 1 Ad for free"
+            if (!hasPlace1AdProduct) {
+                products.push({
+                    l1: l1Category,
+                    l2: l2Category,
+                    product_package_name_en: 'Place 1 Ad for 30 days',
+                    product_package_name_ar: 'انشر إعلان واحد لمدة 30 يوم',
+                    product_package_descr_en: 'I only have one Item to sell',
+                    product_package_descr_ar: 'لدي غرض واحد للبيع',
+                    price: 'Free'
                 });
-            })
-            .catch(error => console.error('Error fetching products:', error));
-    });
+            }
 
+            const generalProducts = data.filter(product => product.l1 === l1Category && product.l2 === 'GENERAL');
+
+            // Ensure no duplicate products are added from GENERAL
+            const existingProductNames = new Set(products.map(product => `${product.l2}_${product.product_package_name_en}`));
+            generalProducts.forEach(generalProduct => {
+                const productKey = `${l2Category}_${generalProduct.product_package_name_en}`;
+                if (!existingProductNames.has(productKey)) {
+                    products.push({
+                        ...generalProduct,
+                        l2: l2Category
+                    });
+                    existingProductNames.add(productKey);
+                }
+            });
+
+            // Filter unique products to avoid duplicates
+            const uniqueProducts = [];
+            const uniqueKeys = new Set();
+
+            products.forEach(product => {
+                const productKey = `${product.l2}_${product.product_package_name_en}`;
+                if (!uniqueKeys.has(productKey)) {
+                    uniqueProducts.push(product);
+                    uniqueKeys.add(productKey);
+                }
+            });
+
+            // Render products
+            renderProducts(uniqueProducts);
+
+            // Add search functionality
+            searchInput.addEventListener('input', function () {
+                const searchQuery = this.value.toLowerCase();
+                const filteredProducts = uniqueProducts.filter(product => {
+                    const name = (currentLanguage === 'en') ? product.product_package_name_en : product.product_package_name_ar;
+                    return name.toLowerCase().includes(searchQuery);
+                });
+                renderProducts(filteredProducts);
+            });
+        });
+}
+
+        function updateLanguageButtons() {
+            if (currentLanguage === 'ar') {
+                enButton.style.display = 'inline-block';
+                arButton.style.display = 'none';
+            } else {
+                enButton.style.display = 'none';
+                arButton.style.display = 'inline-block';
+            }
+        }
+
+        enButton.addEventListener('click', function() {
+            currentLanguage = 'en';
+            updateLanguageButtons();
+            fetchAndDisplayProducts();
+        });
+
+        arButton.addEventListener('click', function() {
+            currentLanguage = 'ar';
+            updateLanguageButtons();
+            fetchAndDisplayProducts();
+        });
+
+        // Initial setup
+        updateLanguageButtons();
+        fetchAndDisplayProducts();
+    });
 
     </script>
+
+
 </body>
 </html>
