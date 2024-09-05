@@ -83,7 +83,20 @@
                     const l2Category = 'Cleaning Appliances';
 
                     let products = data.filter(product => product.l1 === l1Category && product.l2 === l2Category);
+                    const hasPlace1AdProduct = products.some(product => product.product_package_name_en.includes('Place 1 Ad for'));
 
+// If no such product exists, add "Place 1 Ad for free"
+if (!hasPlace1AdProduct) {
+    products.push({
+        l1: l1Category,
+        l2: l2Category,
+        product_package_name_en: 'Place 1 Ad for 30 days',
+        product_package_name_ar: 'انشر إعلان واحد لمدة 30 يوم',
+        product_package_descr_en: 'I only have one Item to sell',
+        product_package_descr_ar: 'لدي غرض واحد للبيع',
+        price: 'Free'
+    });
+}
                     const generalProducts = data.filter(product => product.l1 === l1Category && product.l2 === 'GENERAL');
 
                     const existingProductNames = new Set(products.map(product => `${product.l2}_${product.product_package_name_en}`));

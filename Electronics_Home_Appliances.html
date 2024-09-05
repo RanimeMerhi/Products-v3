@@ -221,25 +221,25 @@
                     const addedTitles = new Set();
     
                     const categoryLinks = {
-    "TV & Video": "TV_and_Video.html",
-    "Home Audio & Speakers": "Home_Audio_and_Speakers.html",
-    "Kitchen Equipment & Appliances": "Kitchen_Equipment_and_Appliances.html",
-    "AC, Cooling & Heating": "AC,_Cooling_and_Heating.html",
-    "Cleaning Appliances": "Cleaning_Appliances.html",
-    "Washing Machines & Dryers": "Washing_Machines_and_Dryers.html",
-    "Laptops, Tablets, Computers": "Laptops,_Tablets,_Computers.html",
-    "Computer Parts & IT Accessories": "Computer_Parts_and_IT_Accessories.html",
-    "Cameras": "Cameras.html",
-    "Gaming Consoles & Accessories": "Gaming_Consoles_and_Accessories.html",
-    "Video Games": "Video_Games.html",
-    "Other Home Appliances": "Other_Home_Appliances.html"
-};
-
+                        "TV & Video": "TV_and_Video.html",
+                        "Home Audio & Speakers": "Home_Audio_and_Speakers.html",
+                        "Kitchen Equipment & Appliances": "Kitchen_Equipment_and_Appliances.html",
+                        "AC, Cooling & Heating": "AC,_Cooling_and_Heating.html",
+                        "Cleaning Appliances": "Cleaning_Appliances.html",
+                        "Washing Machines & Dryers": "Washing_Machines_and_Dryers.html",
+                        "Laptops, Tablets, Computers": "Laptops,_Tablets,_Computers.html",
+                        "Computer Parts & IT Accessories": "Computer_Parts_and_IT_Accessories.html",
+                        "Cameras": "Cameras.html",
+                        "Gaming Consoles & Accessories": "Gaming_Consoles_and_Accessories.html",
+                        "Video Games": "Video_Games.html",
+                        "Other Home Appliances": "Other_Home_Appliances.html"
+                    };
     
                     filteredData.forEach(item => {
                         const categoryName = currentLanguage === 'en' ? item.cat_english_name : item.cat_arabic_name;
     
-                        if (!addedTitles.has(categoryName)) {
+                        // Check if cat_english_name is not equal to l1
+                        if (item.cat_english_name !== item.l1 && !addedTitles.has(categoryName)) {
                             addedTitles.add(categoryName);
     
                             const categoryLink = categoryLinks[item.cat_english_name] || '#';
@@ -261,5 +261,6 @@
             switchLanguage('en'); // Set default language to English
         });
     </script>
+    
 </body>
 </html>

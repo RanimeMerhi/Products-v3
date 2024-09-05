@@ -213,7 +213,8 @@
     
                     filteredData.forEach(item => {
                         const categoryName = currentLanguage === 'en' ? item.cat_english_name : item.cat_arabic_name;
-    
+                        if (item.cat_english_name !== item.l1 && !addedTitles.has(categoryName)) {
+
                         if (!addedTitles.has(categoryName)) {
                             addedTitles.add(categoryName);
     
@@ -226,7 +227,7 @@
                             
                             categoryContainer.innerHTML += categoryDiv;
                         }
-                    });
+                    }});
                 } catch (error) {
                     console.error('Error loading categories:', error);
                 }

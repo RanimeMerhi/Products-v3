@@ -76,51 +76,72 @@
         }
 
         function fetchAndDisplayProducts() {
-            fetch('VAS-SHEET.json')
-                .then(response => response.json())
-                .then(data => {
-                    const l1Category = 'Kids & Babies';
-                    const l2Category = 'Cribs & Bedroom Furniture';
+    fetch('VAS-SHEET.json')
+        .then(response => response.json())
+        .then(data => {
+            const l1Category = 'Kids & Babies';
+            const l2Category = 'Cribs & Bedroom Furniture';
 
-                    let products = data.filter(product => product.l1 === l1Category && product.l2 === l2Category);
+            // Filter the products for the current category
+            let products = data.filter(product => product.l1 === l1Category && product.l2 === l2Category);
 
-                    const generalProducts = data.filter(product => product.l1 === l1Category && product.l2 === 'GENERAL');
+            // Check if any product_package_name_en contains "Place 1 Ad for"
+            const hasPlace1AdProduct = products.some(product => product.product_package_name_en.includes('Place 1 Ad for'));
 
-                    const existingProductNames = new Set(products.map(product => `${product.l2}_${product.product_package_name_en}`));
-                    generalProducts.forEach(generalProduct => {
-                        const productKey = `${l2Category}_${generalProduct.product_package_name_en}`;
-                        if (!existingProductNames.has(productKey)) {
-                            products.push({
-                                ...generalProduct,
-                                l2: l2Category
-                            });
-                            existingProductNames.add(productKey);
-                        }
-                    });
-
-                    const uniqueProducts = [];
-                    const uniqueKeys = new Set();
-
-                    products.forEach(product => {
-                        const productKey = `${product.l2}_${product.product_package_name_en}`;
-                        if (!uniqueKeys.has(productKey)) {
-                            uniqueProducts.push(product);
-                            uniqueKeys.add(productKey);
-                        }
-                    });
-
-                    renderProducts(uniqueProducts);
-
-                    searchInput.addEventListener('input', function() {
-                        const searchQuery = this.value.toLowerCase();
-                        const filteredProducts = uniqueProducts.filter(product => {
-                            const name = (currentLanguage === 'en') ? product.product_package_name_en : product.product_package_name_ar;
-                            return name.toLowerCase().includes(searchQuery);
-                        });
-                        renderProducts(filteredProducts);
-                    });
+            // If no such product exists, add "Place 1 Ad for free"
+            if (!hasPlace1AdProduct) {
+                products.push({
+                    l1: l1Category,
+                    l2: l2Category,
+                    product_package_name_en: 'Place 1 Ad for 30 days',
+                    product_package_name_ar: 'انشر إعلان واحد لمدة 30 يوم',
+                    product_package_descr_en: 'I only have one Item to sell',
+                    product_package_descr_ar: 'لدي غرض واحد للبيع',
+                    price: 'Free'
                 });
-        }
+            }
+
+            const generalProducts = data.filter(product => product.l1 === l1Category && product.l2 === 'GENERAL');
+
+            // Ensure no duplicate products are added from GENERAL
+            const existingProductNames = new Set(products.map(product => `${product.l2}_${product.product_package_name_en}`));
+            generalProducts.forEach(generalProduct => {
+                const productKey = `${l2Category}_${generalProduct.product_package_name_en}`;
+                if (!existingProductNames.has(productKey)) {
+                    products.push({
+                        ...generalProduct,
+                        l2: l2Category
+                    });
+                    existingProductNames.add(productKey);
+                }
+            });
+
+            // Filter unique products to avoid duplicates
+            const uniqueProducts = [];
+            const uniqueKeys = new Set();
+
+            products.forEach(product => {
+                const productKey = `${product.l2}_${product.product_package_name_en}`;
+                if (!uniqueKeys.has(productKey)) {
+                    uniqueProducts.push(product);
+                    uniqueKeys.add(productKey);
+                }
+            });
+
+            // Render products
+            renderProducts(uniqueProducts);
+
+            // Add search functionality
+            searchInput.addEventListener('input', function () {
+                const searchQuery = this.value.toLowerCase();
+                const filteredProducts = uniqueProducts.filter(product => {
+                    const name = (currentLanguage === 'en') ? product.product_package_name_en : product.product_package_name_ar;
+                    return name.toLowerCase().includes(searchQuery);
+                });
+                renderProducts(filteredProducts);
+            });
+        });
+}
 
         function updateLanguageButtons() {
             if (currentLanguage === 'ar') {
