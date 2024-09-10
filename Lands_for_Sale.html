@@ -98,7 +98,8 @@
                     product_package_name_ar: 'انشر إعلان واحد لمدة 30 يوم',
                     product_package_descr_en: 'I only have one Item to sell',
                     product_package_descr_ar: 'لدي غرض واحد للبيع',
-                    price: 'Free'
+                    price: 'Free',
+                    product_type: 'free_ad' // Add a product_type for free ads
                 });
             }
 
@@ -129,8 +130,34 @@
                 }
             });
 
+            // Define an ordering map for product types
+            const productTypeOrder = {
+                'ad_limit_bump': 1,
+                'featured_ad': 2,
+                'auto_refresh_ad': 3,
+                'elite_ad': 4,
+            };
+
+            // Sort products based on product_type order
+            uniqueProducts.sort((a, b) => {
+                const typeA = productTypeOrder[a.product_type] || 999; // Default to a high number if not found
+                const typeB = productTypeOrder[b.product_type] || 999;
+                return typeA - typeB;
+            });
+
             // Render products
             renderProducts(uniqueProducts);
+
+            // Add search functionality
+            searchInput.addEventListener('input', function () {
+                const searchQuery = this.value.toLowerCase();
+                const filteredProducts = uniqueProducts.filter(product => {
+                    const name = (currentLanguage === 'en') ? product.product_package_name_en : product.product_package_name_ar;
+                    return name.toLowerCase().includes(searchQuery);
+                });
+                renderProducts(filteredProducts);
+            });
+        
 
             // Add search functionality
             searchInput.addEventListener('input', function () {

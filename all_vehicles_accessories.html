@@ -130,7 +130,24 @@ if (!hasPlace1AdProduct) {
                             const name = (currentLanguage === 'en') ? product.product_package_name_en : product.product_package_name_ar;
                             return name.toLowerCase().includes(searchQuery);
                         });
-                        renderProducts(filteredProducts);
+                           // Define an ordering map for product types
+            const productTypeOrder = {
+                'ad_limit_bump': 1,
+                'featured_ad': 2,
+                'auto_refresh_ad': 3,
+                'elite_ad': 4,
+                'free_ad': 5 // Give free ads the lowest priority
+            };
+
+            // Sort products based on product_type order
+            uniqueProducts.sort((a, b) => {
+                const typeA = productTypeOrder[a.product_type] || 999; // Default to a high number if not found
+                const typeB = productTypeOrder[b.product_type] || 999;
+                return typeA - typeB;
+            });
+
+            // Render products
+            renderProducts(uniqueProducts);
                     });
                 });
         }
