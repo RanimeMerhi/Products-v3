@@ -210,85 +210,103 @@ body {
     background-color: #e00000;
     color: #fff;
 }
-
 footer {
     background-color: #e00000;
     color: #fff;
     text-align: center;
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
+    padding: 0.3rem; /* Reduced padding */
+    font-size: 0.7rem; /* Smaller font size */
     width: 100%;
     box-sizing: border-box;
     margin-top: auto;
-    flex-shrink: 0; /* Ensure footer stays at bottom */
+    flex-shrink: 0;
+    margin-top: 20px; /* Added spacing before the footer */
+
 }
 
-footer p {
-    margin: 0;
-    padding: 0;
-    font-size: 0.9rem;
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-@media (max-width: 768px) {
-    footer {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.8rem;
-    }
+.footer-section {
+    margin: 0.3rem; /* Reduced margin */
 }
 
-@media (max-width: 480px) {
-    footer {
-        padding: 0.3rem 0.6rem;
-        font-size: 0.7rem;
-    }
-    
-    footer p {
-        font-size: 0.7rem;
-    }
+.footer-section h3 {
+    margin: 0.1rem 0; /* Smaller margin */
+    font-size: 0.9rem; /* Reduced heading size */
+}
+
+.footer-section p {
+    margin: 0.05rem 0; /* Reduced margin for paragraphs */
+    font-size: 0.7rem; /* Reduced paragraph font size */
+}
+
+.footer-section a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    text-decoration: underline;
 }
 
 .social-media-icons {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
     display: flex;
-    gap: 10px;
-    z-index: 1000;
+    justify-content: center;
+    gap: 11px; /* Smaller gap between icons */
+    padding: 4px 0; /* Reduced padding */
 }
 
 .social-media-icons a {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50px;
-    height: 50px;
-    background-color: #e00000 !important;
+    text-align: center;
+    width: 30px; /* Smaller icons */
+    height: 30px; /* Smaller icons */
+    background-color: #fff;
     border-radius: 50%;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    text-align: center;
-    font-size: 24px;
-    color: white !important;
+    color: #e00000;
+    font-size: 14px; /* Smaller font size */
     text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .social-media-icons a:hover {
-    background-color: #f1f1f1;
-    color: #e00000 !important;
+    background-color: #e00000;
+    color: #fff;
 }
 
 @media (max-width: 768px) {
-    .social-media-icons {
-        width: 40px;
-        height: 40px;
-        bottom: 15px;
-        right: 15px;
+    footer {
+        padding: 0.2rem;
+        font-size: 0.6rem;
     }
 
     .social-media-icons a {
-        font-size: 20px;
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
     }
 }
 
+@media (max-width: 480px) {
+    footer {
+        padding: 0.1rem;
+        font-size: 0.55rem;
+    }
+
+    .social-media-icons a {
+        width: 25px;
+        height: 25px;
+        font-size: 10px;
+    }
+}
     </style>
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -447,24 +465,47 @@ footer p {
                         <path d="M7.752.066a.5.5 0 0 1 .496 0l3.75 2.143a.5.5 0 0 1 .252.434v3.995l3.498 2A.5.5 0 0 1 16 9.07v4.286a.5.5 0 0 1-.252.434l-3.75 2.143a.5.5 0 0 1-.496 0l-3.502-2-3.502 2.001a.5.5 0 0 1-.496 0l-3.75-2.143A.5.5 0 0 1 0 13.357V9.071a.5.5 0 0 1 .252-.434L3.75 6.638V2.643a.5.5 0 0 1 .252-.434zM4.25 7.504 1.508 9.071l2.742 1.567 2.742-1.567zM7.5 9.933l-2.75 1.571v3.134l2.75-1.571zm1 3.134 2.75 1.571v-3.134L8.5 9.933zm.508-3.996 2.742 1.567 2.742-1.567-2.742-1.567zm2.242-2.433V3.504L8.5 5.076V8.21zM7.5 8.21V5.076L4.75 3.504v3.134zM5.258 2.643 8 4.21l2.742-1.567L8 1.076zM15 9.933l-2.75 1.571v3.134L15 13.067zM3.75 14.638v-3.134L1 9.933v3.134z"/>
                       </svg>             </a>
             </div>
-                <!-- Footer -->
-    <footer class="footer">
-        
-            
-            
-            
-        <p>
-            <a href="https://api.whatsapp.com/send/?phone=96176660119&text&type=phone_number&app_absent=0" class="float" target="_blank" style="text-decoration: none;">
-                <i class="fa fa-whatsapp my-float" style="color:white;font-size: 24px;"></i>
+           
+            <footer>
+                <div class="footer-content">
+                    <div class="footer-section contact-us">
+                        <p> <a href="https://help.dubizzle.com.lb/hc/en-us/requests/new">Contact Us</a></p>
+                        <p><a href="https://api.whatsapp.com/send/?phone=96176660119&text&type=phone_number&app_absent=0" class="float" target="_blank" style="text-decoration: none;">  <i class="fa fa-whatsapp my-float" style="color:white;font-size: 24px;"></i></a></p>
+            <!-- <p><a href="https://www.instagram.com/dubizzlelebanon/" target="_blank" style="text-decoration: none;"> <i class="fa fa-instagram" style="color:white;font-size: 24px;"></i></a> -->
+                
+            </a></p>
+               
             </a>
-            &nbsp;&nbsp;|&nbsp;&nbsp;
-            <a href="https://www.instagram.com/dubizzlelebanon/" target="_blank" style="text-decoration: none;">
-                <i class="fa fa-instagram" style="color:white;font-size: 24px;"></i>
-            </a>
+         
+            
         </p>
-        
-        
-    </footer>
+                    </div>
+                    <div class="footer-section follow-us">
+                        <h3>Follow Us</h3>
+                        <div class="social-media-icons">
+                                                <a href="https://www.instagram.com/dubizzlelebanon/" target="_blank" aria-label="Instagram">
+    <img src="https://www.dubizzle.com.lb/assets/iconTikTok_noinline.2ae9750afe5a9ec62147a703caae0d39.svg" alt="Instagram" style="width:30px; height:30px;">
+</a>
+                            <!-- <a href="https://www.twitter.com" target="_blank" aria-label="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a> -->
+                                                <a href="https://www.facebook.com/dubizzlelebanon" target="_blank" aria-label="Facebook">
+    <img src="https://www.dubizzle.com.lb/assets/iconFacebook_noinline.200e3b4e5c25747d4caa3cc8c4b8ec41.svg" alt="Facebook" style="width:30px; height:30px;">
+</a>
+                                                 <a href="https://www.youtube.com/channel/UCPg0SSnmnUeq8rmJpaKjAtg" target="_blank" aria-label="Youtube">
+    <img src="https://www.dubizzle.com.lb/assets/iconYoutube_noinline.ba0b6c83f0fdcb99203ed892251b2ef8.svg" alt="Youtube" style="width:30px; height:30px;">
+</a>
+                                                 <a href="https://www.linkedin.com/company/dubizzle-lebanon/" target="_blank" aria-label="Linkedin">
+    <img src="https://www.dubizzle.com.lb/assets/iconLinkedIn_noinline.18fd8e96109c484f0023336db3b66c89.svg" alt="Linkedin" style="width:30px; height:30px;">
+</a>
+                            <a href="https://www.tiktok.com/@dubizzlelebanon" target="_blank" aria-label="TikTok">
+    <img src="https://www.dubizzle.com.lb/assets/iconTikTok_noinline.2ae9750afe5a9ec62147a703caae0d39.svg" alt="TikTok" style="width:30px; height:30px;">
+</a>
+
+                        </div>
+                    </div>
+                </div>
+            </footer>
     
     
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
