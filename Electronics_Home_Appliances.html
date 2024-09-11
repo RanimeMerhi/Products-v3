@@ -196,6 +196,8 @@
             // Function to switch language and update button visibility
             function switchLanguage(language) {
                 currentLanguage = language;
+                localStorage.setItem('selectedLanguage', language);
+
                 enButton.style.display = language === 'en' ? 'none' : 'inline';
                 arButton.style.display = language === 'ar' ? 'none' : 'inline';
                 enButton.classList.toggle('active', language === 'en');
@@ -257,8 +259,9 @@
                 }
             }
     
-            // Initialize the language and button visibility on page load
-            switchLanguage('en'); // Set default language to English
+                  // Initialize the language and button visibility on page load
+                  const savedLanguage = localStorage.getItem('selectedLanguage') || 'en'; // Default to English
+            switchLanguage(savedLanguage); // Set the initial language based on sessionStorage
         });
     </script>
     

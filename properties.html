@@ -32,71 +32,76 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             let currentLanguage = 'en';
-
+    
             const enButton = document.getElementById('en-button');
             const arButton = document.getElementById('ar-button');
             const categoryContainer = document.getElementById('category-container');
-
+    
             function switchLanguage(language) {
                 currentLanguage = language;
+                localStorage.setItem('selectedLanguage', language); // Use localStorage
                 enButton.style.display = language === 'en' ? 'none' : 'inline';
                 arButton.style.display = language === 'ar' ? 'none' : 'inline';
                 enButton.classList.toggle('active', language === 'en');
                 arButton.classList.toggle('active', language === 'ar');
                 loadCategories();
             }
-
+    
             enButton.addEventListener('click', () => switchLanguage('en'));
             arButton.addEventListener('click', () => switchLanguage('ar'));
-
+    
             async function loadCategories() {
                 try {
                     const response = await fetch('VAS-SHEET.json');
                     const data = await response.json();
                     const filteredData = data.filter(item => item.l1 === 'Properties');
-
+    
                     // Sort by priority_for_l2
                     filteredData.sort((a, b) => a.priority_for_l2 - b.priority_for_l2);
-
-                    categoryContainer.innerHTML = '';
+    
+                    // Clear the container and build HTML
                     const addedTitles = new Set();
-
+                    let htmlContent = '';
+    
                     const categoryLinks = {
-            "Apartments & Villas For Sale": "Apartments_and_Villas_For_Sale.html",
-            "Apartments & Villas For Rent": "Apartments_and_Villas_For_Rent.html",
-            "Commercials For Sale": "Commercials_For_Sale.html",
-            "Commercials For Rent": "Commercials_For_Rent.html",
-            "Chalets & Cabins For Sale": "Chalets_and_Cabins_For_Sale.html",
-            "Chalets & Cabins For Rent": "Chalets_and_Cabins_For_Rent.html",
-            "Rooms for Rent": "Rooms_for_Rent.html",
-            "Lands for Sale": "Lands_for_Sale.html",
-            "Lands for Rent": "Lands_for_Rent.html",
-        };
-
+                        "Apartments & Villas For Sale": "Apartments_and_Villas_For_Sale.html",
+                        "Apartments & Villas For Rent": "Apartments_and_Villas_For_Rent.html",
+                        "Commercials For Sale": "Commercials_For_Sale.html",
+                        "Commercials For Rent": "Commercials_For_Rent.html",
+                        "Chalets & Cabins For Sale": "Chalets_and_Cabins_For_Sale.html",
+                        "Chalets & Cabins For Rent": "Chalets_and_Cabins_For_Rent.html",
+                        "Rooms for Rent": "Rooms_for_Rent.html",
+                        "Lands for Sale": "Lands_for_Sale.html",
+                        "Lands for Rent": "Lands_for_Rent.html",
+                    };
+    
                     filteredData.forEach(item => {
                         const categoryName = currentLanguage === 'en' ? item.cat_english_name : item.cat_arabic_name;
-
+    
                         if (!addedTitles.has(categoryName)) {
                             addedTitles.add(categoryName);
-
+    
                             const categoryLink = categoryLinks[item.cat_english_name] || '#';
-
-                            const categoryDiv = `
+    
+                            htmlContent += `
                                 <div class="col-md-4 col-lg-3">
                                     <a href="${categoryLink}?lang=${currentLanguage}" class="item">${categoryName}</a>
                                 </div>`;
-                            
-                            categoryContainer.innerHTML += categoryDiv;
                         }
                     });
+    
+                    categoryContainer.innerHTML = htmlContent; // Set HTML content once
                 } catch (error) {
                     console.error('Error loading categories:', error);
                 }
             }
-
-            switchLanguage('en'); // Set default language to English
+    
+            // Initialize the language and button visibility on page load
+            const savedLanguage = localStorage.getItem('selectedLanguage') || 'en'; // Default to English
+            switchLanguage(savedLanguage); // Set the initial language based on localStorage
         });
     </script>
+    
 
 </body>
 </html>

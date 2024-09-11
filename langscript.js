@@ -1,41 +1,11 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Vehicles Spare Parts</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="mystyle.css">
-    
-</head>
-<body>
-    <div class="header">
-        <a href="https://www.dubizzle.com.lb/">
-            <img src="https://cdn.empgroup.com/wp-content/uploads/2023/04/dubizzle-logo-fix-width1.png" alt="Marketplace Logo">
-        </a>
-    </div>
-    <div class="language-toggle">
-        <button id="en-button" style="display: none;">EN</button>
-        <button id="ar-button" style="display: none;">AR</button>
-    </div>
-    <div class="container">
-        <h1 class="my-4">All Vehicles Spare Parts</h1>
-        <div class="search-box">
-            <input type="text" id="search-input" class="form-control" placeholder="Search...">
-        </div>
-        <div id="products" class="row product-container"></div>
-    </div>
-    <footer>
-        <p>&copy; 2024 Product Listings</p>
-    </footer>
-    <!-- <script>
+// productHandler.js
+export function initializeProductPage(l1Category, l2Category) {
     document.addEventListener('DOMContentLoaded', function() {
         const productsContainer = document.getElementById('products');
         const searchInput = document.getElementById('search-input');
         const enButton = document.getElementById('en-button');
         const arButton = document.getElementById('ar-button');
-        let currentLanguage = 'en'; // Default language
+        let currentLanguage = localStorage.getItem('selectedLanguage') || 'en'; // Retrieve language from localStorage
 
         function getLabel(key) {
             const labels = {
@@ -79,26 +49,23 @@
             fetch('VAS-SHEET.json')
                 .then(response => response.json())
                 .then(data => {
-                    const l1Category = 'Vehicles';
-                    const l2Category = 'All Vehicles Spare Parts';
-
                     let products = data.filter(product => product.l1 === l1Category && product.l2 === l2Category);
                     const hasPlace1AdProduct = products.some(product => product.product_package_name_en.includes('Place 1 Ad for'));
 
-// If no such product exists, add "Place 1 Ad for free"
-if (!hasPlace1AdProduct) {
-    products.push({
-        l1: l1Category,
-        l2: l2Category,
-        product_package_name_en: 'Place 1 Ad for 30 days',
-        product_package_name_ar: 'انشر إعلان واحد لمدة 30 يوم',
-        product_package_descr_en: 'I only have one Item to sell',
-        product_package_descr_ar: 'لدي غرض واحد للبيع',
-        price: 'Free'
-    });
-}
-                    const generalProducts = data.filter(product => product.l1 === l1Category && product.l2 === 'GENERAL');
+                    // If no such product exists, add "Place 1 Ad for free"
+                    if (!hasPlace1AdProduct) {
+                        products.push({
+                            l1: l1Category,
+                            l2: l2Category,
+                            product_package_name_en: 'Place 1 Ad for 30 days',
+                            product_package_name_ar: 'انشر إعلان واحد لمدة 30 يوم',
+                            product_package_descr_en: 'I only have one Item to sell',
+                            product_package_descr_ar: 'لدي غرض واحد للبيع',
+                            price: 'Free'
+                        });
+                    }
 
+                    const generalProducts = data.filter(product => product.l1 === l1Category && product.l2 === 'GENERAL');
                     const existingProductNames = new Set(products.map(product => `${product.l2}_${product.product_package_name_en}`));
                     generalProducts.forEach(generalProduct => {
                         const productKey = `${l2Category}_${generalProduct.product_package_name_en}`;
@@ -122,24 +89,24 @@ if (!hasPlace1AdProduct) {
                         }
                     });
 
-                     // Define an ordering map for product types
-            const productTypeOrder = {
-                'ad_limit_bump': 1,
-                'featured_ad': 2,
-                'auto_refresh_ad': 3,
-                'elite_ad': 4,
-                'free_ad': 5 // Give free ads the lowest priority
-            };
+                    // Define an ordering map for product types
+                    const productTypeOrder = {
+                        'ad_limit_bump': 1,
+                        'featured_ad': 2,
+                        'auto_refresh_ad': 3,
+                        'elite_ad': 4,
+                        'free_ad': 5 // Give free ads the lowest priority
+                    };
 
-            // Sort products based on product_type order
-            uniqueProducts.sort((a, b) => {
-                const typeA = productTypeOrder[a.product_type] || 999; // Default to a high number if not found
-                const typeB = productTypeOrder[b.product_type] || 999;
-                return typeA - typeB;
-            });
+                    // Sort products based on product_type order
+                    uniqueProducts.sort((a, b) => {
+                        const typeA = productTypeOrder[a.product_type] || 999; // Default to a high number if not found
+                        const typeB = productTypeOrder[b.product_type] || 999;
+                        return typeA - typeB;
+                    });
 
-            // Render products
-            renderProducts(uniqueProducts);
+                    // Render products
+                    renderProducts(uniqueProducts);
 
                     searchInput.addEventListener('input', function() {
                         const searchQuery = this.value.toLowerCase();
@@ -162,33 +129,18 @@ if (!hasPlace1AdProduct) {
             }
         }
 
-        enButton.addEventListener('click', function() {
-            currentLanguage = 'en';
+        function switchLanguage(language) {
+            currentLanguage = language;
+            localStorage.setItem('selectedLanguage', language); // Store selected language in localStorage
             updateLanguageButtons();
             fetchAndDisplayProducts();
-        });
+        }
 
-        arButton.addEventListener('click', function() {
-            currentLanguage = 'ar';
-            updateLanguageButtons();
-            fetchAndDisplayProducts();
-        });
+        enButton.addEventListener('click', () => switchLanguage('en'));
+        arButton.addEventListener('click', () => switchLanguage('ar'));
 
         // Initial setup
         updateLanguageButtons();
         fetchAndDisplayProducts();
     });
-    </script> -->
-    <script type="module">
-        import { initializeProductPage } from './langscript.js';
-    
-        // Define the categories for this specific page
-        const l1Category = 'Vehicles';
-                    const l2Category = 'All Vehicles Spare Parts';
-    
-        // Initialize the product page
-        initializeProductPage(l1Category, l2Category);
-    </script>
-
-</body>
-</html>
+}
