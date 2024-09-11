@@ -29,7 +29,7 @@
     <footer>
         <p>&copy; 2024 Product Listings</p>
     </footer>
-    <script>
+    <!-- <script>
     document.addEventListener('DOMContentLoaded', function() {
         const productsContainer = document.getElementById('products');
         const searchInput = document.getElementById('search-input');
@@ -185,7 +185,18 @@
         updateLanguageButtons();
         fetchAndDisplayProducts();
     });
+    </script> -->
+    <script type="module">
+        import { initializeProductPage } from './langscript.js';
+    
+        // Define the categories for this specific page
+        const l1Category = 'Kids & Babies';
+            const l2Category = 'Cribs & Bedroom Furniture';
+    
+        // Initialize the product page
+        initializeProductPage(l1Category, l2Category);
     </script>
+
 </body>
 </html>
 

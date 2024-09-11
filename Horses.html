@@ -30,7 +30,7 @@
         <p>&copy; 2024 Product Listings</p>
     </footer>
 
-
+<!-- 
     <script>
      document.addEventListener('DOMContentLoaded', function() {
         const productsContainer = document.getElementById('products');
@@ -189,6 +189,17 @@
     });
 
 
+    </script> -->
+    <script type="module">
+        import { initializeProductPage } from './langscript.js';
+    
+        // Define the categories for this specific page
+        const l1Category = 'Pets';
+            const l2Category = 'Horses';
+    
+        // Initialize the product page
+        initializeProductPage(l1Category, l2Category);
     </script>
+
 </body>
 </html>

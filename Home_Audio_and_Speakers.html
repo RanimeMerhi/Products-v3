@@ -32,7 +32,7 @@
 
 
 
-    <script>
+    <!-- <script>
      document.addEventListener('DOMContentLoaded', function() {
         const productsContainer = document.getElementById('products');
         const searchInput = document.getElementById('search-input');
@@ -190,6 +190,17 @@
     });
 
 
+    </script> -->
+    <script type="module">
+        import { initializeProductPage } from './langscript.js';
+    
+        // Define the categories for this specific page
+        const l1Category = 'Electronics & Home Appliances';
+            const l2Category = 'Home Audio & Speakers';
+    
+        // Initialize the product page
+        initializeProductPage(l1Category, l2Category);
     </script>
+
 </body>
 </html>
