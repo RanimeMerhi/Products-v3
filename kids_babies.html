@@ -145,9 +145,44 @@
         }
         
             </style> -->
+            <style>
+                .header {
+    display: flex;
+    justify-content: center; /* Center the content (logo) horizontally */
+    align-items: center;
+    position: relative; /* Position elements relatively */
+}
+
+.back-button {
+    position: absolute; /* Position the back button absolutely */
+    left: 20px; /* Align it to the left */
+    padding: 10px 20px;
+    background-color: #e00000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.back-button:hover {
+    background-color: #e00000;
+    text-decoration: none;
+    color: white;
+}
+
+.header img {
+    max-width: 500px;
+    max-height: 200px;
+}
+
+            </style>
 </head>
 <body>
     <div class="header">
+        <a href="javascript:history.back()" class="back-button">← Back</a>
+
         <a href="https://www.dubizzle.com.lb/">
         <img src="https://cdn.empgroup.com/wp-content/uploads/2023/04/dubizzle-logo-fix-width1.png"  alt="Marketplace Logo">
     </a>

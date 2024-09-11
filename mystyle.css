@@ -1,14 +1,33 @@
 .header {
     display: flex;
-    justify-content: center;
+    justify-content: center; /* Center the content (logo) horizontally */
     align-items: center;
+    position: relative; /* Position elements relatively */
+}
+
+.back-button {
+    position: absolute; /* Position the back button absolutely */
+    left: 20px; /* Align it to the left */
+    padding: 10px 20px;
+    background-color: #e00000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.back-button:hover {
+    background-color: #e00000;
+    text-decoration: none;
+    color: white;
 }
 
 .header img {
     max-width: 500px;
     max-height: 200px;
 }
-
 .product-card {
     margin-bottom: 20px;
     border: 1px solid #ddd;
@@ -17,7 +36,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: white;
     height: 100%;
-    border-color: red;
+    border-color: #e00000;
 }
 
 .product-card img {
@@ -41,7 +60,7 @@
 
 .search-box {
     margin-bottom: 20px;
-    border-color: red;
+    border-color: #e00000;
     border-width: 1px;
     border-style: solid;
     padding: 10px;
@@ -113,12 +132,12 @@ p {
 }
 
 .price {
-    color: red;
+    color: #e00000;
     font-weight: bold;
 }
 
 .price-label {
-    color: red;
+    color: #e00000;
     font-weight: bold;
 }
 
