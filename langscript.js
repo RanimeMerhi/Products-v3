@@ -61,7 +61,8 @@ export function initializeProductPage(l1Category, l2Category) {
                             product_package_name_ar: 'انشر إعلان واحد لمدة 30 يوم',
                             product_package_descr_en: 'I only have one Item to sell',
                             product_package_descr_ar: 'لدي غرض واحد للبيع',
-                            price: 'Free'
+                            price: 'Free',
+                            product_type: 'ad_limit_bump' // Ensure this has the appropriate type for sorting
                         });
                     }
 
@@ -98,8 +99,12 @@ export function initializeProductPage(l1Category, l2Category) {
                         'free_ad': 5 // Give free ads the lowest priority
                     };
 
-                    // Sort products based on product_type order
+                    // Sort products based on product_type order and price
                     uniqueProducts.sort((a, b) => {
+                        // Special case: `ad_limit_bump` with 'Free' price should come first
+                        if (a.product_type === 'ad_limit_bump' && a.price === 'Free') return -1;
+                        if (b.product_type === 'ad_limit_bump' && b.price === 'Free') return 1;
+
                         const typeA = productTypeOrder[a.product_type] || 999; // Default to a high number if not found
                         const typeB = productTypeOrder[b.product_type] || 999;
                         return typeA - typeB;
