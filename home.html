@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
 
     <style>
-        .whatsapp-icon {
+     .whatsapp-icon {
     position: fixed; /* Fixed position to the screen */
     bottom: 20px;
     right: 20px; /* Positioned 20px from the right */
@@ -21,12 +21,10 @@
     align-items: center;
     width: 60px;
     height: 60px;
-    /* background-color: #25D366; */
     border-radius: 50%;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     text-align: center;
     font-size: 24px;
-    /* color: white; */
     text-decoration: none;
 }
 
@@ -34,9 +32,7 @@
     border: 2px solid; 
     border-color: #e00000;
     border-radius: 25%;
-    
 }
-
 
 html, body {
     height: 100%;
@@ -78,7 +74,7 @@ body {
 
 .category-container {
     margin-top: 20px;
-    flex-grow: 1; /* This will make the content take up remaining space */
+    flex-grow: 1;
 }
 
 .category-card {
@@ -155,7 +151,6 @@ body {
     }
 }
 
-
 @media (max-width: 1024px) {
     .container-fluid .row.category-container .col-md-4 {
         flex: 0 0 50%;
@@ -168,7 +163,6 @@ body {
     }
 }
 
-/* Adjust the spacing for mobile devices */
 @media (max-width: 768px) {
     .container-fluid .row.category-container .col-md-4 {
         flex: 0 0 100%;
@@ -210,18 +204,19 @@ body {
     background-color: #e00000;
     color: #fff;
 }
+
+/* Footer styles */
 footer {
     background-color: #e00000;
     color: #fff;
     text-align: center;
-    padding: 0.3rem; /* Reduced padding */
-    font-size: 0.7rem; /* Smaller font size */
+    padding: 0.5rem;
+    font-size: 0.9rem;
     width: 100%;
+    position: relative;
+    margin-top: auto; /* Pushes footer to the bottom of the page */
     box-sizing: border-box;
-    margin-top: auto;
     flex-shrink: 0;
-    margin-top: 20px; /* Added spacing before the footer */
-
 }
 
 .footer-content {
@@ -232,17 +227,17 @@ footer {
 }
 
 .footer-section {
-    margin: 0.3rem; /* Reduced margin */
+    margin: 0.5rem;
 }
 
 .footer-section h3 {
-    margin: 0.1rem 0; /* Smaller margin */
-    font-size: 0.9rem; /* Reduced heading size */
+    margin: 0.2rem 0;
+    font-size: 1rem;
 }
 
 .footer-section p {
-    margin: 0.05rem 0; /* Reduced margin for paragraphs */
-    font-size: 0.7rem; /* Reduced paragraph font size */
+    margin: 0.1rem 0;
+    font-size: 0.85rem;
 }
 
 .footer-section a {
@@ -257,8 +252,8 @@ footer {
 .social-media-icons {
     display: flex;
     justify-content: center;
-    gap: 11px; /* Smaller gap between icons */
-    padding: 4px 0; /* Reduced padding */
+    gap: 15px;
+    padding: 5px 0;
 }
 
 .social-media-icons a {
@@ -266,13 +261,13 @@ footer {
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: 30px; /* Smaller icons */
-    height: 30px; /* Smaller icons */
+    width: 35px;
+    height: 35px;
     background-color: #fff;
     border-radius: 50%;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     color: #e00000;
-    font-size: 14px; /* Smaller font size */
+    font-size: 16px;
     text-decoration: none;
     transition: background-color 0.3s, color 0.3s;
 }
@@ -282,10 +277,24 @@ footer {
     color: #fff;
 }
 
+/* Responsive footer for smaller screens */
 @media (max-width: 768px) {
     footer {
         padding: 0.2rem;
-        font-size: 0.6rem;
+        font-size: 0.8rem;
+    }
+
+    .social-media-icons a {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    footer {
+        padding: 0.2rem;
+        font-size: 0.7rem;
     }
 
     .social-media-icons a {
@@ -295,18 +304,51 @@ footer {
     }
 }
 
-@media (max-width: 480px) {
-    footer {
-        padding: 0.1rem;
-        font-size: 0.55rem;
-    }
+/* Business Packages section */
+.business-package-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Aligns logo and text vertically */
+    text-decoration: none; /* Removes underline from the link */
+    margin-left: auto;
+    margin-right: 10px; /* Space between container and the edge */
+}
 
-    .social-media-icons a {
-        width: 25px;
-        height: 25px;
-        font-size: 10px;
+.business-package-logo {
+    width: 80px; /* Adjust logo size */
+    height: auto;
+}
+
+.business-package-text {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #e00000;
+    text-align: center;
+    font-weight: bold;
+}
+
+.business-package-container:hover .business-package-text {
+    text-decoration: underline; /* Adds underline on hover */
+}
+
+@media (max-width: 768px) {
+    .business-package-logo {
+        width: 70px;
+    }
+    .business-package-text {
+        font-size: 12px;
     }
 }
+
+@media (max-width: 576px) {
+    .business-package-logo {
+        width: 60px;
+    }
+    .business-package-text {
+        font-size: 11px;
+    }
+}
+
     </style>
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -316,12 +358,19 @@ footer {
    
        
         <div class="header">
+            
+            
             <a href="https://www.dubizzle.com.lb/">
             <img src="https://cdn.empgroup.com/wp-content/uploads/2023/04/dubizzle-logo-fix-width1.png" alt="Marketplace Logo">
         </a>
             <!-- <div class="search-box">
                 <input type="text" id="search-input" class="form-control" placeholder="Search for a category...">
             </div> -->
+            <a href="https://olxmena.wufoo.com/forms/dubizzle-lebanon-business-packages/" class="business-package-container">
+                <img src="https://raw.githubusercontent.com/RanimeMerhi/Products-v3/main/Business%20Packages.svg" alt="Business Package Logo" class="business-package-logo">
+                <p class="business-package-text">Business Packages</p>
+            </a>
+            
             <div class="language-toggle">
                 <button id="en-button">EN</button>  <button id="ar-button">AR</button>
             </div>
