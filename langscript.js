@@ -1,21 +1,24 @@
-// productHandler.js
+// langscript.js
 export function initializeProductPage(l1Category, l2Category) {
     document.addEventListener('DOMContentLoaded', function() {
         const productsContainer = document.getElementById('products');
         const searchInput = document.getElementById('search-input');
         const enButton = document.getElementById('en-button');
         const arButton = document.getElementById('ar-button');
+        const backButton = document.querySelector('.back-button'); // Select the back button
         let currentLanguage = localStorage.getItem('selectedLanguage') || 'en'; // Retrieve language from localStorage
 
         function getLabel(key) {
             const labels = {
                 en: {
                     description: 'Description',
-                    price: 'Price'
+                    price: 'Price',
+                    back: '← Back' // English text for the back button
                 },
                 ar: {
                     description: 'الوصف',
-                    price: 'السعر'
+                    price: 'السعر',
+                    back: '← رجوع' // Arabic text for the back button
                 }
             };
             return labels[currentLanguage][key];
@@ -62,7 +65,7 @@ export function initializeProductPage(l1Category, l2Category) {
                             product_package_descr_en: 'I only have one Item to sell',
                             product_package_descr_ar: 'لدي غرض واحد للبيع',
                             price: 'Free',
-                            product_type: 'ad_limit_bump' // Ensure this has the appropriate type for sorting
+                            product_type: 'ad_limit_bump'
                         });
                     }
 
@@ -96,16 +99,15 @@ export function initializeProductPage(l1Category, l2Category) {
                         'featured_ad': 2,
                         'auto_refresh_ad': 3,
                         'elite_ad': 4,
-                        'free_ad': 5 // Give free ads the lowest priority
+                        'free_ad': 5
                     };
 
                     // Sort products based on product_type order and price
                     uniqueProducts.sort((a, b) => {
-                        // Special case: `ad_limit_bump` with 'Free' price should come first
                         if (a.product_type === 'ad_limit_bump' && a.price === 'Free') return -1;
                         if (b.product_type === 'ad_limit_bump' && b.price === 'Free') return 1;
 
-                        const typeA = productTypeOrder[a.product_type] || 999; // Default to a high number if not found
+                        const typeA = productTypeOrder[a.product_type] || 999;
                         const typeB = productTypeOrder[b.product_type] || 999;
                         return typeA - typeB;
                     });
@@ -134,10 +136,15 @@ export function initializeProductPage(l1Category, l2Category) {
             }
         }
 
+        function updateBackButtonText() {
+            backButton.textContent = getLabel('back');
+        }
+
         function switchLanguage(language) {
             currentLanguage = language;
-            localStorage.setItem('selectedLanguage', language); // Store selected language in localStorage
+            localStorage.setItem('selectedLanguage', language);
             updateLanguageButtons();
+            updateBackButtonText();
             fetchAndDisplayProducts();
         }
 
@@ -146,6 +153,7 @@ export function initializeProductPage(l1Category, l2Category) {
 
         // Initial setup
         updateLanguageButtons();
+        updateBackButtonText();
         fetchAndDisplayProducts();
     });
 }
