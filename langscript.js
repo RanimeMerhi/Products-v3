@@ -1,4 +1,90 @@
 // langscript.js
+const categoryTranslations = {
+    "Musical Instruments": "آلات موسيقية",
+    "Books": "كتب",
+    "Movies & Music": "أفلام وموسيقى",
+    "Games & Hobbies": "ألعاب وهوايات",
+    "Tickets & Vouchers": "تذاكر وقسائم",
+    "Stationery & Study Tools": "قرطاسية وأدوات الدراسة",
+    "Other Items": "أغراض أخرى",
+    "Home Improvements & Repair": "الصيانة والتحسين المنزلي",
+    "Personal Services": "خدمات شخصية",
+    "Corporate Services": "خدمات الشركات",
+    "Vehicle Repair Services": "خدمات المركبات",
+    "Transportation & logistics Services": "النقل والخدمات اللوجستية",
+    "IT, Design & Printing Services": "خدمات تكنولوجيا المعلومات والتصميم والطباعة",
+    "Other Services": "خدمات أخرى",
+    "Cars for Rent": "سيارات للإيجار",
+    "Living Room": "غرفة الجلوس",
+    "Bedroom": "غرفة نوم",
+    "Dining Room": "غرفة سفرة",
+    "Kitchen & Kitchenware": "مطبخ",
+    "Bathroom": "الحمام",
+    "Home Decoration & Accessories": "الديكورات المنزلية والاكسسوارات",
+    "Garden & Outdoor": "حديقة و أماكن خارجية",
+    "Other Home Furniture & Decor": "أثاث منزل وديكورات أخرى",
+    "Animal & Pet accessories": "مستلزمات الحيوانات",
+    "Dogs": "كلاب",
+    "Cats": "قطط",
+    "Birds": "طيور",
+    "Livestock": "مواشي",
+    "Horses": "خيول",
+    "Fish": "أسماك",
+    "Other Animals & Pets": "حيوانات أليفة أخرى",
+    "Commercial Restaurants Equipment": "معدات المطاعم التجارية",
+    "Industrial & Construction Equipment": "المعدات الصناعية ومعدات البناء",
+    "Medical & Wellbeing Equipment": "المعدات الطبية والعناية بالصحة",
+    "Retail & Shop Equipement": "معدات المحلات والمتاجر",
+    "Businesses & Shops Liquidation": "تصفية الشركات والمتاجر",
+    "Other Business & Industrial": "معدات تجارية وصناعية أخرى",
+    "Grocery & food products": "البقالة والمنتجات الغذائية",
+    "TV & Video": "تلفزيونات و فيديو",
+    "Home Audio & Speakers": "أجهزة صوتية، سماعات ومكبرات صوت",
+    "Kitchen Equipment & Appliances": "أدوات وأجهزة المطبخ",
+    "AC, Cooling & Heating": "أجهزة تكييف وتدفئة",
+    "Cleaning Appliances": "أجهزة تنضيف",
+    "Washing Machines & Dryers": "غسالات و نشافات",
+    "Laptops, Tablets, Computers": "لابتوب، تابلت و كمبيوتر",
+    "Computer Parts & IT Accessories": "قطع الكمبيوتر وأجهزة إتصالات",
+    "Cameras": "كاميرات وتصوير",
+    "Gaming Consoles & Accessories": "أجهزة ألعاب الفيديو والإكسسوارات",
+    "Video Games": "ألعاب الفيديو",
+    "Other Home Appliances": "أجهزة منزلية أخرى",
+    "Job Seekers": "الباحثين عن عمل",
+    "Jobs Available": "وظائف شاغرة",
+    "Cars for Sale": "سيارات للبيع",
+    "All Vehicles Accessories": "أكسسوارات للمركبات",
+    "All Vehicles Spare Parts": "قطع غيار للمركبات",
+    "Number Plates": "أرقام لوحات",
+    "Motorcycles & ATVs": "دراجات نارية ورباعية",
+    "Trucks & Buses": "باصات ومركبات ثقيلة",
+    "Boats": "قوارب",
+    "Others Vehicles": "مركبات أخرى",
+    "Apartments & Villas For Sale": "شقق وفلل للبيع",
+    "Apartments & Villas For Rent": "شقق وفلل للإيجار",
+    "Commercials For Sale": "عقارات تجارية للبيع",
+    "Commercials For Rent": "عقارات تجارية للإيجار",
+    "Lands for Sale": "اراضي للبيع",
+    "Lands for Rent": "أراضي للإيجار",
+    "Chalets & Cabins For Sale": "شاليهات وكبائن للبيع",
+    "Chalets & Cabins For Rent": "شاليهات وكبائن للإيجار",
+    "Buildings & Multiple Units": "ابنية ووحدات متعددة",
+    "Rooms for Rent": "غرف للإيجار",
+    "Mobile Phones": "موبايلات",
+    "Mobile Accessories": "اكسسورات موبايلات",
+    "Mobile Numbers": "أرقام الهواتف المحمولة",
+    "Solar panels & Renewable energy": "الألواح الشمسية والطاقة المتجدّدة",
+    "Generators": "المولّدات",
+    "Supplements & Nutrition": "المكملّات والتغذية",
+    "Smart Watches": "الساعات الذكية",
+    "Clothing for Men": "ملابس للرجال",
+    "Accessories for Men": "اكسسوارات للرجال",
+    "Clothing for Women": "ملابس للنساء",
+    "Accessories for Women": "اكسسوارات للنساء",
+    "Make-up & Cosmetics": "المكياج ومستحضرات التجميل",
+    "Jewelry & Faux-Bijoux": "مجوهرات و فوب"
+};
+
 export function initializeProductPage(l1Category, l2Category) {
     document.addEventListener('DOMContentLoaded', function() {
         const productsContainer = document.getElementById('products');
@@ -24,18 +110,18 @@ export function initializeProductPage(l1Category, l2Category) {
             return labels[currentLanguage][key];
         }
 
-        function renderProducts(products) {
+         function renderProducts(products) {
             productsContainer.innerHTML = '';
             products.forEach(product => {
                 const productName = currentLanguage === 'en' ? product.product_package_name_en : product.product_package_name_ar;
                 const productDesc = currentLanguage === 'en' ? product.product_package_descr_en : product.product_package_descr_ar;
                 const descriptionLabel = getLabel('description');
                 const priceLabel = getLabel('price');
-
+        
                 const productCard = `
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="product-card">
-                            <h3>${product.l2}</h3>
+                            <h3>${categoryTranslations[product.l2] || product.l2}</h3>
                             <p>${productName}</p>
                             <ul class="package-list">
                                 <li><span>${descriptionLabel}:</span> ${productDesc}</li>
