@@ -22,7 +22,7 @@
         <button id="ar-button" style="display: none;">AR</button>
     </div>
     <div class="container">
-        <h1 class="my-4">All Antiques & Collectibles Accessories</h1>
+        <h1 id="main-title" class="my-4">All Antiques & Collectibles Accessories</h1>
         <div class="search-box">
             <input type="text" id="search-input" class="form-control" placeholder="Search...">
         </div>
@@ -182,13 +182,49 @@ if (!hasPlace1AdProduct) {
     </script> -->
     <script type="module">
         import { initializeProductPage } from './langscript.js';
-    
-        // Define the categories for this specific page
-        const l1Category = 'Hobbies, Music, Art & Books';
-        const l2Category = 'Antiques & Collectibles';
-    
-        // Initialize the product page
-        initializeProductPage(l1Category, l2Category);
+// Define the categories for this specific page
+const l1Category = 'Hobbies, Music, Art & Books';
+const l2Category = 'Antiques & Collectibles';
+
+// Initialize the product page
+initializeProductPage(l1Category, l2Category);
+
+// Variable to track current language
+let currentLanguage = localStorage.getItem('selectedLanguage') || 'en'; // Set initial language from localStorage
+
+// Function to change the language of the H1
+function changeLanguage(language) {
+    const titleElement = document.getElementById("main-title");
+    if (language === "ar") {
+        titleElement.textContent = "تحف ومقتنيات"; // Arabic translation
+    } else {
+        titleElement.textContent = "Antiques & Collectibles"; // English text
+    }
+    currentLanguage = language; // Update the current language
+}
+
+// Immediately apply the language on page load
+changeLanguage(currentLanguage);
+
+// Event listeners for language buttons
+document.getElementById("en-button").addEventListener("click", function() {
+    changeLanguage("en"); // Switch to English
+    localStorage.setItem('selectedLanguage', "en"); // Save the language preference
+    updateUrlParameter("lang", "en"); // Update URL parameter
+});
+document.getElementById("ar-button").addEventListener("click", function() {
+    changeLanguage("ar"); // Switch to Arabic
+    localStorage.setItem('selectedLanguage', "ar"); // Save the language preference
+    updateUrlParameter("lang", "ar"); // Update URL parameter
+});
+
+// Function to update the URL parameter without reloading the page
+function updateUrlParameter(param, value) {
+    const url = new URL(window.location);
+    url.searchParams.set(param, value);
+    window.history.replaceState({}, '', url); // Update the URL in the address bar
+}
+
     </script>
 
 </body>

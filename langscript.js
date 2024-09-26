@@ -110,26 +110,35 @@ export function initializeProductPage(l1Category, l2Category) {
             return labels[currentLanguage][key];
         }
 
-         function renderProducts(products) {
+        function getCategoryHeading(l2Category) {
+            if (currentLanguage === 'en') {
+                return l2Category;
+            } else {
+                return categoryTranslations[l2Category] || l2Category;
+            }
+        }
+
+        function renderProducts(products) {
             productsContainer.innerHTML = '';
             products.forEach(product => {
                 const productName = currentLanguage === 'en' ? product.product_package_name_en : product.product_package_name_ar;
                 const productDesc = currentLanguage === 'en' ? product.product_package_descr_en : product.product_package_descr_ar;
                 const descriptionLabel = getLabel('description');
                 const priceLabel = getLabel('price');
-        
+
                 const productCard = `
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="product-card">
-                            <h3>${categoryTranslations[product.l2] || product.l2}</h3>
-                            <p>${productName}</p>
-                            <ul class="package-list">
-                                <li><span>${descriptionLabel}:</span> ${productDesc}</li>
-                                <li><span class="price-label">${priceLabel}:</span> <span class="price">${product.price}</span></li>
-                            </ul>
-                        </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="product-card">
+                        <h3>${getCategoryHeading(product.l2)}</h3>
+                        <p>${productName}</p>
+                        <ul class="package-list">
+                            <li><span>${descriptionLabel}:</span> ${productDesc}</li>
+                            <li><span class="price-label">${priceLabel}:</span> <span class="price">${product.price}</span></li>
+                        </ul>
                     </div>
-                `;
+                </div>
+            `;
+
                 productsContainer.innerHTML += productCard;
             });
         }

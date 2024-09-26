@@ -22,7 +22,7 @@
         <button id="ar-button" style="display: none;">AR</button>
     </div>
     <div class="container">
-        <h1 class="my-4">Animal & Pet accessories</h1>
+        <h1 id="main-title" class="my-4">Animal & Pet accessories</h1>
         <div class="search-box">
             <input type="text" id="search-input" class="form-control" placeholder="Search...">
         </div>
@@ -32,166 +32,217 @@
         <p>&copy; 2024 Product Listings</p>
     </footer>
     <!-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const productsContainer = document.getElementById('products');
-        const searchInput = document.getElementById('search-input');
-        const enButton = document.getElementById('en-button');
-        const arButton = document.getElementById('ar-button');
-        let currentLanguage = 'en'; // Default language
-
-        function getLabel(key) {
-            const labels = {
-                en: {
-                    description: 'Description',
-                    price: 'Price'
-                },
-                ar: {
-                    description: 'الوصف',
-                    price: 'السعر'
-                }
-            };
-            return labels[currentLanguage][key];
-        }
-
-        function renderProducts(products) {
-            productsContainer.innerHTML = '';
-            products.forEach(product => {
-                const productName = currentLanguage === 'en' ? product.product_package_name_en : product.product_package_name_ar;
-                const productDesc = currentLanguage === 'en' ? product.product_package_descr_en : product.product_package_descr_ar;
-                const descriptionLabel = getLabel('description');
-                const priceLabel = getLabel('price');
-
-                const productCard = `
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="product-card">
-                            <h3>${product.l2}</h3>
-                            <p>${productName}</p>
-                            <ul class="package-list">
-                                <li><span>${descriptionLabel}:</span> ${productDesc}</li>
-                                <li><span class="price-label">${priceLabel}:</span> <span class="price">${product.price}</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                `;
-                productsContainer.innerHTML += productCard;
-            });
-        }
-
-        function fetchAndDisplayProducts() {
-            fetch('VAS-SHEET.json')
-                .then(response => response.json())
-                .then(data => {
-                    const l1Category = 'Pets';
-                    const l2Category = 'Animal & Pet accessories';
-
-                    let products = data.filter(product => product.l1 === l1Category && product.l2 === l2Category);
-                    const hasPlace1AdProduct = products.some(product => product.product_package_name_en.includes('Place 1 Ad for'));
-
-// If no such product exists, add "Place 1 Ad for free"
-if (!hasPlace1AdProduct) {
-    products.push({
-        l1: l1Category,
-        l2: l2Category,
-        product_package_name_en: 'Place 1 Ad for 30 days',
-        product_package_name_ar: 'انشر إعلان واحد لمدة 30 يوم',
-        product_package_descr_en: 'I only have one Item to sell',
-        product_package_descr_ar: 'لدي غرض واحد للبيع',
-        price: 'Free'
-    });
-}
-                    const generalProducts = data.filter(product => product.l1 === l1Category && product.l2 === 'GENERAL');
-
-                    const existingProductNames = new Set(products.map(product => `${product.l2}_${product.product_package_name_en}`));
-                    generalProducts.forEach(generalProduct => {
-                        const productKey = `${l2Category}_${generalProduct.product_package_name_en}`;
-                        if (!existingProductNames.has(productKey)) {
-                            products.push({
-                                ...generalProduct,
-                                l2: l2Category
-                            });
-                            existingProductNames.add(productKey);
-                        }
-                    });
-
-                    const uniqueProducts = [];
-                    const uniqueKeys = new Set();
-
-                    products.forEach(product => {
-                        const productKey = `${product.l2}_${product.product_package_name_en}`;
-                        if (!uniqueKeys.has(productKey)) {
-                            uniqueProducts.push(product);
-                            uniqueKeys.add(productKey);
-                        }
-                    });
-
-   // Define an ordering map for product types
-   const productTypeOrder = {
-                'ad_limit_bump': 1,
-                'featured_ad': 2,
-                'auto_refresh_ad': 3,
-                'elite_ad': 4,
-                'free_ad': 5 // Give free ads the lowest priority
-            };
-
-            // Sort products based on product_type order
-            uniqueProducts.sort((a, b) => {
-                const typeA = productTypeOrder[a.product_type] || 999; // Default to a high number if not found
-                const typeB = productTypeOrder[b.product_type] || 999;
-                return typeA - typeB;
-            });
-
-            // Render products
-            renderProducts(uniqueProducts);
-                    searchInput.addEventListener('input', function() {
-                        const searchQuery = this.value.toLowerCase();
-                        const filteredProducts = uniqueProducts.filter(product => {
-                            const name = (currentLanguage === 'en') ? product.product_package_name_en : product.product_package_name_ar;
-                            return name.toLowerCase().includes(searchQuery);
-                        });
-                        renderProducts(filteredProducts);
-                    });
-                });
-        }
-
-        function updateLanguageButtons() {
-            if (currentLanguage === 'ar') {
-                enButton.style.display = 'inline-block';
-                arButton.style.display = 'none';
-            } else {
-                enButton.style.display = 'none';
-                arButton.style.display = 'inline-block';
+        document.addEventListener('DOMContentLoaded', function() {
+            const productsContainer = document.getElementById('products');
+            const searchInput = document.getElementById('search-input');
+            const enButton = document.getElementById('en-button');
+            const arButton = document.getElementById('ar-button');
+            let currentLanguage = localStorage.getItem('selectedLanguage') || 'en';
+    
+            function getLabel(key) {
+                const labels = {
+                    en: {
+                        description: 'Description',
+                        price: 'Price'
+                    },
+                    ar: {
+                        description: 'الوصف',
+                        price: 'السعر'
+                    }
+                };
+                return labels[currentLanguage][key];
             }
-        }
-
-        enButton.addEventListener('click', function() {
-            currentLanguage = 'en';
+    
+            function renderProducts(products) {
+                productsContainer.innerHTML = '';
+                products.forEach(product => {
+                    const productName = currentLanguage === 'en' ? product.product_package_name_en : product.product_package_name_ar;
+                    const productDesc = currentLanguage === 'en' ? product.product_package_descr_en : product.product_package_descr_ar;
+                    const descriptionLabel = getLabel('description');
+                    const priceLabel = getLabel('price');
+    
+                    const productCard = `
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="product-card">
+                                <h3>${product.l2}</h3>
+                                <p>${productName}</p>
+                                <ul class="package-list">
+                                    <li><span>${descriptionLabel}:</span> ${productDesc}</li>
+                                    <li><span class="price-label">${priceLabel}:</span> <span class="price">${product.price}</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+                    productsContainer.innerHTML += productCard;
+                });
+            }
+    
+            function fetchAndDisplayProducts() {
+                fetch('VAS-SHEET.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        const l1Category = 'Vehicles';
+                        const l2Category = 'Animal & Pet accessories';
+    
+                        let products = data.filter(product => product.l1 === l1Category && product.l2 === l2Category);
+                        const hasPlace1AdProduct = products.some(product => product.product_package_name_en.includes('Place 1 Ad for'));
+    
+                        // If no such product exists, add "Place 1 Ad for free"
+                        if (!hasPlace1AdProduct) {
+                            products.push({
+                                l1: l1Category,
+                                l2: l2Category,
+                                product_package_name_en: 'Place 1 Ad for 30 days',
+                                product_package_name_ar: 'انشر إعلان واحد لمدة 30 يوم',
+                                product_package_descr_en: 'I only have one Item to sell',
+                                product_package_descr_ar: 'لدي غرض واحد للبيع',
+                                price: 'Free'
+                            });
+                        }
+    
+                        const generalProducts = data.filter(product => product.l1 === l1Category && product.l2 === 'GENERAL');
+    
+                        const existingProductNames = new Set(products.map(product => `${product.l2}_${product.product_package_name_en}`));
+                        generalProducts.forEach(generalProduct => {
+                            const productKey = `${l2Category}_${generalProduct.product_package_name_en}`;
+                            if (!existingProductNames.has(productKey)) {
+                                products.push({
+                                    ...generalProduct,
+                                    l2: l2Category
+                                });
+                                existingProductNames.add(productKey);
+                            }
+                        });
+    
+                        const uniqueProducts = [];
+                        const uniqueKeys = new Set();
+    
+                        products.forEach(product => {
+                            const productKey = `${product.l2}_${product.product_package_name_en}`;
+                            if (!uniqueKeys.has(productKey)) {
+                                uniqueProducts.push(product);
+                                uniqueKeys.add(productKey);
+                            }
+                        });
+    
+                        // Sort products based on product_type order
+                        const productTypeOrder = {
+                            'ad_limit_bump': 1,
+                            'featured_ad': 2,
+                            'auto_refresh_ad': 3,
+                            'elite_ad': 4,
+                            'free_ad': 5 // Give free ads the lowest priority
+                        };
+    
+                        uniqueProducts.sort((a, b) => {
+                            const typeA = productTypeOrder[a.product_type] || 999; // Default to a high number if not found
+                            const typeB = productTypeOrder[b.product_type] || 999;
+                            return typeA - typeB;
+                        });
+    
+                        renderProducts(uniqueProducts);
+    
+                        searchInput.addEventListener('input', function() {
+                            const searchQuery = this.value.toLowerCase();
+                            const filteredProducts = uniqueProducts.filter(product => {
+                                const name = (currentLanguage === 'en') ? product.product_package_name_en : product.product_package_name_ar;
+                                return name.toLowerCase().includes(searchQuery);
+                            });
+                            renderProducts(filteredProducts);
+                        });
+                    })
+                    .catch(error => console.error('Error fetching products:', error));
+            }
+    
+            // Set language preference in localStorage
+            function setLanguage(language) {
+                localStorage.setItem('selectedLanguage', language);
+            }
+    
+            // Get language preference from localStorage
+            function getLanguage() {
+                return localStorage.getItem('selectedLanguage') || 'en';
+            }
+    
+            // Update language buttons
+            function updateLanguageButtons() {
+                const currentLanguage = getLanguage();
+                if (currentLanguage === 'ar') {
+                    enButton.style.display = 'inline-block';
+                    arButton.style.display = 'none';
+                } else {
+                    enButton.style.display = 'none';
+                    arButton.style.display = 'inline-block';
+                }
+            }
+    
+            // Call updateLanguageButtons on page load
             updateLanguageButtons();
             fetchAndDisplayProducts();
+    
+            enButton.addEventListener('click', function() {
+                currentLanguage = 'en';
+                localStorage.setItem('selectedLanguage', currentLanguage); // Save the language preference
+                updateLanguageButtons();
+                fetchAndDisplayProducts();
+            });
+    
+            arButton.addEventListener('click', function() {
+                currentLanguage = 'ar';
+                localStorage.setItem('selectedLanguage', currentLanguage); // Save the language preference
+                updateLanguageButtons();
+                fetchAndDisplayProducts();
+            });
         });
-
-        arButton.addEventListener('click', function() {
-            currentLanguage = 'ar';
-            updateLanguageButtons();
-            fetchAndDisplayProducts();
-        });
-
-        // Initial setup
-        updateLanguageButtons();
-        fetchAndDisplayProducts();
-    });
     </script> -->
+
     <script type="module">
-        import { initializeProductPage } from './langscript.js';
-    
-        // Define the categories for this specific page
-        const l1Category = 'Pets';
-        const l2Category = 'Animal & Pet accessories';
-    
-        // Initialize the product page
-        initializeProductPage(l1Category, l2Category);
+       import { initializeProductPage } from './langscript.js';
+// Define the categories for this specific page
+const l1Category = 'Pets';
+const l2Category = 'Animal & Pet accessories';
+
+// Initialize the product page
+initializeProductPage(l1Category, l2Category);
+
+// Variable to track current language
+let currentLanguage = localStorage.getItem('selectedLanguage') || 'en'; // Set initial language from localStorage
+
+// Function to change the language of the H1
+function changeLanguage(language) {
+    const titleElement = document.getElementById("main-title");
+    if (language === "ar") {
+        titleElement.textContent = "مستلزمات الحيوانات"; // Arabic translation
+    } else {
+        titleElement.textContent = "Animal & Pet accessories"; // English text
+    }
+    currentLanguage = language; // Update the current language
+}
+
+// Immediately apply the language on page load
+changeLanguage(currentLanguage);
+
+// Event listeners for language buttons
+document.getElementById("en-button").addEventListener("click", function() {
+    changeLanguage("en"); // Switch to English
+    localStorage.setItem('selectedLanguage', "en"); // Save the language preference
+    updateUrlParameter("lang", "en"); // Update URL parameter
+});
+document.getElementById("ar-button").addEventListener("click", function() {
+    changeLanguage("ar"); // Switch to Arabic
+    localStorage.setItem('selectedLanguage', "ar"); // Save the language preference
+    updateUrlParameter("lang", "ar"); // Update URL parameter
+});
+
+// Function to update the URL parameter without reloading the page
+function updateUrlParameter(param, value) {
+    const url = new URL(window.location);
+    url.searchParams.set(param, value);
+    window.history.replaceState({}, '', url); // Update the URL in the address bar
+}
+
     </script>
 
+    
 </body>
 </html>
-
-

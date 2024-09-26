@@ -22,7 +22,7 @@
         <button id="ar-button" style="display: none;">AR</button>
     </div>
     <div class="container">
-        <h1 class="my-4">Accessories for Women</h1>
+        <h1 id="main-title" class="my-4">Accessories for Women</h1>
         <div class="search-box">
             <input type="text" id="search-input" class="form-control" placeholder="Search...">
         </div>
@@ -184,13 +184,51 @@ if (!hasPlace1AdProduct) {
 
     <script type="module">
         import { initializeProductPage } from './langscript.js';
-    
+
         // Define the categories for this specific page
         const l1Category = 'Fashion & Beauty';
         const l2Category = 'Accessories for Women';
-    
+
         // Initialize the product page
         initializeProductPage(l1Category, l2Category);
+
+        // Variable to track current language
+        let currentLanguage = 'en'; // default language
+
+        // Function to change the language of the H1
+        function changeLanguage(language) {
+            const titleElement = document.getElementById("main-title");
+            if (language === "ar") {
+                titleElement.textContent = "اكسسوارات للنساء"; // Arabic translation
+            } else {
+                titleElement.textContent = "Accessories for Women"; // English text
+            }
+            currentLanguage = language; // Update the current language
+        }
+
+        // Event listeners for language buttons
+        document.getElementById("en-button").addEventListener("click", function() {
+            changeLanguage("en"); // Switch to English
+            updateUrlParameter("lang", "en"); // Update URL parameter
+        });
+        document.getElementById("ar-button").addEventListener("click", function() {
+            changeLanguage("ar"); // Switch to Arabic
+            updateUrlParameter("lang", "ar"); // Update URL parameter
+        });
+
+        // Function to update the URL parameter without reloading the page
+        function updateUrlParameter(param, value) {
+            const url = new URL(window.location);
+            url.searchParams.set(param, value);
+            window.history.replaceState({}, '', url); // Update the URL in the address bar
+        }
+
+        // Check if a language is already set and apply it
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+        if (langParam) {
+            changeLanguage(langParam); // Set the initial language based on URL parameter
+        }
     </script>
 
 </body>
