@@ -18,7 +18,7 @@ export function initializeProductPage(l1Category, l2Category) {
                 ar: {
                     description: 'الوصف',
                     price: 'السعر',
-                    back: '← رجوع' // Arabic text for the back button
+                    back: '← العودة' // Arabic text for the back button
                 }
             };
             return labels[currentLanguage][key];

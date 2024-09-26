@@ -339,8 +339,8 @@ footer {
             </div> -->
             <a href="https://olxmena.wufoo.com/forms/dubizzle-lebanon-business-packages/" class="business-package-container">
                 <img src="https://raw.githubusercontent.com/RanimeMerhi/Products-v3/main/Business%20Packages.svg" alt="Business Package Logo" class="business-package-logo">
-                <p class="business-package-text">Business Packages</p>
-            </a>
+                <p class="business-package-text" id="business-package-text">Business Packages</p>
+                        </a>
             
             <div class="language-toggle">
                 <button id="en-button">EN</button>  <button id="ar-button">AR</button>
@@ -606,6 +606,13 @@ footer {
                 const savedLanguage = localStorage.getItem('selectedLanguage') || 'en'; // Use localStorage
                 switchLanguage(savedLanguage);
             });
+            document.getElementById('en-button').addEventListener('click', function() {
+                document.getElementById('business-package-text').innerText = 'Business Packages';
+            });
+            document.getElementById('ar-button').addEventListener('click', function() {
+            document.getElementById('business-package-text').innerText = 'عرض الباقات';
+            // Add any other Arabic translations here
+        });
         </script>
         
 

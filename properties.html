@@ -71,15 +71,19 @@
             const enButton = document.getElementById('en-button');
             const arButton = document.getElementById('ar-button');
             const categoryContainer = document.getElementById('category-container');
-    
+            const backButton = document.querySelector('.back-button'); // Select the back button
+
             function switchLanguage(language) {
                 currentLanguage = language;
-                localStorage.setItem('selectedLanguage', language); // Use localStorage
+                localStorage.setItem('selectedLanguage', language);
                 enButton.style.display = language === 'en' ? 'none' : 'inline';
                 arButton.style.display = language === 'ar' ? 'none' : 'inline';
                 enButton.classList.toggle('active', language === 'en');
                 arButton.classList.toggle('active', language === 'ar');
                 loadCategories();
+
+                // Update the Back button text based on the language
+                backButton.innerHTML = currentLanguage === 'ar' ? '← العودة' : '← Back'; // Arabic for "Back"
             }
     
             enButton.addEventListener('click', () => switchLanguage('en'));
