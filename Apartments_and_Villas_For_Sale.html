@@ -22,7 +22,7 @@
         <button id="ar-button" style="display: none;">AR</button>
     </div>
     <div class="container">
-        <h1 class="my-4">Apartments & Villas For Sale</h1>
+        <h1 id="main-title" class="my-4">Apartments & Villas For Sale</h1>
         <div class="search-box">
             <input type="text" id="search-input" class="form-control" placeholder="Search...">
         </div>
@@ -37,7 +37,7 @@
         const searchInput = document.getElementById('search-input');
         const enButton = document.getElementById('en-button');
         const arButton = document.getElementById('ar-button');
-        let currentLanguage = 'en'; // Default language
+        let curSaleLanguage = 'en'; // Default language
 
         function getLabel(key) {
             const labels = {
@@ -50,14 +50,14 @@
                     price: 'السعر'
                 }
             };
-            return labels[currentLanguage][key];
+            return labels[curSaleLanguage][key];
         }
 
         function renderProducts(products) {
             productsContainer.innerHTML = '';
             products.forEach(product => {
-                const productName = currentLanguage === 'en' ? product.product_package_name_en : product.product_package_name_ar;
-                const productDesc = currentLanguage === 'en' ? product.product_package_descr_en : product.product_package_descr_ar;
+                const productName = curSaleLanguage === 'en' ? product.product_package_name_en : product.product_package_name_ar;
+                const productDesc = curSaleLanguage === 'en' ? product.product_package_descr_en : product.product_package_descr_ar;
                 const descriptionLabel = getLabel('description');
                 const priceLabel = getLabel('price');
 
@@ -145,7 +145,7 @@ if (!hasPlace1AdProduct) {
                     searchInput.addEventListener('input', function() {
                         const searchQuery = this.value.toLowerCase();
                         const filteredProducts = uniqueProducts.filter(product => {
-                            const name = (currentLanguage === 'en') ? product.product_package_name_en : product.product_package_name_ar;
+                            const name = (curSaleLanguage === 'en') ? product.product_package_name_en : product.product_package_name_ar;
                             return name.toLowerCase().includes(searchQuery);
                         });
                         renderProducts(filteredProducts);
@@ -154,7 +154,7 @@ if (!hasPlace1AdProduct) {
         }
 
         function updateLanguageButtons() {
-            if (currentLanguage === 'ar') {
+            if (curSaleLanguage === 'ar') {
                 enButton.style.display = 'inline-block';
                 arButton.style.display = 'none';
             } else {
@@ -164,13 +164,13 @@ if (!hasPlace1AdProduct) {
         }
 
         enButton.addEventListener('click', function() {
-            currentLanguage = 'en';
+            curSaleLanguage = 'en';
             updateLanguageButtons();
             fetchAndDisplayProducts();
         });
 
         arButton.addEventListener('click', function() {
-            currentLanguage = 'ar';
+            curSaleLanguage = 'ar';
             updateLanguageButtons();
             fetchAndDisplayProducts();
         });
@@ -182,14 +182,51 @@ if (!hasPlace1AdProduct) {
     </script> -->
     <script type="module">
         import { initializeProductPage } from './langscript.js';
-    
-        // Define the categories for this specific page
-        const l1Category = 'Properties';
-        const l2Category = 'Apartments & Villas For Sale';
-    
-        // Initialize the product page
-        initializeProductPage(l1Category, l2Category);
+// Define the categories for this specific page
+const l1Category = 'Properties';
+const l2Category = 'Apartments & Villas For Sale';
+
+// Initialize the product page
+initializeProductPage(l1Category, l2Category);
+
+// Variable to track curSale language
+let curSaleLanguage = localStorage.getItem('selectedLanguage') || 'en'; // Set initial language from localStorage
+
+// Function to change the language of the H1
+function changeLanguage(language) {
+    const titleElement = document.getElementById("main-title");
+    if (language === "ar") {
+        titleElement.textContent = "شقق وفلل للبيع"; // Arabic translation
+    } else {
+        titleElement.textContent = "Apartments & Villas For Sale"; // English text
+    }
+    curSaleLanguage = language; // Update the curSale language
+}
+
+// Immediately apply the language on page load
+changeLanguage(curSaleLanguage);
+
+// Event listeners for language buttons
+document.getElementById("en-button").addEventListener("click", function() {
+    changeLanguage("en"); // Switch to English
+    localStorage.setItem('selectedLanguage', "en"); // Save the language preference
+    updateUrlParameter("lang", "en"); // Update URL parameter
+});
+document.getElementById("ar-button").addEventListener("click", function() {
+    changeLanguage("ar"); // Switch to Arabic
+    localStorage.setItem('selectedLanguage', "ar"); // Save the language preference
+    updateUrlParameter("lang", "ar"); // Update URL parameter
+});
+
+// Function to update the URL parameter without reloading the page
+function updateUrlParameter(param, value) {
+    const url = new URL(window.location);
+    url.searchParams.set(param, value);
+    window.history.replaceState({}, '', url); // Update the URL in the address bar
+}
+
     </script>
+
 
 </body>
 </html>

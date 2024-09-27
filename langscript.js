@@ -82,8 +82,29 @@ const categoryTranslations = {
     "Clothing for Women": "ملابس للنساء",
     "Accessories for Women": "اكسسوارات للنساء",
     "Make-up & Cosmetics": "المكياج ومستحضرات التجميل",
-    "Jewelry & Faux-Bijoux": "مجوهرات و فوب"
+    "Jewelry & Faux-Bijoux": "مجوهرات و فوبجو",
+    "Watches": "ساعات",
+    "Luggage": "حقائب السفر",
+    "Toys for kids": "ألعاب الأطفال",
+    "Strollers & Seats": "المقاعد وعربيات الأطفال",
+    "Kids & Babies Clothing": "ملابس الأطفال",
+    "Cribs & Bedroom Furniture": "أسرة وأثاث لغرف الأطفال",
+    "Bathing Accessories": "لوازم الحمام",
+    "Feeding & Nursing": "تغذية الأطفال",
+    "Safety & Monitors": "لوازم الأمان",
+    "Other for Kids & Babies": "لوازم أطفال أخرى",
+    "Bicycles & Accessories": "دراجات هوائية و لوازمها",
+    "Outdoors & Camping": "معدات التخييم و الطبيعة",
+    "Gym, Fitness & Fighting sports": "لوازم النادي,لياقة بدنية و والرياضات القتال",
+    "Ball Sports": "رياضات الكرة",
+    "Billiard & Similar Games": "بلياردو وألعاب مماثلة",
+    "Ski & Winter Sports": "تزلج ورياضات الشتاء",
+    "Water Sports & Diving": "الرياضات المائية والغطس",
+    "Tennis & Racket Sports": "تنس، كرة الطاولة والريشة",
+    "Other Sports": "الرياضات الاخرى",
+    "Antiques & Collectibles": "تحف ومقتنيات"
 };
+
 
 export function initializeProductPage(l1Category, l2Category) {
     document.addEventListener('DOMContentLoaded', function() {
