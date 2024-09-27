@@ -184,7 +184,7 @@ if (!hasPlace1AdProduct) {
         import { initializeProductPage } from './langscript.js';
 // Define the categories for this specific page
 const l1Category = 'Kids & Babies';
-const l2Category = 'Bathing Accessories';
+const l2Category = 'Feeding & Nursing';
 
 // Initialize the product page
 initializeProductPage(l1Category, l2Category);
@@ -196,9 +196,9 @@ let currentLanguage = localStorage.getItem('selectedLanguage') || 'en'; // Set i
 function changeLanguage(language) {
     const titleElement = document.getElementById("main-title");
     if (language === "ar") {
-        titleElement.textContent = "لوازم الحمام"; // Arabic translation
+        titleElement.textContent = "تغذية الأطفال"; // Arabic translation
     } else {
-        titleElement.textContent = "Bathing Accessories"; // English text
+        titleElement.textContent = "Feeding & Nursing"; // English text
     }
     currentLanguage = language; // Update the current language
 }
