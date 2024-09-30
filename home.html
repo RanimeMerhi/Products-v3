@@ -535,6 +535,9 @@ footer {
             document.addEventListener('DOMContentLoaded', function() {
                 const searchInput = document.getElementById('search-input');
                 const cards = document.querySelectorAll('.category-card');
+                const enButton = document.getElementById('en-button');
+                const arButton = document.getElementById('ar-button');
+                let currentLanguage = 'en';
         
                 if (searchInput) {
                     searchInput.addEventListener('input', function() {
@@ -570,10 +573,6 @@ footer {
                     });
                 });
         
-                const enButton = document.getElementById('en-button');
-                const arButton = document.getElementById('ar-button');
-                let currentLanguage = 'en';
-        
                 // Function to switch language
                 function switchLanguage(language) {
                     currentLanguage = language;
@@ -583,6 +582,7 @@ footer {
                     enButton.classList.toggle('active', language === 'en');
                     arButton.classList.toggle('active', language === 'ar');
                     updateLanguage();
+                    updateBusinessPackageText();
                 }
         
                 // Function to update category titles based on language
@@ -608,6 +608,14 @@ footer {
                     }
                 }
         
+                // Function to update the "Business Packages" text based on language
+                function updateBusinessPackageText() {
+                    const businessPackageText = document.getElementById('business-package-text');
+                    if (businessPackageText) {
+                        businessPackageText.innerText = currentLanguage === 'en' ? 'Business Packages' : 'شراء الباقة المختصة';
+                    }
+                }
+        
                 enButton.addEventListener('click', () => switchLanguage('en'));
                 arButton.addEventListener('click', () => switchLanguage('ar'));
         
@@ -615,14 +623,8 @@ footer {
                 const savedLanguage = localStorage.getItem('selectedLanguage') || 'en'; // Use localStorage
                 switchLanguage(savedLanguage);
             });
-            document.getElementById('en-button').addEventListener('click', function() {
-                document.getElementById('business-package-text').innerText = 'Business Packages';
-            });
-            document.getElementById('ar-button').addEventListener('click', function() {
-            document.getElementById('business-package-text').innerText = 'شراء الباقة المختصة';
-            // Add any other Arabic translations here
-        });
         </script>
+        
         
 
 
