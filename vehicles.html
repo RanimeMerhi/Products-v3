@@ -9,53 +9,64 @@
 
     <style>
         .header {
-display: flex;
-justify-content: center; /* Center the content (logo) horizontally */
-align-items: center;
-position: relative; /* Position elements relatively */
-}
+            display: flex;
+            justify-content: center; /* Center the content (logo) horizontally */
+            align-items: center;
+            position: relative; /* Position elements relatively */
+        }
 
-.back-button {
-position: absolute; /* Position the back button absolutely */
-left: 20px; /* Align it to the left */
-padding: 10px 20px;
-background-color: #e00000;
-color: white;
-border: none;
-border-radius: 5px;
-text-decoration: none;
-font-size: 16px;
-font-weight: bold;
-}
+        .back-button {
+            position: absolute; /* Position the back button absolutely */
+            left: 20px; /* Align it to the left */
+            padding: 10px 20px;
+            background-color: #e00000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+        }
 
-.back-button:hover {
-background-color: #e00000;
-text-decoration: none;
-color: white;
-}
+        .back-button:hover {
+            background-color: #e00000;
+            text-decoration: none;
+            color: white;
+        }
 
-.header img {
-max-width: 500px;
-max-height: 200px;
-}
+        .header img {
+            max-width: 500px;
+            max-height: 200px;
+        }
 
+        /* Media query for mobile devices */
+        @media (max-width: 767px) {
+            .header img {
+                max-width: 250px; /* Adjust the size for mobile devices */
+                max-height: 100px;
+            }
+            .language-toggle {
+            position: absolute;
+            top: 30px; /* Adjust this value to move it further up or down */
+            right: 20px; /* Align it to the right */
+        }
+
+        .language-toggle button {
+            margin: 0 5px;
+        }
+        }
     </style>
 </head>
 <body>
-<div class="header">
-    <a href="javascript:history.back()" class="back-button" id="back-button">← Back</a>
-
-            <a href="https://www.dubizzle.com.lb/">
-            <img src="https://cdn.empgroup.com/wp-content/uploads/2023/04/dubizzle-logo-fix-width1.png"  alt="Marketplace Logo">
+    <div class="header">
+        <a href="javascript:history.back()" class="back-button" id="back-button">← Back</a>
+        <a href="https://www.dubizzle.com.lb/">
+            <img src="https://cdn.empgroup.com/wp-content/uploads/2023/04/dubizzle-logo-fix-width1.png" alt="Marketplace Logo">
         </a>
-            <!-- <div class="search-box">
-                <input type="text" id="search-input" class="form-control" placeholder="Search for a category...">
-            </div> -->
-            
-        </div>
-        <div class="language-toggle">
-            <button id="en-button">EN</button>  <button id="ar-button">AR</button>
-        </div>
+    </div>
+    <div class="language-toggle">
+        <button id="en-button">EN</button>  <button id="ar-button">AR</button>
+    </div>
     
     <div class="container">
         <div class="row g-3" id="category-container">
@@ -68,90 +79,87 @@ max-height: 200px;
     </footer>
 
     <script>
-       document.addEventListener('DOMContentLoaded', function() {
-    let currentLanguage = 'en';
-    
-    const enButton = document.getElementById('en-button');
-    const arButton = document.getElementById('ar-button');
-    const categoryContainer = document.getElementById('category-container');
-    const backButton = document.getElementById('back-button');  // Reference to the Back button
-
-    // Function to switch language and update button visibility
-    function switchLanguage(language) {
-        currentLanguage = language;
-        localStorage.setItem('selectedLanguage', language);
-        enButton.style.display = language === 'en' ? 'none' : 'inline';
-        arButton.style.display = language === 'ar' ? 'none' : 'inline';
-        enButton.classList.toggle('active', language === 'en');
-        arButton.classList.toggle('active', language === 'ar');
-        loadCategories();
-
-        // Update the Back button text based on the language
-        if (currentLanguage === 'ar') {
-            backButton.innerHTML = '← العودة';  // Arabic for "Back"
-        } else {
-            backButton.innerHTML = '← Back';
-        }
-    }
-
-    // Function to load categories
-    async function loadCategories() {
-        try {
-            const response = await fetch('VAS-SHEET.json');
-            const data = await response.json();
-            const filteredData = data.filter(item => item.l1 === 'Vehicles');
+        // JavaScript code remains the same
+        document.addEventListener('DOMContentLoaded', function() {
+            let currentLanguage = 'en';
             
-            // Sort by priority_for_l2 (assuming higher priority has a lower value)
-            filteredData.sort((a, b) => a.priority_for_l2 - b.priority_for_l2);
-            
-            categoryContainer.innerHTML = '';
-            const addedTitles = new Set();
+            const enButton = document.getElementById('en-button');
+            const arButton = document.getElementById('ar-button');
+            const categoryContainer = document.getElementById('category-container');
+            const backButton = document.getElementById('back-button');  // Reference to the Back button
 
-            const categoryLinks = {
-                "Motorcycles & ATVs": "Motorcycles_and_ATVs.html",
-                "Cars for Rent": "cars_for_rent.html",
-                "Boats": "boats.html",
-                "Trucks & Buses": "Trucks_and_Buses.html",
-                "Others Vehicles": "others_vehicles.html",
-                "All Vehicles Spare Parts": "all_vehicles_spare_parts.html",
-                "Cars for Sale": "cars_for_sale.html",
-                "All Vehicles Accessories": "all_vehicles_accessories.html",
-                "Number Plates": "number_plates.html"
-            };
+            // Function to switch language and update button visibility
+            function switchLanguage(language) {
+                currentLanguage = language;
+                localStorage.setItem('selectedLanguage', language);
+                enButton.style.display = language === 'en' ? 'none' : 'inline';
+                arButton.style.display = language === 'ar' ? 'none' : 'inline';
+                enButton.classList.toggle('active', language === 'en');
+                arButton.classList.toggle('active', language === 'ar');
+                loadCategories();
 
-            filteredData.forEach(item => {
-                const categoryName = currentLanguage === 'en' ? item.cat_english_name : item.cat_arabic_name;
-
-                if (!addedTitles.has(categoryName)) {
-                    addedTitles.add(categoryName);
-
-                    const categoryLink = categoryLinks[item.cat_english_name] || '#';
-
-                    const categoryDiv = `
-                        <div class="col-md-4 col-lg-3">
-                            <a href="${categoryLink}?lang=${currentLanguage}" class="item">${categoryName}</a>
-                        </div>`;
-                    
-                    categoryContainer.innerHTML += categoryDiv;
+                // Update the Back button text based on the language
+                if (currentLanguage === 'ar') {
+                    backButton.innerHTML = '← العودة';  // Arabic for "Back"
+                } else {
+                    backButton.innerHTML = '← Back';
                 }
-            });
-        } catch (error) {
-            console.error('Error loading categories:', error);
-        }
-    }
+            }
 
-    // Event listeners for language buttons
-    enButton.addEventListener('click', () => switchLanguage('en'));
-    arButton.addEventListener('click', () => switchLanguage('ar'));
+            // Function to load categories
+            async function loadCategories() {
+                try {
+                    const response = await fetch('VAS-SHEET.json');
+                    const data = await response.json();
+                    const filteredData = data.filter(item => item.l1 === 'Vehicles');
+                    
+                    // Sort by priority_for_l2 (assuming higher priority has a lower value)
+                    filteredData.sort((a, b) => a.priority_for_l2 - b.priority_for_l2);
+                    
+                    categoryContainer.innerHTML = '';
+                    const addedTitles = new Set();
 
-    // Initialize the language and button visibility on page load
-    const savedLanguage = localStorage.getItem('selectedLanguage') || 'en'; // Default to English
-    switchLanguage(savedLanguage); // Set the initial language based on sessionStorage
-});
+                    const categoryLinks = {
+                        "Motorcycles & ATVs": "Motorcycles_and_ATVs.html",
+                        "Cars for Rent": "cars_for_rent.html",
+                        "Boats": "boats.html",
+                        "Trucks & Buses": "Trucks_and_Buses.html",
+                        "Others Vehicles": "others_vehicles.html",
+                        "All Vehicles Spare Parts": "all_vehicles_spare_parts.html",
+                        "Cars for Sale": "cars_for_sale.html",
+                        "All Vehicles Accessories": "all_vehicles_accessories.html",
+                        "Number Plates": "number_plates.html"
+                    };
 
+                    filteredData.forEach(item => {
+                        const categoryName = currentLanguage === 'en' ? item.cat_english_name : item.cat_arabic_name;
+
+                        if (!addedTitles.has(categoryName)) {
+                            addedTitles.add(categoryName);
+
+                            const categoryLink = categoryLinks[item.cat_english_name] || '#';
+
+                            const categoryDiv = `
+                                <div class="col-md-4 col-lg-3">
+                                    <a href="${categoryLink}?lang=${currentLanguage}" class="item">${categoryName}</a>
+                                </div>`;
+                            
+                            categoryContainer.innerHTML += categoryDiv;
+                        }
+                    });
+                } catch (error) {
+                    console.error('Error loading categories:', error);
+                }
+            }
+
+            // Event listeners for language buttons
+            enButton.addEventListener('click', () => switchLanguage('en'));
+            arButton.addEventListener('click', () => switchLanguage('ar'));
+
+            // Initialize the language and button visibility on page load
+            const savedLanguage = localStorage.getItem('selectedLanguage') || 'en'; // Default to English
+            switchLanguage(savedLanguage); // Set the initial language based on sessionStorage
+        });
     </script>
-    
-    
-    
 </body>
 </html>

@@ -131,37 +131,52 @@
     </style> -->
     <style>
         .header {
-    display: flex;
-    justify-content: center; /* Center the content (logo) horizontally */
-    align-items: center;
-    position: relative; /* Position elements relatively */
-}
+            display: flex;
+            justify-content: center; /* Center the content (logo) horizontally */
+            align-items: center;
+            position: relative; /* Position elements relatively */
+        }
 
-.back-button {
-    position: absolute; /* Position the back button absolutely */
-    left: 20px; /* Align it to the left */
-    padding: 10px 20px;
-    background-color: #e00000;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
-}
+        .back-button {
+            position: absolute; /* Position the back button absolutely */
+            left: 20px; /* Align it to the left */
+            padding: 10px 20px;
+            background-color: #e00000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+        }
 
+        .back-button:hover {
+            background-color: #e00000;
+            text-decoration: none;
+            color: white;
+        }
 
-.back-button:hover {
-    background-color: #e00000;
-    text-decoration: none;
-    color: white;
-}
+        .header img {
+            max-width: 500px;
+            max-height: 200px;
+        }
 
-.header img {
-    max-width: 500px;
-    max-height: 200px;
-}
+        /* Media query for mobile devices */
+        @media (max-width: 767px) {
+            .header img {
+                max-width: 250px; /* Adjust the size for mobile devices */
+                max-height: 100px;
+            }
+            .language-toggle {
+            position: absolute;
+            top: 30px; /* Adjust this value to move it further up or down */
+            right: 20px; /* Align it to the right */
+        }
 
+        .language-toggle button {
+            margin: 0 5px;
+        }
+        }
     </style>
 </head>
 <body>

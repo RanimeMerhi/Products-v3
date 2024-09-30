@@ -10,115 +10,52 @@
 
 
     <style>
-        /* Your existing styles */
         .header {
-    display: flex;
-    justify-content: center; /* Center the content (logo) horizontally */
-    align-items: center;
-    position: relative; /* Position elements relatively */
-}
-
-.back-button {
-    position: absolute; /* Position the back button absolutely */
-    left: 20px; /* Align it to the left */
-    padding: 10px 20px;
-    background-color: #e00000;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.back-button:hover {
-    background-color: #e00000;
-    text-decoration: none;
-    color: white;
-}
-
-.header img {
-    max-width: 500px;
-    max-height: 200px;
-}
-
-        .language-toggle {
             display: flex;
-            gap: 10px;
-            position: absolute;
-            right: 20px;
-            top: 60px; 
+            justify-content: center; /* Center the content (logo) horizontally */
+            align-items: center;
+            position: relative; /* Position elements relatively */
         }
-        #en-button, #ar-button {
-            display: inline-block;
-            outline: 0;
-            cursor: pointer;
-            text-align: right !important; 
-            border-radius: 6px;
-            border: 2px solid #e00000;
-            color: #e00000;
-            background: 0 0;
-            padding: 8px;
-            box-shadow: rgba(0, 0, 0, 0.07) 0px 2px 4px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1.5px 0px; 
-            height: 42px;
-        }
-        #en-button:hover, #ar-button:hover {
+
+        .back-button {
+            position: absolute; /* Position the back button absolutely */
+            left: 20px; /* Align it to the left */
+            padding: 10px 20px;
             background-color: #e00000;
-            color: #fff;
-        }
-        .item {
-            display: block;
-            text-align: center;
-            padding: 1.5rem;
-            background-color: #ffffff;
-            border: 1px solid #e00000;
-            border-radius: 10px;
+            color: white;
+            border: none;
+            border-radius: 5px;
             text-decoration: none;
-            color: #495057;
-            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            font-size: 16px;
+            font-weight: bold;
         }
-        .item:hover {
-            background-color: #e9ecef;
-            transform: translateY(-5px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+
+        .back-button:hover {
+            background-color: #e00000;
+            text-decoration: none;
+            color: white;
         }
-        .item:active {
-            background-color: #e2e6ea;
+
+        .header img {
+            max-width: 500px;
+            max-height: 200px;
         }
-        footer {
-            background-color: #e00000; /* Keep the background color */
-            color: #fff; /* Text color */
-            text-align: center; /* Center text */
-            padding: 0.5rem; /* Reduce padding for a smaller footer */
-            font-size: 0.8rem; /* Smaller font size */
-            width: 100%; /* Full width of the page */
-        }
-        footer p {
-            margin: 0; /* Remove margin to reduce overall height */
-            padding: 0; /* Remove padding from the paragraph */
-            font-size: 0.8rem; /* Adjust font size for more compact text */
-        }
-        @media (max-width: 768px) {
-            .item {
-                width: calc(50% - 1rem);
+
+        /* Media query for mobile devices */
+        @media (max-width: 767px) {
+            .header img {
+                max-width: 250px; /* Adjust the size for mobile devices */
+                max-height: 100px;
             }
+            .language-toggle {
+            position: absolute;
+            top: 30px; /* Adjust this value to move it further up or down */
+            right: 20px; /* Align it to the right */
         }
-        @media (max-width: 480px) {
-            .item {
-                width: calc(100% - 1rem);
-            }
+
+        .language-toggle button {
+            margin: 0 5px;
         }
-        .center {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            width: 50%;
-        }
-        .ar-title {
-            display: none;
-        }
-        .en-title {
-            display: block;
         }
     </style>
 </head>
