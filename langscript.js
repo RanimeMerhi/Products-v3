@@ -105,7 +105,6 @@ const categoryTranslations = {
     "Antiques & Collectibles": "تحف ومقتنيات"
 };
 
-
 export function initializeProductPage(l1Category, l2Category) {
     document.addEventListener('DOMContentLoaded', function() {
         const productsContainer = document.getElementById('products');
@@ -154,7 +153,7 @@ export function initializeProductPage(l1Category, l2Category) {
                         <p>${productName}</p>
                         <ul class="package-list">
                             <li><span>${descriptionLabel}:</span> ${productDesc}</li>
-                            <li><span class="price-label">${priceLabel}:</span> <span class="price">${product.price}</span></li>
+                            <li><span class="price-label ">${priceLabel}:</span> <span class="price">${product.price}</span></li>
                         </ul>
                     </div>
                 </div>

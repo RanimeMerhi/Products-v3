@@ -7,218 +7,79 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
-    <!-- <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
-        
-        body {
-            display: flex;
-            flex-direction: column;
-        }
+    <style>
         .header {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          /* height: 100vh; */
-        }
-        
-        .header img {
-          width: auto;
-          height: auto;
-          max-width: 500px; /* Adjust as needed */
-          max-height: 200px; /* Adjust as needed */
-        }
-        /* 
-        .search-box {
-            margin: 20px 0;
-        }
-        
-        .header .search-box {
-            margin-left: 60px !important;
-            flex-grow: 1;
-        }
-        
-        .header .search-box input {
-            width: 100%;
-            max-width: 300px;
-        } */
-        
-        .container {
-            flex: 1;
-            margin: 2rem auto;
-            max-width: 1200px;
-        }
-        
-        .item {
-            display: block;
-            text-align: center;
-            padding: 1.5rem;
-            background-color: #ffffff;
-            border: 1px solid #e00000;
-            border-radius: 10px;
-            text-decoration: none;
-            color: #495057;
-            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .item:hover {
-            background-color: #e9ecef;
-            transform: translateY(-5px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        .item:active {
-            background-color: #e2e6ea;
-        }
-        
-        footer {
-            background-color: #e00000; /* Keep the background color */
-            color: #fff; /* Text color */
-            text-align: center; /* Center text */
-            padding: 0.5rem; /* Reduce padding for a smaller footer */
-            font-size: 0.8rem; /* Smaller font size */
-            width: 100%; /* Full width of the page */
-        }
-        
-        /* Footer paragraph text adjustments */
-        footer p {
-            margin: 0; /* Remove margin to reduce overall height */
-            padding: 0; /* Remove padding from the paragraph */
-            font-size: 0.8rem; /* Adjust font size for more compact text */
-        }
-        
-        /* Media query for small screens */
-        @media (max-width: 480px) {
-            footer {
-                padding: 0.3rem; /* Further reduce padding for mobile screens */
-                font-size: 0.7rem; /* Smaller font size on mobile */
-            }
-        }
-        .language-toggle {
             display: flex;
-            gap: 10px;
-            position: absolute;
-            right: 20px;
-            top: 60px; 
-         
+            justify-content: center; /* Center the content (logo) horizontally */
+            align-items: center;
+            position: relative; /* Position elements relatively */
         }
-        #en-button, #ar-button {
-            display: inline-block;
-            outline: 0;
-            cursor: pointer;
-            text-align: right !important; 
-            border-radius: 6px;
-            border: 2px solid #e00000;
-            color: #e00000;
-            background: 0 0;
-            padding: 8px;
-            box-shadow: rgba(0, 0, 0, 0.07) 0px 2px 4px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1.5px 0px; 
-            height: 42px;
-        }
-        
-        #en-button:hover, #ar-button:hover {
+
+        .back-button {
+            position: absolute; /* Position the back button absolutely */
+            left: 20px; /* Align it to the left */
+            padding: 10px 20px;
             background-color: #e00000;
-            color: #fff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
         }
-        
-        
-        
-        @media (max-width: 768px) {
-            .item {
-                width: calc(50% - 1rem);
+
+        .back-button:hover {
+            background-color: #e00000;
+            text-decoration: none;
+            color: white;
+        }
+
+        .header img {
+            max-width: 500px;
+            max-height: 200px;
+        }
+
+        /* Media query for mobile devices */
+        @media (max-width: 767px) {
+            .header img {
+                max-width: 250px; /* Adjust the size for mobile devices */
+                max-height: 100px;
             }
+            .language-toggle {
+            position: absolute;
+            top: 30px; /* Adjust this value to move it further up or down */
+            right: 20px; /* Align it to the right */
         }
-        
-        @media (max-width: 480px) {
-            .item {
-                width: calc(100% - 1rem);
-            }
+
+        .language-toggle button {
+            margin: 0 5px;
         }
-        .center {
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-          width: 50%;
         }
-        
-            </style> -->
-            <style>
-                .header {
-                    display: flex;
-                    justify-content: center; /* Center the content (logo) horizontally */
-                    align-items: center;
-                    position: relative; /* Position elements relatively */
-                }
-        
-                .back-button {
-                    position: absolute; /* Position the back button absolutely */
-                    left: 20px; /* Align it to the left */
-                    padding: 10px 20px;
-                    background-color: #e00000;
-                    color: white;
-                    border: none;
-                    border-radius: 5px;
-                    text-decoration: none;
-                    font-size: 16px;
-                    font-weight: bold;
-                }
-        
-                .back-button:hover {
-                    background-color: #e00000;
-                    text-decoration: none;
-                    color: white;
-                }
-        
-                .header img {
-                    max-width: 500px;
-                    max-height: 200px;
-                }
-        
-                /* Media query for mobile devices */
-                @media (max-width: 767px) {
-                    .header img {
-                        max-width: 250px; /* Adjust the size for mobile devices */
-                        max-height: 100px;
-                    }
-                    .language-toggle {
-                    position: absolute;
-                    top: 30px; /* Adjust this value to move it further up or down */
-                    right: 20px; /* Align it to the right */
-                }
-        
-                .language-toggle button {
-                    margin: 0 5px;
-                }
-                }
-            </style>
+    </style>
 </head>
 <body>
     <div class="header">
-        <a href="javascript:history.back()" class="back-button">← Back</a>
+        <a href="home.html" class="back-button" id="back-button">← Back</a>
 
         <a href="https://www.dubizzle.com.lb/">
-        <img src="https://cdn.empgroup.com/wp-content/uploads/2023/04/dubizzle-logo-fix-width1.png"  alt="Marketplace Logo">
-    </a>
-        <!-- <div class="search-box">
-            <input type="text" id="search-input" class="form-control" placeholder="Search for a category...">
-        </div> -->
-        
+            <img src="https://cdn.empgroup.com/wp-content/uploads/2023/04/dubizzle-logo-fix-width1.png" alt="Marketplace Logo">
+        </a>
     </div>
+
     <div class="language-toggle">
-        <button id="en-button">EN</button>  <button id="ar-button">AR</button>
+        <button id="en-button">EN</button> <button id="ar-button">AR</button>
     </div>
+
     <div class="container">
         <div class="row g-3" id="category-container">
-           
-            
+            <!-- Categories will be loaded here dynamically -->
         </div>
     </div>
 
     <footer>
         <p>&copy; 2024 Product Listings</p>
     </footer>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             let currentLanguage = 'en';
@@ -237,8 +98,14 @@
                 arButton.classList.toggle('active', language === 'ar');
                 loadCategories();
 
-                // Update the Back button text based on the language
-                backButton.innerHTML = currentLanguage === 'ar' ? '← العودة' : '← Back'; // Arabic for "Back"
+                // Update the Back button text and link based on the language
+                if (currentLanguage === 'ar') {
+                    backButton.innerHTML = '← العودة';  // Arabic for "Back"
+                    backButton.href = 'home.html?lang=ar';
+                } else {
+                    backButton.innerHTML = '← Back';
+                    backButton.href = 'home.html?lang=en';
+                }
             }
     
             enButton.addEventListener('click', () => switchLanguage('en'));
@@ -258,17 +125,15 @@
                     const addedTitles = new Set();
     
                     const categoryLinks = {
-    "Mobile Phones": "Mobile_Phones.html",
-    "Mobile Accessories": "Mobile_Accessories.html",
-    "Mobile Numbers": "Mobile_Numbers.html",
-    "Smart Watches": "Smart_Watches.html"
-};
+                        "Mobile Phones": "Mobile_Phones.html",
+                        "Mobile Accessories": "Mobile_Accessories.html",
+                        "Mobile Numbers": "Mobile_Numbers.html",
+                        "Smart Watches": "Smart_W atches.html"
+                    };
     
                     filteredData.forEach(item => {
                         const categoryName = currentLanguage === 'en' ? item.cat_english_name : item.cat_arabic_name;
                         if (item.cat_english_name !== item.l1 && !addedTitles.has(categoryName)) {
-
-                        if (!addedTitles.has(categoryName)) {
                             addedTitles.add(categoryName);
     
                             const categoryLink = categoryLinks[item.cat_english_name] || '#';
@@ -280,14 +145,15 @@
                             
                             categoryContainer.innerHTML += categoryDiv;
                         }
-                    }});
+                    });
                 } catch (error) {
                     console.error('Error loading categories:', error);
                 }
             }
-     // Initialize the language and button visibility on page load
-     const savedLanguage = localStorage.getItem('selectedLanguage') || 'en'; // Default to English
-            switchLanguage(savedLanguage); // Set the initial language based on sessionStorage
+    
+            // Initialize the language and button visibility on page load
+            const savedLanguage = localStorage.getItem('selectedLanguage') || 'en'; // Default to English
+            switchLanguage(savedLanguage); // Set the initial language based on localStorage
         });
     </script>
 </body>

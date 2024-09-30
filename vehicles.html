@@ -59,7 +59,7 @@
 </head>
 <body>
     <div class="header">
-        <a href="javascript:history.back()" class="back-button" id="back-button">← Back</a>
+        <a href="home.html" class="back-button" id="back-button">← Back</a>
         <a href="https://www.dubizzle.com.lb/">
             <img src="https://cdn.empgroup.com/wp-content/uploads/2023/04/dubizzle-logo-fix-width1.png" alt="Marketplace Logo">
         </a>
@@ -98,11 +98,13 @@
                 arButton.classList.toggle('active', language === 'ar');
                 loadCategories();
 
-                // Update the Back button text based on the language
+                // Update the Back button text and href based on the language
                 if (currentLanguage === 'ar') {
                     backButton.innerHTML = '← العودة';  // Arabic for "Back"
+                    backButton.href = 'home.html?lang=ar';
                 } else {
                     backButton.innerHTML = '← Back';
+                    backButton.href = 'home.html?lang=en';
                 }
             }
 
@@ -123,7 +125,7 @@
                         "Motorcycles & ATVs": "Motorcycles_and_ATVs.html",
                         "Cars for Rent": "cars_for_rent.html",
                         "Boats": "boats.html",
-                        "Trucks & Buses": "Trucks_and_Buses.html",
+                        "Trucks & Buses": "Trucks_and _Buses.html",
                         "Others Vehicles": "others_vehicles.html",
                         "All Vehicles Spare Parts": "all_vehicles_spare_parts.html",
                         "Cars for Sale": "cars_for_sale.html",

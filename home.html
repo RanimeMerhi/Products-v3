@@ -538,6 +538,9 @@ footer {
                 const enButton = document.getElementById('en-button');
                 const arButton = document.getElementById('ar-button');
                 let currentLanguage = 'en';
+                const urlParams = new URLSearchParams(window.location.search);
+const language = urlParams.get('lang') || 'en';
+switchLanguage(language);
         
                 if (searchInput) {
                     searchInput.addEventListener('input', function() {

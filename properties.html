@@ -59,7 +59,7 @@
 <body>
 
     <div class="header">
-        <a href="javascript:history.back()" class="back-button">← Back</a>
+        <a href="home.html" class="back-button" id="back-button">← Back</a>
 
         <a href="https://www.dubizzle.com.lb/">
             <img src="https://cdn.empgroup.com/wp-content/uploads/2023/04/dubizzle-logo-fix-width1.png" alt="Marketplace Logo">
@@ -98,8 +98,14 @@
                 arButton.classList.toggle('active', language === 'ar');
                 loadCategories();
 
-                // Update the Back button text based on the language
-                backButton.innerHTML = currentLanguage === 'ar' ? '← العودة' : '← Back'; // Arabic for "Back"
+                // Update the Back button text and link based on the language
+                if (currentLanguage === 'ar') {
+                    backButton.innerHTML = '← العودة';  // Arabic for "Back"
+                    backButton.href = 'home.html?lang=ar';
+                } else {
+                    backButton.innerHTML = '← Back';
+                    backButton.href = 'home.html?lang=en';
+                }
             }
     
             enButton.addEventListener('click', () => switchLanguage('en'));

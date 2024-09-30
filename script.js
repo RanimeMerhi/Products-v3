@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('selectedLanguage', language);
         updateButtonVisibility(language);
         setLanguage(language);
+        updateBackButtonLink(language);
     }
 
     // Function to update button visibility
@@ -25,11 +26,20 @@ document.addEventListener('DOMContentLoaded', function() {
         if (lang === 'ar') {
             document.querySelectorAll('.en-title').forEach(el => el.style.display = 'none');
             document.querySelectorAll('.ar-title').forEach(el => el.style.display = 'block');
-            backButton.textContent = '← العودة'; // Set Arabic text for back button
         } else {
             document.querySelectorAll('.en-title').forEach(el => el.style.display = 'block');
             document.querySelectorAll('.ar-title').forEach(el => el.style.display = 'none');
+        }
+    }
+
+    // Function to update back button link
+    function updateBackButtonLink(lang) {
+        if (lang === 'ar') {
+            backButton.textContent = '← العودة'; // Set Arabic text for back button
+            backButton.href = 'home.html?lang=ar';
+        } else {
             backButton.textContent = '← Back'; // Set English text for back button
+            backButton.href = 'home.html?lang=en';
         }
     }
 
