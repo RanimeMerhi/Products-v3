@@ -4,7 +4,22 @@
     align-items: center;
     position: relative; /* Position elements relatively */
 }
+ /* Media query for mobile devices */
+        @media (max-width: 767px) {
+            .header img {
+                max-width: 250px !important;
+                max-height: 100px !important;
+            }
+            .language-toggle {
+            position: absolute;
+            top: 30px !important;; /* Adjust this value to move it further up or down */
+            right: 20px !important;; /* Align it to the right */
+        }
 
+        .language-toggle button {
+            margin: 0 5px !important;;
+        }
+        }
 .back-button {
     position: absolute; /* Position the back button absolutely */
     left: 20px; /* Align it to the left */
