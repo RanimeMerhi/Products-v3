@@ -205,8 +205,14 @@ export function initializeProductPage(l1Category, l2Category) {
                         const productKey = `${product.l2}_${product.product_package_name_en}`;
                         if (!uniqueKeys.has(productKey)) {
                             // Check for discounted_price and assign value accordingly
-                            product.final_price = product.discounted_price !== null ? product.discounted_price : product.price;
-        
+                            if (product.discounted_price !== null && product.discounted_price !== undefined) {
+                                product.final_price = product.discounted_price;
+                            } else if (product.price !== null && product.price !== undefined) {
+                                product.final_price = product.price;
+                            } else {
+                                product.final_price = 'Free'; // Assign 'Free' if both prices are null
+                            }
+                    
                             uniqueProducts.push(product);
                             uniqueKeys.add(productKey);
                         }
