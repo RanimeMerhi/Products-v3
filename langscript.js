@@ -145,23 +145,24 @@ export function initializeProductPage(l1Category, l2Category) {
                 const productDesc = currentLanguage === 'en' ? product.product_package_descr_en : product.product_package_descr_ar;
                 const descriptionLabel = getLabel('description');
                 const priceLabel = getLabel('price');
-
+        
                 const productCard = `
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product-card">
-                        <h3>${getCategoryHeading(product.l2)}</h3>
-                        <p>${productName}</p>
-                        <ul class="package-list">
-                            <li><span>${descriptionLabel}:</span> ${productDesc}</li>
-                            <li><span class="price-label ">${priceLabel}:</span> <span class="price">${product.price}</span></li>
-                        </ul>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="product-card">
+                            <h3>${getCategoryHeading(product.l2)}</h3>
+                            <p>${productName}</p>
+                            <ul class="package-list">
+                                <li><span>${descriptionLabel}:</span> ${productDesc}</li>
+                                <li><span class="price-label">${priceLabel}:</span> <span class="price">${product.final_price}</span></li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            `;
-
+                `;
+        
                 productsContainer.innerHTML += productCard;
             });
         }
+        
 
         function fetchAndDisplayProducts() {
             fetch('VAS-SHEET.json')
