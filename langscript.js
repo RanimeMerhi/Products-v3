@@ -146,6 +146,9 @@ export function initializeProductPage(l1Category, l2Category) {
                 const descriptionLabel = getLabel('description');
                 const priceLabel = getLabel('price');
         
+                // Check if final_price is available, otherwise use price
+                const productPrice = product.final_price && product.final_price > 0 ? product.final_price : product.price;
+        
                 const productCard = `
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="product-card">
@@ -153,9 +156,7 @@ export function initializeProductPage(l1Category, l2Category) {
                             <p>${productName}</p>
                             <ul class="package-list">
                                 <li><span>${descriptionLabel}:</span> ${productDesc}</li>
-                                <li><span class="price-label">${priceLabel}:</span> 
-                                <span class="price">${product.final_price ? product.final_price : product.price}</span>
-                            </li>
+                                <li><span class="price-label">${priceLabel}:</span> <span class="price">${productPrice}</span></li>
                             </ul>
                         </div>
                     </div>
@@ -164,6 +165,7 @@ export function initializeProductPage(l1Category, l2Category) {
                 productsContainer.innerHTML += productCard;
             });
         }
+        
         
 
         function fetchAndDisplayProducts() {
