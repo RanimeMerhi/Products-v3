@@ -59,7 +59,7 @@ const categoryTranslations = {
     "Motorcycles & ATVs": "دراجات نارية ورباعية",
     "Trucks & Buses": "باصات ومركبات ثقيلة",
     "Boats": "قوارب",
-    "Others Vehicles": "مركبات أخرى",
+    // "Others Vehicles": "مركبات أخرى",
     "Apartments & Villas For Sale": "شقق وفلل للبيع",
     "Apartments & Villas For Rent": "شقق وفلل للإيجار",
     "Commercials For Sale": "عقارات تجارية للبيع",
