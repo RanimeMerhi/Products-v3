@@ -345,7 +345,7 @@ footer {
             <!-- <div class="search-box">
                 <input type="text" id="search-input" class="form-control" placeholder="Search for a category...">
             </div> -->
-            <a href="https://forms.gle/tT3DcJkTFx4ny3wf8" class="business-package-container">
+            <a id="language-link" href="https://forms.gle/tT3DcJkTFx4ny3wf8" class="business-package-container">
                 <img src="https://raw.githubusercontent.com/RanimeMerhi/Products-v3/main/Business%20Packages.svg" alt="Business Package Logo" class="business-package-logo">
                 <p class="business-package-text" id="business-package-text">Business Packages</p>
                         </a>
@@ -576,13 +576,7 @@ switchLanguage(language);
                     });
                 });
 
-                document.getElementById("en").addEventListener("click", function() {
-        document.getElementById("business-package-link").href = "https://forms.gle/tT3DcJkTFx4ny3wf8";
-    });
-
-    document.getElementById("ar").addEventListener("click", function() {
-        document.getElementById("business-package-link").href = "https://forms.gle/oHamKPJtFMvfaQui9";
-    });
+                
         
                 // Function to switch language
                 function switchLanguage(language) {
@@ -594,8 +588,10 @@ switchLanguage(language);
                     arButton.classList.toggle('active', language === 'ar');
                     updateLanguage();
                     updateBusinessPackageText();
+                    updateLink(language);
                 }
-        
+                
+                
                 // Function to update category titles based on language
                 function updateLanguage() {
                     const titles = {
@@ -626,6 +622,17 @@ switchLanguage(language);
                         businessPackageText.innerText = currentLanguage === 'en' ? 'Business Packages' : 'شراء الباقة المختصة';
                     }
                 }
+                // Function to update the link based on language
+function updateLink(language) {
+    const linkElement = document.getElementById('language-link'); // Change this to your actual link element ID
+    if (linkElement) {
+        const links = {
+            'en': 'https://forms.gle/tT3DcJkTFx4ny3wf8',  // English version link
+            'ar': 'https://forms.gle/oHamKPJtFMvfaQui9'   // Arabic version link
+        };
+        linkElement.href = links[language];
+    }
+}
         
                 enButton.addEventListener('click', () => switchLanguage('en'));
                 arButton.addEventListener('click', () => switchLanguage('ar'));
