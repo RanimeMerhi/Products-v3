@@ -1,125 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vehicles</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="./tab_icon.png">
-
-
-    <style>
-        .header {
-            display: flex;
-            justify-content: center; /* Center the content (logo) horizontally */
-            align-items: center;
-            position: relative; /* Position elements relatively */
-        }
-
-        .back-button {
-            position: absolute; /* Position the back button absolutely */
-            left: 20px; /* Align it to the left */
-            padding: 10px 20px;
-            background-color: #e00000;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .back-button:hover {
-            background-color: #e00000;
-            text-decoration: none;
-            color: white;
-        }
-
-        .header img {
-            max-width: 500px;
-            max-height: 200px;
-        }
-
-        /* Media query for mobile devices */
-        @media (max-width: 767px) {
-            .header img {
-                max-width: 250px; /* Adjust the size for mobile devices */
-                max-height: 100px;
-            }
-            .language-toggle {
-            position: absolute;
-            top: 30px; /* Adjust this value to move it further up or down */
-            right: 20px; /* Align it to the right */
-        }
-
-        .language-toggle button {
-            margin: 0 5px;
-        }
-        }
-    </style>
 </head>
-<body>
-    <div class="header">
-        <a href="home.html" class="back-button" id="back-button">← Back</a>
-        <a href="https://www.dubizzle.com.lb/">
-            <img src="https://cdn.empgroup.com/wp-content/uploads/2023/04/dubizzle-logo-fix-width1.png" alt="Marketplace Logo">
-        </a>
-    </div>
-    <div class="language-toggle">
-        <button id="en-button">EN</button>  <button id="ar-button">AR</button>
-    </div>
-    
-    <div class="container">
-        <div class="row g-3" id="category-container">
-            <!-- Categories will be loaded here dynamically -->
-        </div>
-    </div>
 
-    <footer>
-        <p>&copy; 2025 Vehicle Listings</p>
+<body>
+    <!-- TOP BAR -->
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a id="language-link" href="https://forms.gle/tT3DcJkTFx4ny3wf8" class="bp-pill">
+                <i class="fa-solid fa-briefcase"></i>
+                <span id="business-package-text">Business Packages</span>
+            </a>
+
+            <div class="brand-center">
+                <a href="home.html" aria-label="Home">
+                    <img src="./Without Background/olx.png" alt="OLX" />
+                </a>
+            </div>
+
+            <div class="lang-wrap dropdown">
+                <button class="lang-mini dropdown-toggle" type="button" id="langDropdown" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <span class="lang-mini-main">
+                        <i class="fa-solid fa-globe"></i>
+                        <span class="lang-mini-text">LANG</span>
+                    </span>
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="langDropdown">
+                    <li><button class="dropdown-item" id="en-button" type="button">English</button></li>
+                    <li><button class="dropdown-item" id="ar-button" type="button">العربية</button></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- CATEGORY NAV -->
+    <nav class="cat-nav">
+        <div class="cat-nav-inner">
+            <a href="vehicles.html">Vehicles</a>
+            <a href="properties.html">Properties</a>
+            <a href="mobile_and_accessories.html">Mobiles & Accessories</a>
+            <a href="Electronics_Home_Appliances.html">Electronics & Appliances</a>
+            <a href="furniture_and_decor.html">Furniture & Decor</a>
+            <a href="business_and_industrial.html">Business & Industrial</a>
+            <a href="pets.html">Pets</a>
+            <a href="jobs.html">Jobs</a>
+            <a href="fashion_beauty.html">Fashion & Beauty</a>
+            <a href="kids_babies.html">Kids & babies</a>
+            <a href="sports.html">Sports & Equipment</a>
+            <a href="hobbies.html">Hobbies</a>
+            <a href="services.html">Services</a>
+        </div>
+    </nav>
+
+    <!-- MAIN -->
+    <main class="page">
+        <div class="page-shell">
+            <div class="hero">
+                <img src="./Without Background/Background=No Background, Category=Vehicles.png" alt="Vehicles" />
+                <h1 class="hero-title" id="page-title">Vehicles</h1>
+            </div>
+
+            <div class="subcats" id="category-container">
+                <!-- loaded dynamically -->
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="follow">
+                <span class="follow-label">Follow Us</span>
+                <div class="social">
+                    <a href="https://www.instagram.com/olxlebanon/" target="_blank" aria-label="Instagram"><i
+                            class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/olxlebanon" target="_blank" aria-label="Facebook"><i
+                            class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.youtube.com/channel/UCPg0SSnmnUeq8rmJpaKjAtg" target="_blank"
+                        aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <a class="contact-pill" href="https://help.olx.com.lb/hc/en-us/requests/new" target="_blank" rel="noopener">
+                <i class="fa-brands fa-whatsapp"></i>
+                <span id="contact-text">Contact Us</span>
+            </a>
+        </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
-        // JavaScript code remains the same
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             let currentLanguage = 'en';
-            
+
             const enButton = document.getElementById('en-button');
             const arButton = document.getElementById('ar-button');
             const categoryContainer = document.getElementById('category-container');
-            const backButton = document.getElementById('back-button');  // Reference to the Back button
 
-            // Function to switch language and update button visibility
+            const urlParams = new URLSearchParams(window.location.search);
+            const langFromUrl = urlParams.get('lang');
+
             function switchLanguage(language) {
                 currentLanguage = language;
                 localStorage.setItem('selectedLanguage', language);
-                enButton.style.display = language === 'en' ? 'none' : 'inline';
-                arButton.style.display = language === 'ar' ? 'none' : 'inline';
-                enButton.classList.toggle('active', language === 'en');
-                arButton.classList.toggle('active', language === 'ar');
-                loadCategories();
 
-                // Update the Back button text and href based on the language
-                if (currentLanguage === 'ar') {
-                    backButton.innerHTML = '← العودة';  // Arabic for "Back"
-                    backButton.href = 'home.html?lang=ar';
+                // RTL handling
+                if (language === 'ar') {
+                    document.documentElement.lang = 'ar';
+                    document.documentElement.dir = 'rtl';
+                    document.body.classList.add('rtl');
                 } else {
-                    backButton.innerHTML = '← Back';
-                    backButton.href = 'home.html?lang=en';
+                    document.documentElement.lang = 'en';
+                    document.documentElement.dir = 'ltr';
+                    document.body.classList.remove('rtl');
                 }
+
+                updateTexts();
+                updateBusinessPackageText();
+                updateLink(language);
+                loadCategories();
             }
 
-            // Function to load categories
+            function updateTexts() {
+                const pageTitle = document.getElementById('page-title');
+                const contactText = document.getElementById('contact-text');
+                if (pageTitle) pageTitle.textContent = currentLanguage === 'en' ? 'Vehicles' : 'مركبات';
+                if (contactText) contactText.textContent = currentLanguage === 'en' ? 'Contact Us' : 'تواصل معنا';
+            }
+
             async function loadCategories() {
                 try {
                     const response = await fetch('VAS-SHEET.json');
                     const data = await response.json();
                     const filteredData = data.filter(item => item.l1 === 'Vehicles');
-                    
-                    // Sort by priority_for_l2 (assuming higher priority has a lower value)
+
                     filteredData.sort((a, b) => a.priority_for_l2 - b.priority_for_l2);
-                    
+
                     categoryContainer.innerHTML = '';
                     const addedTitles = new Set();
 
@@ -128,7 +156,6 @@
                         "Cars for Rent": "cars_for_rent.html",
                         "Boats": "boats.html",
                         "Trucks & Buses": "Trucks_and_Buses.html",
-                        // "Others Vehicles": "others_vehicles.html",
                         "All Vehicles Spare Parts": "all_vehicles_spare_parts.html",
                         "Cars for Sale": "cars_for_sale.html",
                         "All Vehicles Accessories": "all_vehicles_accessories.html",
@@ -143,12 +170,12 @@
 
                             const categoryLink = categoryLinks[item.cat_english_name] || '#';
 
-                            const categoryDiv = `
-                                <div class="col-md-4 col-lg-3">
-                                    <a href="${categoryLink}?lang=${currentLanguage}" class="item">${categoryName}</a>
-                                </div>`;
-                            
-                            categoryContainer.innerHTML += categoryDiv;
+                            const a = document.createElement('a');
+                            a.className = 'item';
+                            a.href = `${categoryLink}?lang=${currentLanguage}`;
+                            a.textContent = categoryName;
+
+                            categoryContainer.appendChild(a);
                         }
                     });
                 } catch (error) {
@@ -156,14 +183,31 @@
                 }
             }
 
-            // Event listeners for language buttons
+            function updateBusinessPackageText() {
+                const businessPackageText = document.getElementById('business-package-text');
+                if (businessPackageText) {
+                    businessPackageText.innerText = currentLanguage === 'en' ? 'Business Packages' : 'شراء الباقة المختصة';
+                }
+            }
+
+            function updateLink(language) {
+                const linkElement = document.getElementById('language-link');
+                if (!linkElement) return;
+
+                const links = {
+                    'en': 'https://forms.gle/tT3DcJkTFx4ny3wf8',
+                    'ar': 'https://forms.gle/oHamKPJtFMvfaQui9'
+                };
+                linkElement.href = links[language] || links.en;
+            }
+
             enButton.addEventListener('click', () => switchLanguage('en'));
             arButton.addEventListener('click', () => switchLanguage('ar'));
 
-            // Initialize the language and button visibility on page load
-            const savedLanguage = localStorage.getItem('selectedLanguage') || 'en'; // Default to English
-            switchLanguage(savedLanguage); // Set the initial language based on sessionStorage
+            const savedLanguage = localStorage.getItem('selectedLanguage') || 'en';
+            switchLanguage(langFromUrl || savedLanguage);
         });
     </script>
 </body>
+
 </html>
