@@ -20,7 +20,7 @@ const categoryTranslations = {
     "Dining Room": "غرفة سفرة",
     "Kitchen & Kitchenware": "مطبخ",
     "Bathroom": "الحمام",
-    "Home Decoration & Accessories": "الديكورات المنزلية والاكسسوارات",
+    "Home Decoration & Accessories": "الديكورات المنزل المنزلية والاكسسوارات",
     "Garden & Outdoor": "حديقة و أماكن خارجية",
     "Other Home Furniture & Decor": "أثاث منزل وديكورات أخرى",
     "Animal & Pet accessories": "مستلزمات الحيوانات",
@@ -59,7 +59,6 @@ const categoryTranslations = {
     "Motorcycles & ATVs": "دراجات نارية ورباعية",
     "Trucks & Buses": "باصات ومركبات ثقيلة",
     "Boats": "قوارب",
-    // "Others Vehicles": "مركبات أخرى",
     "Apartments & Villas For Sale": "شقق وفلل للبيع",
     "Apartments & Villas For Rent": "شقق وفلل للإيجار",
     "Commercials For Sale": "عقارات تجارية للبيع",
@@ -106,93 +105,176 @@ const categoryTranslations = {
 };
 
 export function initializeProductPage(l1Category, l2Category) {
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const productsContainer = document.getElementById('products');
         const searchInput = document.getElementById('search-input');
         const enButton = document.getElementById('en-button');
         const arButton = document.getElementById('ar-button');
-        const backButton = document.querySelector('.back-button'); // Select the back button
-        let currentLanguage = localStorage.getItem('selectedLanguage') || 'en'; // Retrieve language from localStorage
+        const backButton = document.querySelector('.back-button');
+
+        let currentLanguage = localStorage.getItem('selectedLanguage') || 'en';
+        let allProducts = [];
 
         function getLabel(key) {
             const labels = {
                 en: {
-                    description: 'Description',
-                    price: 'Price',
-                    back: '← Back' // English text for the back button
+                    back: '← Back',
+                    search: 'Search...',
+                    noResults: 'No products found.',
+                    featuredText: 'Ad will appear in the featured Ads section',
+                    refreshText: 'Your ad will be refreshed automatically',
+                    eliteText: 'Your ad will get premium visibility',
+                    freeText: 'Basic ad package',
+                    defaultText: 'Special package for your listing'
                 },
                 ar: {
-                    description: 'الوصف',
-                    price: 'السعر',
-                    back: '← العودة' // Arabic text for the back button
+                    back: '← العودة',
+                    search: 'ابحث...',
+                    noResults: 'لم يتم العثور على منتجات.',
+                    featuredText: 'سيظهر الإعلان في قسم الإعلانات المميزة',
+                    refreshText: 'سيتم تحديث إعلانك تلقائياً',
+                    eliteText: 'سيحصل إعلانك على ظهور مميز',
+                    freeText: 'باقة إعلان أساسية',
+                    defaultText: 'باقة مميزة لإعلانك'
                 }
             };
             return labels[currentLanguage][key];
         }
 
-        function getCategoryHeading(l2Category) {
-            if (currentLanguage === 'en') {
-                return l2Category;
-            } else {
-                return categoryTranslations[l2Category] || l2Category;
+        function getCategoryHeading(category) {
+            return currentLanguage === 'en'
+                ? category
+                : (categoryTranslations[category] || category);
+        }
+
+        function getExtraText(productType) {
+            const map = {
+                featured_ad: getLabel('featuredText'),
+                auto_refresh_ad: getLabel('refreshText'),
+                elite_ad: getLabel('eliteText'),
+                free_ad: getLabel('freeText'),
+                ad_limit_bump: getLabel('freeText')
+            };
+
+            return map[productType] || getLabel('defaultText');
+        }
+
+        function formatPrice(value) {
+            if (value === null || value === undefined || value === '' || value === 'Free') {
+                return currentLanguage === 'en' ? 'Free' : 'مجاني';
             }
+
+            const numericValue = Number(value);
+            if (!Number.isNaN(numericValue)) {
+                return `$${numericValue}`;
+            }
+
+            return value;
+        }
+
+        function getFinalPrice(product) {
+            if (product.discounted_price !== null && product.discounted_price !== undefined && product.discounted_price !== '') {
+                return product.discounted_price;
+            }
+
+            if (product.final_price !== null && product.final_price !== undefined && product.final_price !== '') {
+                return product.final_price;
+            }
+
+            if (product.price !== null && product.price !== undefined && product.price !== '') {
+                return product.price;
+            }
+
+            return 'Free';
         }
 
         function renderProducts(products) {
             productsContainer.innerHTML = '';
+
+            if (!products.length) {
+                productsContainer.innerHTML = `
+                    <div class="col-12 text-center">
+                        <p>${getLabel('noResults')}</p>
+                    </div>
+                `;
+                return;
+            }
+
             products.forEach(product => {
-                const productName = currentLanguage === 'en' ? product.product_package_name_en : product.product_package_name_ar;
-                const productDesc = currentLanguage === 'en' ? product.product_package_descr_en : product.product_package_descr_ar;
-                const descriptionLabel = getLabel('description');
-                const priceLabel = getLabel('price');
-        
-                // Check if final_price is available, otherwise use price
-                const productPrice = product.final_price && product.final_price > 0 ? product.final_price : product.price;
-        
+                const productName = currentLanguage === 'en'
+                    ? (product.product_package_name_en || '')
+                    : (product.product_package_name_ar || product.product_package_name_en || '');
+
+                const productDesc = currentLanguage === 'en'
+                    ? (product.product_package_descr_en || '')
+                    : (product.product_package_descr_ar || product.product_package_descr_en || '');
+
+                const productPrice = getFinalPrice(product);
+                const formattedPrice = formatPrice(productPrice);
+
                 const productCard = `
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="product-card">
-                            <h3>${getCategoryHeading(product.l2)}</h3>
-                            <p>${productName}</p>
-                            <ul class="package-list">
-                                <li><span>${descriptionLabel}:</span> ${productDesc}</li>
-                                <li><span class="price-label">${priceLabel}:</span> <span class="price">${productPrice}</span></li>
-                            </ul>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12 product-col">
+                        <div class="featured-card">
+                            <div class="price-badge">${formattedPrice}</div>
+                            <h3 class="card-title">${productName || getCategoryHeading(product.l2)}</h3>
+                            <p class="card-duration">${productDesc}</p>
+                            <p class="card-subtext">${getExtraText(product.product_type)}</p>
                         </div>
                     </div>
                 `;
-        
+
                 productsContainer.innerHTML += productCard;
             });
         }
-        
-        
+
+        function applySearch() {
+            const searchQuery = (searchInput.value || '').toLowerCase().trim();
+
+            const filteredProducts = allProducts.filter(product => {
+                const name = currentLanguage === 'en'
+                    ? (product.product_package_name_en || '')
+                    : (product.product_package_name_ar || product.product_package_name_en || '');
+
+                return name.toLowerCase().includes(searchQuery);
+            });
+
+            renderProducts(filteredProducts);
+        }
 
         function fetchAndDisplayProducts() {
             fetch('VAS-SHEET.json')
                 .then(response => response.json())
                 .then(data => {
                     let products = data.filter(product => product.l1 === l1Category && product.l2 === l2Category);
-                    const hasPlace1AdProduct = products.some(product => product.product_package_name_en.includes('Place 1 Ad for'));
-        
-                    // If no such product exists, add "Place 1 Ad for free"
+
+                    const hasPlace1AdProduct = products.some(product =>
+                        (product.product_package_name_en || '').includes('Place 1 Ad for')
+                    );
+
                     if (!hasPlace1AdProduct) {
                         products.push({
                             l1: l1Category,
                             l2: l2Category,
                             product_package_name_en: 'Place 1 Ad for 30 days',
                             product_package_name_ar: 'انشر إعلان واحد لمدة 30 يوم',
-                            product_package_descr_en: 'I only have one Item to sell',
+                            product_package_descr_en: 'I only have one item to sell',
                             product_package_descr_ar: 'لدي غرض واحد للبيع',
                             price: 'Free',
                             product_type: 'ad_limit_bump'
                         });
                     }
-        
-                    const generalProducts = data.filter(product => product.l1 === l1Category && product.l2 === 'GENERAL');
-                    const existingProductNames = new Set(products.map(product => `${product.l2}_${product.product_package_name_en}`));
+
+                    const generalProducts = data.filter(product =>
+                        product.l1 === l1Category && product.l2 === 'GENERAL'
+                    );
+
+                    const existingProductNames = new Set(
+                        products.map(product => `${product.l2}_${product.product_package_name_en}`)
+                    );
+
                     generalProducts.forEach(generalProduct => {
                         const productKey = `${l2Category}_${generalProduct.product_package_name_en}`;
+
                         if (!existingProductNames.has(productKey)) {
                             products.push({
                                 ...generalProduct,
@@ -201,57 +283,48 @@ export function initializeProductPage(l1Category, l2Category) {
                             existingProductNames.add(productKey);
                         }
                     });
-        
+
                     const uniqueProducts = [];
                     const uniqueKeys = new Set();
-        
+
                     products.forEach(product => {
                         const productKey = `${product.l2}_${product.product_package_name_en}`;
+
                         if (!uniqueKeys.has(productKey)) {
-                            // Check for discounted_price and assign value accordingly
-                            if (product.discounted_price !== null && product.discounted_price !== undefined) {
-                                product.final_price = product.discounted_price;
-                            } else if (product.price !== null && product.price !== undefined) {
-                                product.final_price = product.price;
-                            } else {
-                                product.final_price = 'Free'; // Assign 'Free' if both prices are null
-                            }
-                    
+                            product.final_price = getFinalPrice(product);
                             uniqueProducts.push(product);
                             uniqueKeys.add(productKey);
                         }
                     });
-        
-                    // Define an ordering map for product types
+
                     const productTypeOrder = {
-                        'ad_limit_bump': 1,
-                        'featured_ad': 2,
-                        'auto_refresh_ad': 3,
-                        'elite_ad': 4,
-                        'free_ad': 5
+                        ad_limit_bump: 1,
+                        featured_ad: 2,
+                        auto_refresh_ad: 3,
+                        elite_ad: 4,
+                        free_ad: 5
                     };
-        
-                    // Sort products based on product_type order and price
+
                     uniqueProducts.sort((a, b) => {
-                        if (a.product_type === 'ad_limit_bump' && a.price === 'Free') return -1;
-                        if (b.product_type === 'ad_limit_bump' && b.price === 'Free') return 1;
-        
+                        if (a.product_type === 'ad_limit_bump' && getFinalPrice(a) === 'Free') return -1;
+                        if (b.product_type === 'ad_limit_bump' && getFinalPrice(b) === 'Free') return 1;
+
                         const typeA = productTypeOrder[a.product_type] || 999;
                         const typeB = productTypeOrder[b.product_type] || 999;
+
                         return typeA - typeB;
                     });
-        
-                    // Render products
-                    renderProducts(uniqueProducts);
-        
-                    searchInput.addEventListener('input', function() {
-                        const searchQuery = this.value.toLowerCase();
-                        const filteredProducts = uniqueProducts.filter(product => {
-                            const name = (currentLanguage === 'en') ? product.product_package_name_en : product.product_package_name_ar;
-                            return name.toLowerCase().includes(searchQuery);
-                        });
-                        renderProducts(filteredProducts);
-                    });
+
+                    allProducts = uniqueProducts;
+                    applySearch();
+                })
+                .catch(error => {
+                    console.error('Error loading products:', error);
+                    productsContainer.innerHTML = `
+                        <div class="col-12 text-center">
+                            <p>Failed to load products.</p>
+                        </div>
+                    `;
                 });
         }
 
@@ -269,20 +342,40 @@ export function initializeProductPage(l1Category, l2Category) {
             backButton.textContent = getLabel('back');
         }
 
+        function updateSearchPlaceholder() {
+            searchInput.placeholder = getLabel('search');
+        }
+
+        function updateDocumentDirection() {
+            if (currentLanguage === 'ar') {
+                document.documentElement.setAttribute('dir', 'rtl');
+                document.documentElement.setAttribute('lang', 'ar');
+            } else {
+                document.documentElement.setAttribute('dir', 'ltr');
+                document.documentElement.setAttribute('lang', 'en');
+            }
+        }
+
         function switchLanguage(language) {
             currentLanguage = language;
             localStorage.setItem('selectedLanguage', language);
+
             updateLanguageButtons();
             updateBackButtonText();
-            fetchAndDisplayProducts();
+            updateSearchPlaceholder();
+            updateDocumentDirection();
+            applySearch();
         }
 
         enButton.addEventListener('click', () => switchLanguage('en'));
         arButton.addEventListener('click', () => switchLanguage('ar'));
 
-        // Initial setup
+        searchInput.addEventListener('input', applySearch);
+
         updateLanguageButtons();
         updateBackButtonText();
+        updateSearchPlaceholder();
+        updateDocumentDirection();
         fetchAndDisplayProducts();
     });
 }

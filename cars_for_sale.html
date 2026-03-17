@@ -7,146 +7,234 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="icon" href="./tab_icon.png" />
+<style>
+  :root {
+  --olx-yellow: #FCDE68;
+  --olx-blue: #2d65f2;
+  --card-blue: #69c8f3;
+  --text: #111;
+  --muted: #5a5a5a;
+  --card-bg: #f8f8f8;
+}
 
-  <style>
-    body {
-      background: #f7f7f7;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
+/* Header */
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
 
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 24px;
-      background: #fff;
-      border-bottom: 1px solid #eee;
-    }
+.header img {
+  max-width: 500px;
+  max-height: 200px;
+}
 
-    .header img {
-      height: 40px;
-      object-fit: contain;
-    }
+/* Mobile */
+@media (max-width: 767px) {
+  .header img {
+    max-width: 250px !important;
+    max-height: 100px !important;
+  }
 
-    .back-button {
-      text-decoration: none;
-      color: #111;
-      font-weight: 600;
-    }
+  .language-toggle {
+    position: absolute;
+    top: 30px !important;
+    right: 20px !important;
+  }
 
-    .language-toggle {
-      text-align: right;
-      padding: 10px 24px 0;
-    }
+  .language-toggle button {
+    margin: 0 5px !important;
+  }
+}
 
-    .language-toggle button {
-      border: 1px solid #ddd;
-      background: #fff;
-      padding: 6px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-left: 8px;
-    }
+/* Back button */
+.back-button {
+  position: absolute;
+  left: 20px;
+  padding: 10px 20px;
+  background-color: var(--olx-blue);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+}
 
-    .container {
-      padding-top: 20px;
-      padding-bottom: 40px;
-    }
+.back-button:hover {
+  background-color: var(--olx-blue);
+  text-decoration: none;
+  color: #fff;
+}
 
-    #main-title {
-      font-size: 36px;
-      font-weight: 700;
-      color: #1a1a1a;
-      margin-bottom: 20px;
-    }
+/* Search */
+.search-box {
+  margin-bottom: 20px;
+  border: 1px solid var(--olx-yellow);
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 15px;
+}
 
-    .search-box {
-      max-width: 400px;
-      margin-bottom: 30px;
-    }
+.search-box input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 10px 20px 30px 40px;
+  font-size: 16px;
+}
 
-    .product-container {
-      row-gap: 28px;
-    }
+.search-box input[type="text"]:focus {
+  outline: none;
+}
 
-    .product-col {
-      display: flex;
-      justify-content: center;
-    }
+.search-box:focus-within {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
 
-    .featured-card {
-      position: relative;
-      width: 180px;
-      min-height: 150px;
-      background: #f9f9f9;
-      border: 1.5px solid #7bc9ee;
-      border-radius: 18px;
-      padding: 18px 16px;
-      box-sizing: border-box;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
+.search-box input[type="text"]::placeholder {
+  color: #aaa;
+}
 
-    .featured-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-    }
+/* Product grid */
+.product-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
 
-    .price-badge {
-      position: absolute;
-      top: -14px;
-      right: -14px;
-      width: 62px;
-      height: 62px;
-      background: #69c8f3;
-      color: #fff;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      font-size: 20px;
-      font-weight: 700;
-      line-height: 1;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.14);
-      padding: 6px;
-    }
+.product-container .col-md-4,
+.product-container .col-sm-6,
+.product-container .col-lg-3,
+.product-container .col-12 {
+  padding-right: 15px;
+  padding-left: 15px;
+}
 
-    .featured-card h3 {
-      font-size: 22px;
-      font-weight: 700;
-      color: #111;
-      margin: 0 0 10px;
-      line-height: 1.2;
-      max-width: 110px;
-    }
+.product-col {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
 
-    .featured-card .duration {
-      font-size: 15px;
-      font-weight: 600;
-      color: #111;
-      margin: 0 0 10px;
-      line-height: 1.35;
-    }
+/* New card design */
+.featured-card {
+  position: relative;
+  width: 180px;
+  min-height: 165px;
+  background: var(--card-bg);
+  border: 1.5px solid var(--card-blue);
+  border-radius: 18px;
+  padding: 18px 16px 16px 16px;
+  box-sizing: border-box;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
-    .featured-card .subtext {
-      font-size: 13px;
-      color: #5a5a5a;
-      margin: 0;
-      line-height: 1.4;
-    }
+.featured-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #777;
-      font-size: 14px;
-    }
+.price-badge {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 62px;
+  height: 62px;
+  background: var(--card-blue);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.1;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.14);
+  padding: 6px;
+  word-break: break-word;
+}
 
-    html[dir="rtl"] body {
-      text-align: right;
-    }
+.card-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 8px 0;
+  line-height: 1.2;
+  max-width: 120px;
+}
+
+.card-duration {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 10px 0;
+  line-height: 1.35;
+}
+
+.card-subtext {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Language toggle buttons */
+.language-toggle {
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  right: 20px;
+  top: 60px;
+}
+
+#en-button,
+#ar-button {
+  display: inline-block;
+  outline: 0;
+  cursor: pointer;
+  text-align: right !important;
+  border-radius: 6px;
+  border: 2px solid var(--olx-yellow);
+  color: #111;
+  background: transparent;
+  padding: 8px;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 2px 4px 0px,
+              rgba(0, 0, 0, 0.05) 0px 1px 1.5px 0px;
+  height: 42px;
+}
+
+#en-button:hover,
+#ar-button:hover {
+  background-color: var(--olx-yellow);
+  color: #111;
+}
+
+/* Footer */
+footer {
+  background-color: var(--olx-yellow);
+  color: #111;
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  width: 100%;
+}
+
+footer p {
+  margin: 0;
+  padding: 0;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 480px) {
+  footer {
+    padding: 0.3rem;
+    font-size: 0.7rem;
+  }
+}
   </style>
 </head>
 
