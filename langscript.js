@@ -174,10 +174,18 @@ export function initializeProductPage(l1Category, l2Category) {
     }
 
        function getFinalPrice(product) {
-            return (product.final_price && product.final_price > 0)
+    return (product.final_price && Number(product.final_price) > 0)
         ? product.final_price
         : product.price;
-        }
+}
+
+function formatPrice(value) {
+    if (value === null || value === undefined || value === '' || value === 'Free') {
+        return currentLanguage === 'en' ? 'Free' : 'مجاني';
+    }
+
+    return `$${String(value).trim()}`;
+}
 
         function renderProducts(products) {
     productsContainer.innerHTML = '';
