@@ -172,20 +172,10 @@ export function initializeProductPage(l1Category, l2Category) {
             return value;
         }
 
-        function getFinalPrice(product) {
-            if (product.discounted_price !== null && product.discounted_price !== undefined && product.discounted_price !== '') {
-                return product.discounted_price;
-            }
-
-            if (product.final_price !== null && product.final_price !== undefined && product.final_price !== '') {
-                return product.final_price;
-            }
-
-            if (product.price !== null && product.price !== undefined && product.price !== '') {
-                return product.price;
-            }
-
-            return 'Free';
+       function getFinalPrice(product) {
+            return (product.final_price && product.final_price > 0)
+        ? product.final_price
+        : product.price;
         }
 
         function renderProducts(products) {
