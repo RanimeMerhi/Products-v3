@@ -159,18 +159,19 @@ export function initializeProductPage(l1Category, l2Category) {
             return map[productType] || getLabel('defaultText');
         }
 
-        function formatPrice(value) {
-            if (value === null || value === undefined || value === '' || value === 'Free') {
-                return currentLanguage === 'en' ? 'Free' : 'مجاني';
-            }
-
-            const numericValue = Number(value);
-            if (!Number.isNaN(numericValue)) {
-                return `$${numericValue}`;
-            }
-
-            return value;
+    function formatPrice(value) {
+        if (value === null || value === undefined || value === '' || value === 'Free') {
+            return currentLanguage === 'en' ? 'Free' : 'مجاني';
         }
+
+        const num = parseFloat(value);
+
+        if (isNaN(num)) {
+            return `$${value}`;
+        }
+
+        return `$${num.toFixed(2).replace(/\.00$/, '').replace(/(\.\d)0$/, '$1')}`;
+    }
 
        function getFinalPrice(product) {
             return (product.final_price && product.final_price > 0)
