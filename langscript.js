@@ -189,43 +189,42 @@ export function initializeProductPage(l1Category, l2Category) {
         }
 
         function renderProducts(products) {
-            productsContainer.innerHTML = '';
+    productsContainer.innerHTML = '';
 
-            if (!products.length) {
-                productsContainer.innerHTML = `
-                    <div class="col-12 text-center">
-                        <p>${getLabel('noResults')}</p>
-                    </div>
-                `;
-                return;
-            }
+    if (!products.length) {
+        productsContainer.innerHTML = `
+            <div class="col-12 text-center">
+                <p>${getLabel('noResults')}</p>
+            </div>
+        `;
+        return;
+    }
 
-            products.forEach(product => {
-                const productName = currentLanguage === 'en'
-                    ? (product.product_package_name_en || '')
-                    : (product.product_package_name_ar || product.product_package_name_en || '');
+    products.forEach(product => {
+        const productName = currentLanguage === 'en'
+            ? (product.product_package_name_en || '')
+            : (product.product_package_name_ar || product.product_package_name_en || '');
 
-                const productDesc = currentLanguage === 'en'
-                    ? (product.product_package_descr_en || '')
-                    : (product.product_package_descr_ar || product.product_package_descr_en || '');
+        const productDesc = currentLanguage === 'en'
+            ? (product.product_package_descr_en || '')
+            : (product.product_package_descr_ar || product.product_package_descr_en || '');
 
-                const productPrice = getFinalPrice(product);
-                const formattedPrice = formatPrice(productPrice);
+        const productPrice = getFinalPrice(product);
+        const formattedPrice = formatPrice(productPrice);
 
-                const productCard = `
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-12 product-col">
-                        <div class="featured-card">
-                            <div class="price-badge">${formattedPrice}</div>
-                            <h3 class="card-title">${productName || getCategoryHeading(product.l2)}</h3>
-                            <p class="card-duration">${productDesc}</p>
-                            <p class="card-subtext">${getExtraText(product.product_type)}</p>
-                        </div>
-                    </div>
-                `;
+        const productCard = `
+            <div class="product-item">
+                <div class="featured-card">
+                    <div class="price-badge">${formattedPrice}</div>
+                    <h3 class="card-title">${productName}</h3>
+                    <p class="card-duration">${productDesc}</p>
+                </div>
+            </div>
+        `;
 
-                productsContainer.innerHTML += productCard;
-            });
-        }
+        productsContainer.innerHTML += productCard;
+    });
+}
 
         function applySearch() {
             const searchQuery = (searchInput.value || '').toLowerCase().trim();
