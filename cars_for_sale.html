@@ -307,7 +307,7 @@ footer p {
     <p>&copy; 2025 Product Listings</p>
   </footer>
 
- <script type="module">
+<script type="module">
   const l1Category = 'Vehicles';
   const l2Category = 'Cars for Sale';
 
@@ -319,10 +319,11 @@ footer p {
   const enButton = document.getElementById('en-button');
   const arButton = document.getElementById('ar-button');
   const titleElement = document.getElementById('main-title');
+  const backButton = document.getElementById('back-button');
 
   function formatPrice(price) {
     if (price === null || price === undefined || price === '') {
-      return currentLanguage === 'ar' ? 'مجاني' : 'Free';
+      return 'Free';
     }
     return String(price).startsWith('$') ? String(price) : `$${price}`;
   }
@@ -333,7 +334,7 @@ footer p {
     if (!products.length) {
       productsContainer.innerHTML = `
         <div class="no-results">
-          <p>${currentLanguage === 'ar' ? 'لم يتم العثور على نتائج.' : 'No products found.'}</p>
+          <p>No products found.</p>
         </div>
       `;
       return;
@@ -461,7 +462,7 @@ footer p {
       console.error('Error loading products:', error);
       productsContainer.innerHTML = `
         <div class="no-results">
-          <p>${currentLanguage === 'ar' ? 'فشل تحميل المنتجات.' : 'Failed to load products.'}</p>
+          <p>Failed to load products.</p>
         </div>
       `;
     }
@@ -475,6 +476,10 @@ footer p {
       enButton.style.display = 'none';
       arButton.style.display = 'inline-block';
     }
+  }
+
+  function updateBackButtonText() {
+    backButton.textContent = currentLanguage === 'ar' ? '← العودة' : '← Back';
   }
 
   function updateUrlParameter(param, value) {
@@ -500,6 +505,7 @@ footer p {
     }
 
     updateLanguageButtons();
+    updateBackButtonText();
     updateUrlParameter('lang', language);
     applySearch();
   }
