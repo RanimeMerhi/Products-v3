@@ -304,168 +304,70 @@ footer p {
     <p>&copy; 2025 Product Listings</p>
   </footer>
 
-  <script type="module">
-    import { initializeProductPage } from './langscript.js';
+ <script type="module">
+  const l1Category = 'Vehicles';
+  const l2Category = 'Cars for Sale';
 
-    const l1Category = 'Vehicles';
-    const l2Category = 'Cars for Sale';
-    let allProducts = [];
-    //initializeProductPage(l1Category, l2Category);
+  let allProducts = [];
+  let currentLanguage = localStorage.getItem('selectedLanguage') || 'en';
 
-    let currentLanguage = localStorage.getItem('selectedLanguage') || 'en';
+  const productsContainer = document.getElementById('products');
+  const searchInput = document.getElementById('search-input');
+  const enButton = document.getElementById('en-button');
+  const arButton = document.getElementById('ar-button');
+  const titleElement = document.getElementById('main-title');
 
-    const productsContainer = document.getElementById('products');
-    const searchInput = document.getElementById('search-input');
-    const enButton = document.getElementById('en-button');
-    const arButton = document.getElementById('ar-button');
-    const titleElement = document.getElementById('main-title');
+  function formatPrice(price) {
+    if (price === null || price === undefined || price === '') {
+      return currentLanguage === 'ar' ? 'مجاني' : 'Free';
+    }
+    return String(price).startsWith('$') ? String(price) : `$${price}`;
+  }
 
-    function formatPrice(price) {
-      if (price === null || price === undefined || price === '') return 'Free';
-      return String(price).startsWith('$') ? String(price) : `$${price}`;
+  function renderProducts(products) {
+    productsContainer.innerHTML = '';
+
+    if (!products.length) {
+      productsContainer.innerHTML = `
+        <div class="no-results">
+          <p>${currentLanguage === 'ar' ? 'لم يتم العثور على نتائج.' : 'No products found.'}</p>
+        </div>
+      `;
+      return;
     }
 
-    function getExtraText(productType, language) {
-      const texts = {
-        en: {
-          featured_ad: 'Ad will appear in the featured Ads section',
-          auto_refresh_ad: 'Your ad will be refreshed automatically',
-          elite_ad: 'Your ad will get premium visibility',
-          free_ad: 'Basic ad package',
-          default: 'Special package for your listing'
-        },
-        ar: {
-          featured_ad: 'سيظهر الإعلان في قسم الإعلانات المميزة',
-          auto_refresh_ad: 'سيتم تحديث إعلانك تلقائياً',
-          elite_ad: 'سيحصل إعلانك على ظهور مميز',
-          free_ad: 'باقة إعلان أساسية',
-          default: 'باقة مميزة لإعلانك'
-        }
-      };
+    products.forEach(product => {
+      const productName =
+        currentLanguage === 'ar'
+          ? (product.product_package_name_ar || product.product_package_name_en || '')
+          : (product.product_package_name_en || '');
 
-      return texts[language][productType] || texts[language].default;
-    }
+      const productDesc =
+        currentLanguage === 'ar'
+          ? (product.product_package_descr_ar || product.product_package_descr_en || '')
+          : (product.product_package_descr_en || '');
 
-    function renderProducts(products) {
-      productsContainer.innerHTML = '';
+      const productPrice =
+        (product.final_price && Number(product.final_price) > 0)
+          ? product.final_price
+          : product.price;
 
-      if (!products.length) {
-        productsContainer.innerHTML = `
-          <div class="no-results">
-            <p>No products found.</p>
-          </div>
-        `;
-        return;
-      }
+      const card = document.createElement('div');
+      card.className = 'product-item';
 
-      products.forEach(product => {
-        const productName =
-          currentLanguage === 'ar'
-            ? (product.product_package_name_ar || product.product_package_name_en || '')
-            : (product.product_package_name_en || '');
+      card.innerHTML = `
+        <div class="featured-card">
+          <div class="price-badge">${formatPrice(productPrice)}</div>
+          <h3 class="card-title">${productName}</h3>
+          <p class="card-duration">${productDesc}</p>
+        </div>
+      `;
 
-        const productDesc =
-          currentLanguage === 'ar'
-            ? (product.product_package_descr_ar || product.product_package_descr_en || '')
-            : (product.product_package_descr_en || '');
+      productsContainer.appendChild(card);
+    });
+  }
 
-        const card = document.createElement('div');
-        card.className = 'product-item';
-
-        card.innerHTML = `
-          <div class="featured-card">
-            <div class="price-badge">${formatPrice(product.price)}</div>
-            <h3 class="card-title">${productName}</h3>
-            <p class="card-duration">${productDesc}</p>
-          </div>
-        `;
-
-        productsContainer.appendChild(card);
-      });
-    }
-
-    async function fetchAndDisplayProducts() {
-      try {
-        const response = await fetch('VAS-SHEET.json');
-        const data = await response.json();
-
-        let products = data.filter(
-          product => product.l1 === l1Category && product.l2 === l2Category
-        );
-
-        const hasPlace1AdProduct = products.some(product =>
-          (product.product_package_name_en || '').includes('Place 1 Ad for')
-        );
-
-        if (!hasPlace1AdProduct) {
-          products.push({
-            l1: l1Category,
-            l2: l2Category,
-            product_package_name_en: 'Featured Ad for 3 days',
-            product_package_name_ar: 'إعلان مميز لمدة 3 أيام',
-            product_package_descr_en: 'Boost your ad visibility',
-            product_package_descr_ar: 'عزّز ظهور إعلانك',
-            price: '16.15',
-            product_type: 'featured_ad'
-          });
-        }
-
-        const generalProducts = data.filter(
-          product => product.l1 === l1Category && product.l2 === 'GENERAL'
-        );
-
-        const existingProductNames = new Set(
-          products.map(product => `${product.l2}_${product.product_package_name_en}`)
-        );
-
-        generalProducts.forEach(generalProduct => {
-          const productKey = `${l2Category}_${generalProduct.product_package_name_en}`;
-          if (!existingProductNames.has(productKey)) {
-            products.push({
-              ...generalProduct,
-              l2: l2Category
-            });
-            existingProductNames.add(productKey);
-          }
-        });
-
-        const uniqueProducts = [];
-        const uniqueKeys = new Set();
-
-        products.forEach(product => {
-          const productKey = `${product.l2}_${product.product_package_name_en}`;
-          if (!uniqueKeys.has(productKey)) {
-            uniqueProducts.push(product);
-            uniqueKeys.add(productKey);
-          }
-        });
-
-        const productTypeOrder = {
-          ad_limit_bump: 1,
-          featured_ad: 2,
-          auto_refresh_ad: 3,
-          elite_ad: 4,
-          free_ad: 5
-        };
-
-        uniqueProducts.sort((a, b) => {
-          const typeA = productTypeOrder[a.product_type] || 999;
-          const typeB = productTypeOrder[b.product_type] || 999;
-          return typeA - typeB;
-        });
-
-        allProducts = uniqueProducts;
-        applySearch();
-      } catch (error) {
-        console.error('Error loading products:', error);
-        productsContainer.innerHTML = `
-          <div class="col-12 text-center">
-            <p>Failed to load products.</p>
-          </div>
-        `;
-      }
-    }
-    function applySearch() {
+  function applySearch() {
     const searchQuery = searchInput.value.toLowerCase().trim();
 
     const filteredProducts = allProducts.filter(product => {
@@ -479,37 +381,133 @@ footer p {
 
     renderProducts(filteredProducts);
   }
-  searchInput.addEventListener('input', applySearch);
-    function changeLanguage(language) {
-      currentLanguage = language;
-      localStorage.setItem('selectedLanguage', language);
 
-      if (language === 'ar') {
-        titleElement.textContent = 'سيارات للبيع';
-        searchInput.placeholder = 'ابحث...';
-        document.documentElement.setAttribute('dir', 'rtl');
-        document.documentElement.setAttribute('lang', 'ar');
-      } else {
-        titleElement.textContent = 'Cars for Sale';
-        searchInput.placeholder = 'Search...';
-        document.documentElement.setAttribute('dir', 'ltr');
-        document.documentElement.setAttribute('lang', 'en');
+  async function fetchAndDisplayProducts() {
+    try {
+      const response = await fetch('VAS-SHEET.json');
+      const data = await response.json();
+
+      let products = data.filter(
+        product => product.l1 === l1Category && product.l2 === l2Category
+      );
+
+      const hasPlace1AdProduct = products.some(product =>
+        (product.product_package_name_en || '').includes('Place 1 Ad for')
+      );
+
+      if (!hasPlace1AdProduct) {
+        products.push({
+          l1: l1Category,
+          l2: l2Category,
+          product_package_name_en: 'Featured Ad for 3 days',
+          product_package_name_ar: 'إعلان مميز لمدة 3 أيام',
+          product_package_descr_en: 'Boost your ad visibility',
+          product_package_descr_ar: 'عزّز ظهور إعلانك',
+          price: '16.15',
+          product_type: 'featured_ad'
+        });
       }
 
-      updateUrlParameter('lang', language);
-      fetchAndDisplayProducts();
+      const generalProducts = data.filter(
+        product => product.l1 === l1Category && product.l2 === 'GENERAL'
+      );
+
+      const existingProductNames = new Set(
+        products.map(product => `${product.l2}_${product.product_package_name_en}`)
+      );
+
+      generalProducts.forEach(generalProduct => {
+        const productKey = `${l2Category}_${generalProduct.product_package_name_en}`;
+        if (!existingProductNames.has(productKey)) {
+          products.push({
+            ...generalProduct,
+            l2: l2Category
+          });
+          existingProductNames.add(productKey);
+        }
+      });
+
+      const uniqueProducts = [];
+      const uniqueKeys = new Set();
+
+      products.forEach(product => {
+        const productKey = `${product.l2}_${product.product_package_name_en}`;
+        if (!uniqueKeys.has(productKey)) {
+          uniqueProducts.push(product);
+          uniqueKeys.add(productKey);
+        }
+      });
+
+      const productTypeOrder = {
+        ad_limit_bump: 1,
+        featured_ad: 2,
+        auto_refresh_ad: 3,
+        elite_ad: 4,
+        free_ad: 5
+      };
+
+      uniqueProducts.sort((a, b) => {
+        const typeA = productTypeOrder[a.product_type] || 999;
+        const typeB = productTypeOrder[b.product_type] || 999;
+        return typeA - typeB;
+      });
+
+      allProducts = uniqueProducts;
+      applySearch();
+    } catch (error) {
+      console.error('Error loading products:', error);
+      productsContainer.innerHTML = `
+        <div class="no-results">
+          <p>${currentLanguage === 'ar' ? 'فشل تحميل المنتجات.' : 'Failed to load products.'}</p>
+        </div>
+      `;
+    }
+  }
+
+  function updateLanguageButtons() {
+    if (currentLanguage === 'ar') {
+      enButton.style.display = 'inline-block';
+      arButton.style.display = 'none';
+    } else {
+      enButton.style.display = 'none';
+      arButton.style.display = 'inline-block';
+    }
+  }
+
+  function updateUrlParameter(param, value) {
+    const url = new URL(window.location);
+    url.searchParams.set(param, value);
+    window.history.replaceState({}, '', url);
+  }
+
+  function changeLanguage(language) {
+    currentLanguage = language;
+    localStorage.setItem('selectedLanguage', language);
+
+    if (language === 'ar') {
+      titleElement.textContent = 'سيارات للبيع';
+      searchInput.placeholder = 'ابحث...';
+      document.documentElement.setAttribute('dir', 'rtl');
+      document.documentElement.setAttribute('lang', 'ar');
+    } else {
+      titleElement.textContent = 'Cars for Sale';
+      searchInput.placeholder = 'Search...';
+      document.documentElement.setAttribute('dir', 'ltr');
+      document.documentElement.setAttribute('lang', 'en');
     }
 
-    function updateUrlParameter(param, value) {
-      const url = new URL(window.location);
-      url.searchParams.set(param, value);
-      window.history.replaceState({}, '', url);
-    }
+    updateLanguageButtons();
+    updateUrlParameter('lang', language);
+    applySearch();
+  }
 
-    enButton.addEventListener('click', () => changeLanguage('en'));
-    arButton.addEventListener('click', () => changeLanguage('ar'));
+  searchInput.addEventListener('input', applySearch);
 
-    changeLanguage(currentLanguage);
-  </script>
+  enButton.addEventListener('click', () => changeLanguage('en'));
+  arButton.addEventListener('click', () => changeLanguage('ar'));
+
+  changeLanguage(currentLanguage);
+  fetchAndDisplayProducts();
+</script>
 </body>
 </html>
